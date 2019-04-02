@@ -1,8 +1,10 @@
 #include <common.h>
 #include <klib.h>
+#include <time.h>
 
 static void os_init() {
   pmm->init();
+  srand(time(NULL));
 }
 
 static void hello() {
@@ -15,13 +17,9 @@ static void hello() {
 static void os_run() {
   hello();
   _intr_write(1);
-uintptr_t po = (uintptr_t)pmm->alloc(1<<14);
-  pmm->free((void *)po);
-  printf("%x\n",po);
 
   while (1) {
-//    _putc("12345678"[_cpu()]); _putc('\n');
-  uintptr_t po = (uintptr_t)pmm->alloc(1<<14);
+  uintptr_t po = (uintptr_t)pmm->alloc(rand()%(1<<26)+1);
   pmm->free((void *)po);
   if(!po) break;
   printf("%x\n",po);
