@@ -129,7 +129,7 @@ void *Bigloc(size_t size) {
 	  pa -> tag = 1;
 	  pa -> kval = k - (--i);
   }
-  return pa+scale;
+  return (void *)pa+scale;
 }
 
 void release(node *p) {
