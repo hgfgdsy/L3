@@ -17,7 +17,7 @@ static void os_run() {
   _intr_write(1);
   while (1) {
     _putc("12345678"[_cpu()]); _putc('\n');
-  uintptr_t po = (uintptr_t)pmm->alloc(1<<10);
+  uintptr_t po = (uintptr_t)pmm->alloc(1<<14);
   if(!po) break;
   printf("%x\n",po);
     _yield();
