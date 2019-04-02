@@ -84,6 +84,7 @@ static void pmm_init() {
 	  }
 	  else avail[i].first = NULL;
   }
+  printf("scale = %x\n",(uintptr_t)scale);
 }
 
 node *my_buddy(node *p) {
