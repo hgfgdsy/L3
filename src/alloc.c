@@ -22,6 +22,8 @@ Freelist *a2;
 Freelist *a3;
 
 
+uintptr_t my_start;
+
 /*int my_pow(int m,int x){
 	int ret = 1;
 	while(x--) ret*=m;
@@ -54,7 +56,9 @@ static void pmm_init() {
 
   //init list
   uintptr_t space = pm_end - pm_start;
-  uintptr_t my_start = pm_start;
+  my_start = pm_start;
+
+
   space -= (1<<15);
   avail = (Freelist *)my_start;
   my_start += (1<<12);
@@ -82,12 +86,21 @@ static void pmm_init() {
   }
 }
 
+node *my_buddy(node *p) {
+  uintptr_t s= ((uintptr_t)p - my_start);
+  uintptr_t m = (1<<(p->kval));
+  uintptr_t n = (1<<((p->kval)+1));
+  
+  if(s%n == 0) return p+m;
+  if(s%n == m) return p-m;
+} 
+
 void *Bigloc(size_t size) {
   int k,i;
   node *pa,*suc,*pi;
 
   for(k = 0; k <= Mars &&(avail[k].nodesize < size || !avail[k].first); k++);
-  printf("k=%d\n",k);
+//  printf("k=%d\n",k);
 
   if(k>Mars) return NULL;
   else
@@ -116,6 +129,45 @@ void *Bigloc(size_t size) {
   return pa+scale;
 }
 
+void release(node *p) {
+  node *s = my_buddy(*p);
+  while(s>=my_start && s<=pm_end && s->tag==0 && s->kval==(*p)->kval)
+  {
+	  if(s->llink == s && s->rlink == NULL) avail[s->kval] = NULL;
+	  else
+	  {
+		  if(s->llink == s){
+			  s->rlink->llink = s->rlink;
+			  avail[s->kval].first = s->rlink;
+		  }
+		  else{
+			  s->llink->rlink = s->rlink;
+			  s->rlink->llink = s->llink;
+		  }
+	  }
+	  if(((uintptr_t)p - my_start)%(1<<((p->kvak)+1)) == 0) p->kval++;
+	  else
+	  {
+		  s->kval = p->kval +1;
+		  p = s;
+	  }
+	  s = my_buddy(p);
+  }
+  p -> tag = 0;
+  if(avail[p->kval].first==NULL) {
+	  avail[p->kval].first = p;
+	  p->llink = p;
+	  p->rlink = NULL;
+  }
+  else
+  {
+	  p->rlink = avail[p->kval].first;
+	  p->rlink->llink = p;
+	  p->llink = p;
+	  avail[p->kval].first = p;
+  }
+}
+
 
 static void *kalloc(size_t size) {
   void *temp;
@@ -128,6 +180,9 @@ static void *kalloc(size_t size) {
 }
 
 static void kfree(void *ptr) {
+  lock(&spinlock);
+  release(node *((uintptr_t)ptr - scale));
+  unlock(&spinlock);
 }
 
 MODULE_DEF(pmm) {
