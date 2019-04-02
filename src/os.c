@@ -19,9 +19,9 @@ static void os_run() {
 
   while (1) {
   uintptr_t po = (uintptr_t)pmm->alloc(rand()%(1<<26)+1);
+  printf("%x\n",po);
   pmm->free((void *)po);
   if(!po) break;
-  printf("%x\n",po);
     _yield();
   }
 }
