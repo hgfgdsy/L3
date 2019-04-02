@@ -19,7 +19,7 @@ static void os_run() {
   while (1) {
 //  int my_rand = rand()%(1<<20)+1;
 //  printf("my_rand = %x\n",my_rand);
-  uintptr_t po = (uintptr_t)pmm->alloc(0x7ff1);
+  uintptr_t po = (uintptr_t)pmm->alloc(0x7ff5);
   
   printf("%x\n",po);
   pmm->free((void *)po);
