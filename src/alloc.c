@@ -57,6 +57,7 @@ static void pmm_init() {
   //init list
   uintptr_t space = pm_end - pm_start;
   my_start = pm_start;
+  printf("my_start = %x\n",my_start);
 
 
   space -= (1<<15);
