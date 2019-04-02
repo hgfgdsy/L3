@@ -103,8 +103,8 @@ void *Bigloc(size_t size) {
 
 	  for(i=1;k-i>=0 && avail[k-i].nodesize >= size;i++){
 		  pi = (node *)((uintptr_t)pa + (1<<(k-i)));
-		  pi -> rlink = pi;
-		  pi -> llink = NULL;
+		  pi -> llink = pi;
+		  pi -> rlink = NULL;
 		  pi -> tag = 0;
 		  pi -> kval = k - i;
 		  avail[k-i].first = pi;
