@@ -20,6 +20,7 @@ Freelist *a0;
 Freelist *a1;
 Freelist *a2;
 Freelist *a3;
+int *OFFSET;
 
 
 uintptr_t my_start,my_start1;
@@ -68,13 +69,17 @@ static void pmm_init() {
   a2 = (Freelist *)my_start1;
   my_start1 += (1<<12);
   a3 = (Freelist *)my_start1;
-  my_start1 += (1<<14);
+  my_start1 += (1<<12);
+  OFFSET = (int *)my_start1;
+  my_start1 += (1<<12) + (1<<13);
   my_start = my_start1;
   int i;
-  space = 0x1000000;
-  my_start =  my_start1= 0x7000000;
+//  space = 0x1000000;
+  OFFSET[0] = 0;
+//  my_start =  my_start1= 0x7000000;
   for(i = 0;i <= Mars;i++){
 	  avail[i].nodesize = (1<<i);
+	  OFFSET[i+1] = OFFSET[i];
 	  if((space>>i)&1) {
 		  node *r = (node *)my_start1;
 		  avail[i].first = r;
@@ -83,6 +88,7 @@ static void pmm_init() {
 		  r -> llink = r;
 		  r -> tag =0;
 		  r -> kval = i;
+		  OFFSET[i+1] += (1<<i)
 	  }
 	  else avail[i].first = NULL;
   }
@@ -90,8 +96,11 @@ static void pmm_init() {
   printf("space = %x\n",space);
 }
 
+int OFFSET(int x){
+
+
 node *my_buddy(node *p) {
-  int s= (int)((uintptr_t)p - my_start);
+  int s= (int)((uintptr_t)p - my_start - OFFSET[p->kval]);
   int m = (1<<(p->kval));
   int n = (1<<((p->kval)+1));
   
