@@ -101,7 +101,7 @@ void *Bigloc(size_t size) {
 		  suc->llink = suc;
 	  }
 
-	  for(i=1;k-i>=12 && avail[k-i].nodesize >= size;i++){
+	  for(i=1;k-i>=0 && avail[k-i].nodesize >= size;i++){
 		  pi = (node *)((uintptr_t)pa + (1<<(k-i)));
 		  pi -> rlink = pi;
 		  pi -> llink = NULL;
