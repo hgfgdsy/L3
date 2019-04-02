@@ -74,9 +74,7 @@ static void pmm_init() {
   my_start1 += (1<<12) + (1<<13);
   my_start = my_start1;
   int i;
-//  space = 0x1000000;
   OFFSET[0] = 0;
-//  my_start =  my_start1= 0x7000000;
   for(i = 0;i <= Mars;i++){
 	  avail[i].nodesize = (1<<i);
 	  OFFSET[i+1] = OFFSET[i];
@@ -114,14 +112,12 @@ void *Bigloc(size_t size) {
   node *pa,*suc,*pi;
 
   for(k = 0; k <= Mars &&(avail[k].nodesize < size || !avail[k].first); k++);
-//  printf("k=%d\n",k);
 
   if(k>Mars) return NULL;
   else
   {
 	  pa = avail[k].first;
 	  suc = pa->rlink;
-	  printf("before =  %d\n",pa->kval);
 	  
 	  if(suc == NULL) avail[k].first = NULL;
 	  else
@@ -137,11 +133,9 @@ void *Bigloc(size_t size) {
 		  pi -> tag = 0;
 		  pi -> kval = k - i;
 		  avail[k-i].first = pi;
-		  printf("you should not\n");
 	  }
 	  pa -> tag = 1;
 	  pa -> kval = k - (--i);
-	  printf("after = %d\n",pa->kval);
   }
   return (void *)pa+scale;
 }
