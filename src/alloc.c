@@ -22,7 +22,7 @@ Freelist *a2;
 Freelist *a3;
 
 
-uintptr_t my_starti,my_start1;
+uintptr_t my_start,my_start1;
 
 /*int my_pow(int m,int x){
 	int ret = 1;
