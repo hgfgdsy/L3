@@ -179,7 +179,7 @@ static void *kalloc(size_t size) {
   lock(&spinlock);
   cnt++;
   printf("This is %d request\n",cnt);
-  temp = Bigloc(size+scale);
+  temp = Bigloc((size_t)(size+scale));
   unlock(&spinlock);
   return temp;
 }
