@@ -126,6 +126,7 @@ void *Bigloc(size_t size) {
 		  pi -> tag = 0;
 		  pi -> kval = k - i;
 		  avail[k-i].first = pi;
+		  printf("you should not\n");
 	  }
 	  pa -> tag = 1;
 	  pa -> kval = k - (--i);
