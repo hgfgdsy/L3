@@ -19,10 +19,10 @@ static void os_run() {
   while (1) {
   int my_rand = rand()%(1<<18)+1;
   printf("my_rand = %x\n",my_rand);
-  uintptr_t po = (uintptr_t)pmm->alloc(0x1000000+my_rand);
+  uintptr_t po = (uintptr_t)pmm->alloc(0x10000+my_rand);
   
   printf("%x\n",po);
-  pmm->free((void *)po);
+//  pmm->free((void *)po);
   if(!po) break;
     _yield();
   }
