@@ -24,7 +24,7 @@ static void os_run() {
   uintptr_t po = (uintptr_t)pmm->alloc(0x10000+my_rand);
   cnt++;
   if(cnt%3==1) record = po;
-  if(cnt%3==0) pmm->free(record); 
+  if(cnt%3==0) pmm->free((void *)record); 
   
   printf("%x\n",po);
 //  pmm->free((void *)po);
