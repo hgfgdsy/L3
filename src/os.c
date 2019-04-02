@@ -15,11 +15,16 @@ static void hello() {
 static void os_run() {
   hello();
   _intr_write(1);
+  int cnt=0;
+  uintptr_t record;
 
   while (1) {
   int my_rand = rand()%(1<<18)+1;
   printf("my_rand = %x\n",my_rand);
   uintptr_t po = (uintptr_t)pmm->alloc(0x10000+my_rand);
+  cnt++;
+  if(cnt%3==1) record = po;
+  if(cnt%3==0) pmm->free(record); 
   
   printf("%x\n",po);
 //  pmm->free((void *)po);
