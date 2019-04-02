@@ -87,12 +87,12 @@ static void pmm_init() {
 }
 
 node *my_buddy(node *p) {
-  uintptr_t s= ((uintptr_t)p - my_start);
-  uintptr_t m = (1<<(p->kval));
-  uintptr_t n = (1<<((p->kval)+1));
+  int s= (int)((uintptr_t)p - my_start);
+  int m = (1<<(p->kval));
+  int n = (1<<((p->kval)+1));
   
-  if(s%n == 0) return p+m;
-  if(s%n == m) return p-m;
+  if(s%n == 0) return (node *)(p+m);
+  if(s%n == m) return (node *)(p-m);
   printf("bad address = %x\n",(uintptr_t)p);
   while(1);
   return NULL;
