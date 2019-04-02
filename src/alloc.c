@@ -22,7 +22,7 @@ Freelist *a2;
 Freelist *a3;
 
 
-uintptr_t my_start;
+uintptr_t my_starti,my_start1;
 
 /*int my_pow(int m,int x){
 	int ret = 1;
@@ -56,28 +56,27 @@ static void pmm_init() {
 
   //init list
   uintptr_t space = pm_end - pm_start;
-  my_start = pm_start;
-  printf("my_start = %x\n",my_start);
-
+  my_start1 = pm_start;
 
   space -= (1<<15);
-  avail = (Freelist *)my_start;
-  my_start += (1<<12);
-  a0 = (Freelist *)my_start;
-  my_start += (1<<12);
-  a1 = (Freelist *)my_start;
-  my_start += (1<<12);
-  a2 = (Freelist *)my_start;
-  my_start += (1<<12);
-  a3 = (Freelist *)my_start;
-  my_start += (1<<14);
+  avail = (Freelist *)my_start1;
+  my_start1 += (1<<12);
+  a0 = (Freelist *)my_start1;
+  my_start1 += (1<<12);
+  a1 = (Freelist *)my_start1;
+  my_start1 += (1<<12);
+  a2 = (Freelist *)my_start1;
+  my_start1 += (1<<12);
+  a3 = (Freelist *)my_start1;
+  my_start1 += (1<<14);
+  my_start = my_start1;
   int i;
   for(i = 0;i <= Mars;i++){
 	  avail[i].nodesize = (1<<i);
 	  if((space>>i)&1) {
-		  node *r = (node *)my_start;
+		  node *r = (node *)my_start1;
 		  avail[i].first = r;
-		  my_start += avail[i].nodesize;
+		  my_start1 += avail[i].nodesize;
 		  r->rlink = NULL;
 		  r -> llink = r;
 		  r -> tag =0;
@@ -85,9 +84,6 @@ static void pmm_init() {
 	  }
 	  else avail[i].first = NULL;
   }
-  printf("scale = %x\n",(uintptr_t)scale);
-  printf("my_space = %x\n",space);
-  printf("my_start = %x\n",my_start);
 }
 
 node *my_buddy(node *p) {
