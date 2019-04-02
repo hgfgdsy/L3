@@ -85,6 +85,8 @@ static void pmm_init() {
 	  else avail[i].first = NULL;
   }
   printf("scale = %x\n",(uintptr_t)scale);
+  printf("my_space = %x\n",my_space);
+  printf("my_start = %x\n",my_start);
 }
 
 node *my_buddy(node *p) {
