@@ -21,10 +21,10 @@ uintptr_t po = (uintptr_t)pmm->alloc(1<<14);
 
   while (1) {
 //    _putc("12345678"[_cpu()]); _putc('\n');
-//  uintptr_t po = (uintptr_t)pmm->alloc(1<<14);
-//  pmm->free((void *)po);
-//  if(!po) break;
-//  printf("%x\n",po);
+  uintptr_t po = (uintptr_t)pmm->alloc(1<<14);
+  pmm->free((void *)po);
+  if(!po) break;
+  printf("%x\n",po);
     _yield();
   }
 }
