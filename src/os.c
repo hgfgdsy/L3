@@ -3,7 +3,7 @@
 
 static void os_init() {
   pmm->init();
-//  srand(time(NULL));
+  srand(time(NULL));
 }
 
 static void hello() {
