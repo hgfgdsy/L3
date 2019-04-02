@@ -93,7 +93,7 @@ node *my_buddy(node *p) {
   
   if(s%n == 0) return p+m;
   if(s%n == m) return p-m;
-  printf("bad address\n");
+  printf("bad address = %x\n",(uintptr_t)p);
   while(1);
   return NULL;
 } 
