@@ -84,6 +84,7 @@ static void pmm_init() {
 	  }
 	  else avail[i].first = NULL;
   }
+  printf("space = %x\n",space);
 }
 
 node *my_buddy(node *p) {
