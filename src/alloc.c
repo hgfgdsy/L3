@@ -36,6 +36,7 @@ void sti(){asm volatile ("sti");}
 
 intptr_t spinlock;
 int scale = sizeof(node);
+int cnt=0;
 
 void lock(intptr_t *lock){ cli();while(_atomic_xchg(lock,1));}
 void unlock(intptr_t *lock){ _atomic_xchg(lock,0);sti();}
@@ -119,6 +120,8 @@ void *Bigloc(size_t size) {
 static void *kalloc(size_t size) {
   void *temp;
   lock(&spinlock);
+  cnt++;
+  printf("This is "%d" request\n",cnt);
   temp = Bigloc(size+scale);
   unlock(&spinlock);
   return temp;
