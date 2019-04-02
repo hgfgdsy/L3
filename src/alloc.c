@@ -111,6 +111,7 @@ void *Bigloc(size_t size) {
   {
 	  pa = avail[k].first;
 	  suc = pa->rlink;
+	  printf("before =  %d\n",pa->kval)
 	  
 	  if(suc == NULL) avail[k].first = NULL;
 	  else
@@ -130,6 +131,7 @@ void *Bigloc(size_t size) {
 	  }
 	  pa -> tag = 1;
 	  pa -> kval = k - (--i);
+	  printf("after = %d\n",pa->kval);
   }
   return (void *)pa+scale;
 }
