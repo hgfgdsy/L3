@@ -131,7 +131,7 @@ void *Bigloc(size_t size) {
 
 void release(node *p) {
   node *s = my_buddy(*p);
-  while(s>=my_start && s<=pm_end && s->tag==0 && s->kval==(*p)->kval)
+  while(s>=my_start && s<=pm_end && s->tag==0 && s->kval==p->kval)
   {
 	  if(s->llink == s && s->rlink == NULL) avail[s->kval] = NULL;
 	  else
@@ -145,7 +145,7 @@ void release(node *p) {
 			  s->rlink->llink = s->llink;
 		  }
 	  }
-	  if(((uintptr_t)p - my_start)%(1<<((p->kvak)+1)) == 0) p->kval++;
+	  if(((uintptr_t)p - my_start)%(1<<((p->kval)+1)) == 0) p->kval++;
 	  else
 	  {
 		  s->kval = p->kval +1;
