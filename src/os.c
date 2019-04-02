@@ -18,6 +18,7 @@ static void os_run() {
 
   while (1) {
   uintptr_t po = (uintptr_t)pmm->alloc(rand()%(1<<20)+1);
+  if(po==0x230010) {printf("can't");while(1);}
   printf("%x\n",po);
   pmm->free((void *)po);
   if(!po) break;
