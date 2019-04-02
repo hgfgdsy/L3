@@ -156,6 +156,7 @@ void release(node *p) {
 	  }
 	  s = my_buddy(p);
   }
+  printf("free|p = %x",(uintptr_t)p);
   p -> tag = 0;
   if(avail[p->kval].first==NULL) {
 	  avail[p->kval].first = p;
