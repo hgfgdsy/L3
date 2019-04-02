@@ -93,6 +93,9 @@ node *my_buddy(node *p) {
   
   if(s%n == 0) return p+m;
   if(s%n == m) return p-m;
+  printf("bad address\n");
+  while(1);
+  return NULL;
 } 
 
 void *Bigloc(size_t size) {
@@ -181,7 +184,7 @@ static void *kalloc(size_t size) {
 
 static void kfree(void *ptr) {
   lock(&spinlock);
-  release(node *((uintptr_t)ptr - scale));
+  release((node *)((uintptr_t)ptr - scale));
   unlock(&spinlock);
 }
 
