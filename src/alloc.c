@@ -96,8 +96,6 @@ static void pmm_init() {
   printf("space = %x\n",space);
 }
 
-int OFFSET(int x){
-
 
 node *my_buddy(node *p) {
   int s= (int)((uintptr_t)p - my_start - OFFSET[p->kval]);
