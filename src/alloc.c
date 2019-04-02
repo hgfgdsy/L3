@@ -88,7 +88,7 @@ static void pmm_init() {
 		  r -> llink = r;
 		  r -> tag =0;
 		  r -> kval = i;
-		  OFFSET[i+1] += (1<<i)
+		  OFFSET[i+1] += (1<<i);
 	  }
 	  else avail[i].first = NULL;
   }
