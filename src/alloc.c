@@ -84,6 +84,8 @@ static void pmm_init() {
 	  }
 	  else avail[i].first = NULL;
   }
+  space = 0x1000000;
+  my_start = 0x7000000;
   printf("space = %x\n",space);
 }
 
