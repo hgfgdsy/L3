@@ -72,7 +72,7 @@ static void pmm_init() {
   my_start = my_start1;
   int i;
   space = 0x1000000;
-  my_start = 0x7000000;
+  my_start my_start1= 0x7000000;
   for(i = 0;i <= Mars;i++){
 	  avail[i].nodesize = (1<<i);
 	  if((space>>i)&1) {
