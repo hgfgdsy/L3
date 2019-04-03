@@ -19,9 +19,9 @@ static void hello() {
 static void os_run() {
   hello();
   _intr_write(1);
-  int cnt = 0;
-  uintptr_t cha[500];
-  for(int i=0;i<=499;i++) cha[i] = 0;
+//  int cnt = 0;
+//  uintptr_t cha[500];
+//  for(int i=0;i<=499;i++) cha[i] = 0;
 
   while (1) {/*
   int i;
