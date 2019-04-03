@@ -93,8 +93,8 @@ node *my_buddy(node *p) {
   int m = (1<<(p->kval));
   int n = (1<<((p->kval)+1));
   
-  if(s%n == 0) return (node *)((uintptr_t)p+(uintptr_t)m);
-  if(s%n == m) return (node *)((uintptr_t)p-(uintptr_t)m);
+  if(s%n == 0) return (node *)((char *)p+m);
+  if(s%n == m) return (node *)((char *)p-m);
   printf("bad address = %x,because s = %x and n= %x\n",(uintptr_t)p,s,n);
   while(1);
   return NULL;
@@ -135,9 +135,9 @@ void *Bigloc(size_t size) {
 }
 
 void release(node *p) {
-//  printf("freep->kval = %d\n",p->kval);
+  printf("freep->kval = %d\n",p->kval);
   node *s = my_buddy(p);
-//  printf("init s =%x\n",s);
+  printf("init s =%x\n",s);
   while((uintptr_t)s>=my_start && (uintptr_t)s<=pm_end && s->tag==0 && s->kval==p->kval)
   {
 	  if(s->llink == s && s->rlink == NULL) avail[s->kval].first = NULL;
