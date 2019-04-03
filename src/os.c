@@ -62,7 +62,7 @@ static void os_run() {
   else{
 	  if(cnt == 0) pmm->free(NULL);
 	  else {
-		  for(int i=0;i<=499;i++) if(cha[i] != 0) {pmm->free((void *)cha[i]); cnt--; allmem-=(1<<*(int *)((char *)cha[i]-12)); cha[i] = 0; break;
+		  for(int i=0;i<=499;i++) if(cha[i] != 0) {allmem-=(1<<*(int *)((char *)cha[i]-12));pmm->free((void *)cha[i]); cnt--;  cha[i] = 0; break;
 		  }
 	  }
   }
