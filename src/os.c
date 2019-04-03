@@ -3,7 +3,7 @@
 
 static void os_init() {
   pmm->init();
-  srand(uptime());
+  srand(uptime()+3);
 }
 
 static void hello() {
@@ -45,7 +45,6 @@ static void os_run() {
 				  break;
 			  }
 		  }
-		  break;
 	  }
 	  else{
 		  int order2 = rand()%11+1;
