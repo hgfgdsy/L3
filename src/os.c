@@ -57,7 +57,6 @@ static void os_run() {
 			  for(int i=0;i<=499;i++){
 				  if(cha[i]!=0) pmm->free((void *)cha[i]);
 			  }
-			  _yield();
 		  }
 		  allmem+=(1<<*(int*)((char *)po-12));
 		  for(i=0;i<=499;i++) {
@@ -77,7 +76,6 @@ static void os_run() {
                           for(int i=0;i<=499;i++){
 				  if(cha[i]!=0) pmm->free((void *)cha[i]);
 			  }
-			  _yield();
                   }
 		  allmem+=(1<<*(int *)((char *)pi-12));
 		  for(i=0;i<=499;i++) {
