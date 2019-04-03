@@ -46,7 +46,6 @@ static void os_run() {
 	  else{
 		  int order2 = rand()%11+1;
 		  int my_rand2 = rand()%(1<<(order2-1)) +1;
-//		  allmem+=(1<<order2)+my_rand2;
 		  uintptr_t pi = (uintptr_t)pmm->alloc((1<<order2)+my_rand2);
 		  if(!pi) {printf("allmem is %x but pi = %x\n",allmem,(1<<order2)+my_rand2);break;}
 		  allmem+=(1<<*(int *)((char *)pi-12));
