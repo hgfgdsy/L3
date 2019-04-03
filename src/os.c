@@ -16,7 +16,7 @@ static void hello() {
 static void os_run() {
   hello();
   _intr_write(1);
-  void *p = pmm->alloc(0x100);
+  void *p = pmm->alloc(0x10);
   pmm->free(p);
 //  int cnt = 0;
 //  uintptr_t cha[500];
