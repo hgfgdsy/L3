@@ -194,7 +194,7 @@ static void *kalloc(size_t size) {
 
 static void kfree(void *ptr) {
   lock(&spinlock);
-  printf("initial p = %x\n",(uintptr_t)ptr);
+  if(ptr!=NULL)
   release((node *)((uintptr_t)ptr - scale));
   unlock(&spinlock);
 }

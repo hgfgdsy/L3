@@ -22,6 +22,7 @@ static void os_run() {
   while (1) {
   int fk = rand()%2+1;
   if(fk == 1){
+	  if(cnt==498) break;
 	  int rc = rand()%100 +1;
 	  if(rc>=99){
 		  int order1 = rand()%13+12;
@@ -37,8 +38,10 @@ static void os_run() {
 	  }
   }
   else{
+	  if(cnt == 0) pmm->free(NULL);
+	  else{
 	  int fc = rand()%cnt+0;
-	  pmm->free((void *)cha[fc]);
+	  pmm->free((void *)cha[fc]);}
   }
     _yield();
   }
