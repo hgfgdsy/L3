@@ -141,6 +141,7 @@ void *Bigloc(size_t size) {
 }
 
 void release(node *p) {
+  printf("freep->kval = %d\n",p->kval);
   node *s = my_buddy(p);
   while((uintptr_t)s>=my_start && (uintptr_t)s<=pm_end && s->tag==0 && s->kval==p->kval)
   {
