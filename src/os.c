@@ -20,8 +20,7 @@ static void os_run() {
   hello();
   _intr_write(1);
   void *t = pmm->alloc(1);
-  _yield();
-  pmm->free(t);
+  printf("%x\n",(uintptr_t)((char *)t - 16));
 //  int cnt = 0;
 //  uintptr_t cha[500];
 //  for(int i=0;i<=499;i++) cha[i] = 0;
