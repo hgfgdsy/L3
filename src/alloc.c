@@ -156,7 +156,7 @@ void release(node *p) {
 			  s->rlink->llink = s->llink;
 		  }
 	  }
-	  if(((uintptr_t)p - my_start - OFFSET[p->kval])%(1<<((p->kval)+1)) == 0) p->kval++;
+	  if(((uintptr_t)p - my_start)%(1<<((p->kval)+1)) == 0) p->kval++;
 	  else
 	  {
 		  s->kval = p->kval +1;
