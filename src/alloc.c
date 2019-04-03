@@ -7,6 +7,7 @@ typedef struct Node{
 	struct Node *llink;
 	int tag;
 	int kval;
+	int order;
 	struct Node *rlink;
 }node;
 
@@ -85,7 +86,7 @@ static void pmm_init() {
 		  r->rlink = NULL;
 		  r -> llink = r;
 		  r -> tag =0;
-		  r -> kval = i;
+		  r -> order = r -> kval = i;
 		  OFFSET[i+1] += (1<<i);
 	  }
 	  else avail[i].first = NULL;
@@ -96,7 +97,7 @@ static void pmm_init() {
 
 
 node *my_buddy(node *p) {
-  int s= (int)((uintptr_t)p - my_start - OFFSET[p->kval]);
+  int s= (int)((uintptr_t)p - my_start - OFFSET[p->order]);
   int m = (1<<(p->kval));
   int n = (1<<((p->kval)+1));
   
@@ -128,6 +129,7 @@ void *Bigloc(size_t size) {
 
 	  for(i=1;k-i>=0 && avail[k-i].nodesize >= size;i++){
 		  pi = (node *)((uintptr_t)pa + (1<<(k-i)));
+		  pi -> order = pa -> order;
 		  pi -> llink = pi;
 		  pi -> rlink = NULL;
 		  pi -> tag = 0;
