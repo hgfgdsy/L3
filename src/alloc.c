@@ -188,6 +188,7 @@ static void *kalloc(size_t size) {
   cnt++;
   printf("This is %d request\n",cnt);
   temp = Bigloc((size_t)(size+0x10));
+  printf("alloc = %x\n",temp - scale);
   unlock(&spinlock);
   return temp;
 }
