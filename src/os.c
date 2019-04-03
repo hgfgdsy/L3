@@ -1,12 +1,25 @@
 #include <common.h>
 #include <klib.h>
 
+uintptr_t cha[500];
+int cnt = 0;
+
+void cli(){asm volatile ("cli");}
+void sti(){asm volatile ("sti");}
+
+void lock(intptr_t *lock){ cli();while(_atomic_xchg(lock,1));}
+void unlock(intptr_t *lock){ _atomic_xchg(lock,0);sti();}
+
+intptr_t sp;
+
 uintptr_t allmem;
 
 static void os_init() {
   pmm->init();
   srand(uptime()+3);
   allmem = 0;
+  sp = 0;
+  for(int i =0 ;i<=499;i++) cha[i] = 0;
 }
 
 static void hello() {
@@ -19,11 +32,9 @@ static void hello() {
 static void os_run() {
   hello();
   _intr_write(1);
-  int cnt = 0;
-  uintptr_t cha[500];
-  for(int i=0;i<=499;i++) cha[i] = 0;
 
   while (1) {
+  lock(&sp);
   int i;
   int fk = rand()%2+1;
   if(fk == 1){
@@ -82,6 +93,7 @@ static void os_run() {
 		  }
 	  }
   }
+  unlock(&sp);
     _yield();
   }
 }
