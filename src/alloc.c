@@ -135,9 +135,8 @@ void *Bigloc(size_t size) {
 }
 
 void release(node *p) {
-  printf("freep->kval = %d\n",p->kval);
+  if(p->kval < p->order){
   node *s = my_buddy(p);
-  printf("init s =%x\n",s);
   while((uintptr_t)s>=my_start && (uintptr_t)s<=pm_end && s->tag==0 && s->kval==p->kval)
   {
 	  if(s->llink == s && s->rlink == NULL) avail[s->kval].first = NULL;
@@ -158,7 +157,9 @@ void release(node *p) {
 		  s->kval = p->kval +1;
 		  p = s;
 	  }
+	  if(p->order == p->kval) break;
 	  s = my_buddy(p);
+  }
   }
   p -> tag = 0;
   if(avail[p->kval].first==NULL) {
