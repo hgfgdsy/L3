@@ -16,11 +16,12 @@ static void hello() {
 static void os_run() {
   hello();
   _intr_write(1);
-  int cnt = 0;
-  uintptr_t cha[500];
+  pmm->alloc(0x100);
+//  int cnt = 0;
+//  uintptr_t cha[500];
 
   while (1) {
-  int fk = rand()%2+1;
+/*  int fk = rand()%2+1;
   if(fk == 1){
 	  if(cnt==498) {printf("I'm full"); break;}
 	  int rc = rand()%100 +1;
@@ -43,7 +44,7 @@ static void os_run() {
 	  int fc = rand()%cnt+0;
 	  pmm->free((void *)cha[fc]);
 	  cnt--;}
-  }
+  }*/
     _yield();
   }
 }
