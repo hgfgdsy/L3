@@ -33,7 +33,7 @@ static void os_run() {
   if(fk == 1){
 	  if(cnt==498) {printf("I'm full"); break;}
 	  int rc = rand()%100 +1;
-	  if(rc>=50){
+	  if(rc>=90){
 		  int order1 = rand()%13+12;
 		  int my_rand1 = rand()%(1<<(order1-1)) +1;
                   uintptr_t po = (uintptr_t)pmm->alloc((1<<order1)+my_rand1);
@@ -50,6 +50,7 @@ static void os_run() {
 		  int order2 = rand()%11+1;
 		  int my_rand2 = rand()%(1<<(order2-1)) +1;
 		  uintptr_t pi = (uintptr_t)pmm->alloc((1<<order2)+my_rand2);
+		  if(!pi) break;
 		  for(i=0;i<=499;i++) {
 			  if(cha[i]==0) {
 				  cha[i] = pi;
