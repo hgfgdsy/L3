@@ -48,7 +48,7 @@ static void os_run() {
 		  uintptr_t pi = (uintptr_t)pmm->alloc((1<<order2)+my_rand2);
 		  for(i=0;i<=499;i++) {
 			  if(cha[i]==0) {
-				  cha[i] = p;
+				  cha[i] = pi;
 				  cnt++;
 				  break;
 			  }
