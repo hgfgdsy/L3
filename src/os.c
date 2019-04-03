@@ -21,13 +21,13 @@ static void os_run() {
 //  pmm->free(p1);
 //  pmm->free(p2);
   int cnt = 0;
-  int my_cnt = 0;
+//  int my_cnt = 0;
   uintptr_t cha[500];
   for(int i=0;i<=499;i++) cha[i] = 0;
 
   while (1) {
-  my_cnt++;
-  if(my_cnt == 500) break;
+//  my_cnt++;
+//  if(my_cnt == 500) break;
   int i;
   int fk = rand()%2+1;
   if(fk == 1){
@@ -61,7 +61,7 @@ static void os_run() {
   else{
 	  if(cnt == 0) pmm->free(NULL);
 	  else {
-		  for(int i=0;i<=499;i++) if(cha[i] != 0) {pmm->free((void *)cha[i]); cnt--; break;
+		  for(int i=0;i<=499;i++) if(cha[i] != 0) {pmm->free((void *)cha[i]); cnt--; cha[i] = 0; break;
 		  }
 	  }
   }
