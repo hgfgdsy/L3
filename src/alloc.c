@@ -97,7 +97,7 @@ static void pmm_init() {
 
 
 node *my_buddy(node *p) {
-  int s= (int)((uintptr_t)p - my_start - OFFSET[p->order]);
+  int s= (int)((uintptr_t)p - my_start - OFFSET[p->kval]);
   printf("processed p = %x\n",s);
   int m = (1<<(p->kval));
   int n = (1<<((p->kval)+1));
@@ -161,7 +161,7 @@ void release(node *p) {
 			  s->rlink->llink = s->llink;
 		  }
 	  }
-	  if(((uintptr_t)p - my_start - OFFSET[p->order])%(1<<((p->kval)+1)) == 0) p->kval++;
+	  if(((uintptr_t)p - my_start - OFFSET[p->kval])%(1<<((p->kval)+1)) == 0) p->kval++;
 	  else
 	  {
 		  s->kval = p->kval +1;
