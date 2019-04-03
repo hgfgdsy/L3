@@ -162,7 +162,7 @@ void release(node *p) {
 		  s->kval = p->kval +1;
 		  p = s;
 	  }
-//	  printf("s = %x\n",(uintptr_t)s);
+	  printf("s = %x\n",(uintptr_t)s);
 	  s = my_buddy(p);
   }
 //  printf("free|p = %x",(uintptr_t)p);
