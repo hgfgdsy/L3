@@ -98,7 +98,7 @@ static void pmm_init() {
 
 node *my_buddy(node *p) {
   int s= (int)((uintptr_t)p - my_start - OFFSET[p->order]);
-  printf("processed p = %x\n",s);
+//  printf("processed p = %x\n",s);
   int m = (1<<(p->kval));
   int n = (1<<((p->kval)+1));
   
@@ -144,9 +144,9 @@ void *Bigloc(size_t size) {
 }
 
 void release(node *p) {
-  printf("freep->kval = %d\n",p->kval);
+//  printf("freep->kval = %d\n",p->kval);
   node *s = my_buddy(p);
-  printf("init s =%x\n",s);
+//  printf("init s =%x\n",s);
   while((uintptr_t)s>=my_start && (uintptr_t)s<=pm_end && s->tag==0 && s->kval==p->kval)
   {
 	  if(s->llink == s && s->rlink == NULL) avail[s->kval].first = NULL;
@@ -201,11 +201,11 @@ static void *kalloc(size_t size) {
 
 static void kfree(void *ptr) {
   lock(&spinlock);
-  printf("locked\n");
-  printf("cpu = %d\n",_cpu());
+//  printf("locked\n");
+//  printf("cpu = %d\n",_cpu());
   if(ptr!=NULL){printf("free = %x\n",(uintptr_t)ptr - scale);
   release((node *)((uintptr_t)ptr - scale));}
-  printf("unlocked\n");
+//  printf("unlocked\n");
   unlock(&spinlock);
 }
 
