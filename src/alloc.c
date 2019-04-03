@@ -66,8 +66,7 @@ static void pmm_init() {
   my_start1 += (1<<12);
   OFFSET = (int *)my_start1;
   my_start1 += (1<<12) + (1<<13);
-  my_start = my_start1 = 0x1000000;
-  space = 0x7000000;
+  my_start = my_start1;
   int i;
   OFFSET[0] = 0;
   for(i = 0;i <= Mars;i++){
@@ -80,7 +79,8 @@ static void pmm_init() {
 		  r->rlink = NULL;
 		  r -> llink = r;
 		  r -> tag =0;
-		  r -> order = r -> kval = i;
+		  r -> order = i;
+		  r -> kval = i;
 		  OFFSET[i+1] += (1<<i);
 	  }
 	  else avail[i].first = NULL;
