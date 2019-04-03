@@ -57,7 +57,7 @@ static void os_run() {
   }
   else{
 	  if(cnt == 0) pmm->free(NULL);
-	  else {
+	  else {break;
 		  for(int i=0;i<=499;i++) if(cha[i] != 0) {pmm->free((void *)cha[i]); cnt--; break;
 		  }
 	  }
