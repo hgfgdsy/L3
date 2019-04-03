@@ -3,6 +3,7 @@
 
 static void os_init() {
   pmm->init();
+  srand(uptime());
 }
 
 static void hello() {
@@ -15,20 +16,30 @@ static void hello() {
 static void os_run() {
   hello();
   _intr_write(1);
-  int cnt=0;
-  uintptr_t record;
+  int cnt = 0;
+  uintptr_t cha[500];
 
   while (1) {
-  int my_rand = rand()%(1<<18)+1;
-  printf("my_rand = %x\n",my_rand);
-  uintptr_t po = (uintptr_t)pmm->alloc(0x10000+my_rand);
-  cnt++;
-  if(cnt%3==1) record = po;
-  if(cnt%3==0) pmm->free((void *)record); 
-  
-  printf("%x\n",po);
-//  pmm->free((void *)po);
-  if(!po) break;
+  int fk = rand()%2+1;
+  if(fk == 1){
+	  int rc = rand()%100 +1;
+	  if(rc>=99){
+		  int order1 = rand()%13+12;
+		  int my_rand1 = rand()%(1<<(order1-1)) +1;
+                  uintptr_t po = (uintptr_t)pmm->alloc((1<<order1)+my_rand1);
+		  cha[cnt++] = po;
+	  }
+	  else{
+		  int order2 = rand()%11+1;
+		  int my_rand2 = rand()%(1<<(order2-1)) +1;
+		  uintptr_t pi = (uintptr_t)pmm->alloc((1<<order2)+my_rand2);
+		  cha[cnt++] = pi;
+	  }
+  }
+  else{
+	  int fc = rand()%cnt+0;
+	  pmm->free((void *)cha[fc]);
+  }
     _yield();
   }
 }
