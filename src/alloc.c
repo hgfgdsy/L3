@@ -174,7 +174,6 @@ void release(node *p) {
 	  p->llink = p;
 	  avail[p->kval].first = p;
   }
-  p = NULL;
 }
 
 
