@@ -196,8 +196,11 @@ static void *kalloc(size_t size) {
 
 static void kfree(void *ptr) {
   lock(&spinlock);
+  printf("locked\n");
+  printf("cpu = %d\n",_CPU());
   if(ptr!=NULL){printf("free = %x\n",(uintptr_t)ptr - scale);
   release((node *)((uintptr_t)ptr - scale));}
+  printf("unlocked\n");
   unlock(&spinlock);
 }
 
