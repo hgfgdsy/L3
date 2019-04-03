@@ -37,6 +37,7 @@ static void os_run() {
 		  int order1 = rand()%13+12;
 		  int my_rand1 = rand()%(1<<(order1-1)) +1;
                   uintptr_t po = (uintptr_t)pmm->alloc((1<<order1)+my_rand1);
+		  if(!po) break;
 		  for(i=0;i<=499;i++) {
 			  if(cha[i]==0) {
 				  cha[i] = po;
