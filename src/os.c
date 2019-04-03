@@ -33,7 +33,7 @@ static void os_run() {
   if(fk == 1){
 	  if(cnt==498) {printf("I'm full"); break;}
 	  int rc = rand()%100 +1;
-	  if(rc>=90){
+	  if(rc>=98){
 		  int order1 = rand()%13+12;
 		  int my_rand1 = rand()%(1<<(order1-1)) +1;
                   uintptr_t po = (uintptr_t)pmm->alloc((1<<order1)+my_rand1);
