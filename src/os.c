@@ -45,6 +45,7 @@ static void os_run() {
 				  break;
 			  }
 		  }
+		  break;
 	  }
 	  else{
 		  int order2 = rand()%11+1;
