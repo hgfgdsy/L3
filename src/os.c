@@ -23,7 +23,7 @@ static void os_run() {
   uintptr_t cha[500];
   for(int i=0;i<=499;i++) cha[i] = 0;
 
-  while (1) {
+  while (1) {/*
   int i;
   int fk = rand()%2+1;
   if(fk == 1){
@@ -65,7 +65,7 @@ static void os_run() {
 		  for(int i=0;i<=499;i++) if(cha[i] != 0) {pmm->free((void *)cha[i]); cnt--; allmem-=(1<<*(int *)(cha[i]-12)); cha[i] = 0; break;
 		  }
 	  }
-  }
+  }*/
     _yield();
   }
 }

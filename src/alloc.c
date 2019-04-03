@@ -23,14 +23,7 @@ Freelist *a2;
 Freelist *a3;
 int *OFFSET;
 
-
 uintptr_t my_start,my_start1;
-
-/*int my_pow(int m,int x){
-	int ret = 1;
-	while(x--) ret*=m;
-	return ret;
-}*/
 
 static uintptr_t pm_start, pm_end;
 
@@ -92,7 +85,7 @@ static void pmm_init() {
 	  else avail[i].first = NULL;
   }
 
-  printf("space = %x\n",space);
+  printf("node = %x\n",sizeof(node));
 }
 
 
