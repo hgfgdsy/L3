@@ -67,7 +67,7 @@ static void pmm_init() {
   OFFSET = (int *)my_start1;
   my_start1 += (1<<12) + (1<<13);
   my_start = my_start1 = 0x1000000;
-  my_space = 0x7000000;
+  space = 0x7000000;
   int i;
   OFFSET[0] = 0;
   for(i = 0;i <= Mars;i++){
