@@ -21,6 +21,8 @@ static void os_run() {
   _intr_write(1);
   void *t = pmm->alloc(1);
   printf("%x\n",(uintptr_t)((char *)t - 16));
+  _yield();
+  pmm->free(t);
 //  int cnt = 0;
 //  uintptr_t cha[500];
 //  for(int i=0;i<=499;i++) cha[i] = 0;
