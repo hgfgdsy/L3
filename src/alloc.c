@@ -102,8 +102,8 @@ node *my_buddy(node *p) {
   int m = (1<<(p->kval));
   int n = (1<<((p->kval)+1));
   
-  if(s%n == 0) return (node *)(p+(uintptr_t)m);
-  if(s%n == m) return (node *)(p-(uintptr_t)m);
+  if(s%n == 0) return (node *)((uintptr_t)p+(uintptr_t)m);
+  if(s%n == m) return (node *)((uintptr_t)p-(uintptr_t)m);
   printf("bad address = %x,because s = %x and n= %x\n",(uintptr_t)p,s,n);
   while(1);
   return NULL;
