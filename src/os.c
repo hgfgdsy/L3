@@ -4,11 +4,14 @@
 uintptr_t cha[500];
 int cnt = 0;
 
-void cli(){asm volatile ("cli");}
+/*void cli(){asm volatile ("cli");}
 void sti(){asm volatile ("sti");}
 
 void lock(intptr_t *lock){ cli();while(_atomic_xchg(lock,1));}
 void unlock(intptr_t *lock){ _atomic_xchg(lock,0);sti();}
+*/
+extern void lock(intptr_t *lock);
+extern void unlock(intptr_t *lock);
 
 intptr_t sp;
 
