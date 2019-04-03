@@ -20,11 +20,11 @@ static void os_run() {
   void *p2 = pmm->alloc(0x110);
   pmm->free(p1);
   pmm->free(p2);
-//  int cnt = 0;
-//  uintptr_t cha[500];
+  int cnt = 0;
+  uintptr_t cha[500];
 
   while (1) {
-/*  int fk = rand()%2+1;
+  int fk = rand()%2+1;
   if(fk == 1){
 	  if(cnt==498) {printf("I'm full"); break;}
 	  int rc = rand()%100 +1;
@@ -47,7 +47,7 @@ static void os_run() {
 	  int fc = rand()%cnt+0;
 	  pmm->free((void *)cha[fc]);
 	  cnt--;}
-  }*/
+  }
     _yield();
   }
 }
