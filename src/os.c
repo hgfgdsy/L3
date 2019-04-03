@@ -19,11 +19,11 @@ static void hello() {
 static void os_run() {
   hello();
   _intr_write(1);
-//  int cnt = 0;
-//  uintptr_t cha[500];
-//  for(int i=0;i<=499;i++) cha[i] = 0;
+  int cnt = 0;
+  uintptr_t cha[500];
+  for(int i=0;i<=499;i++) cha[i] = 0;
 
-  while (1) {/*
+  while (1) {
   int i;
   int fk = rand()%2+1;
   if(fk == 1){
@@ -34,7 +34,7 @@ static void os_run() {
 		  int my_rand1 = rand()%(1<<(order1-1)) +1;
                   uintptr_t po = (uintptr_t)pmm->alloc((1<<order1)+my_rand1);
 		  if(!po) {printf("allmem is %x but po = %x\n",allmem,(1<<order1)+my_rand1);break;}
-		  allmem+=(1<<*(int*)(po-12));
+		  allmem+=(1<<*(int*)((char *)po-12));
 		  for(i=0;i<=499;i++) {
 			  if(cha[i]==0) {
 				  cha[i] = po;
@@ -49,7 +49,7 @@ static void os_run() {
 //		  allmem+=(1<<order2)+my_rand2;
 		  uintptr_t pi = (uintptr_t)pmm->alloc((1<<order2)+my_rand2);
 		  if(!pi) {printf("allmem is %x but pi = %x\n",allmem,(1<<order2)+my_rand2);break;}
-		  allmem+=(1<<*(int *)(pi-12));
+		  allmem+=(1<<*(int *)((char *)pi-12));
 		  for(i=0;i<=499;i++) {
 			  if(cha[i]==0) {
 				  cha[i] = pi;
@@ -62,10 +62,10 @@ static void os_run() {
   else{
 	  if(cnt == 0) pmm->free(NULL);
 	  else {
-		  for(int i=0;i<=499;i++) if(cha[i] != 0) {pmm->free((void *)cha[i]); cnt--; allmem-=(1<<*(int *)(cha[i]-12)); cha[i] = 0; break;
+		  for(int i=0;i<=499;i++) if(cha[i] != 0) {pmm->free((void *)cha[i]); cnt--; allmem-=(1<<*(int *)((char *)cha[i]-12)); cha[i] = 0; break;
 		  }
 	  }
-  }*/
+  }
     _yield();
   }
 }

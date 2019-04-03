@@ -84,8 +84,6 @@ static void pmm_init() {
 	  }
 	  else avail[i].first = NULL;
   }
-
-  printf("node = %x\n",sizeof(node));
 }
 
 
