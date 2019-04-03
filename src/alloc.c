@@ -90,8 +90,8 @@ static void pmm_init() {
 node *my_buddy(node *p) {
   int s= (int)((uintptr_t)p - my_start - OFFSET[p->order]);
 //  printf("processed p = %x\n",s);
-  int m = (1<<(p->kval));
-  int n = (1<<((p->kval)+1));
+  int m = (1<<(p->kval-1));
+  int n = (1<<((p->kval)));
   
   if(s%n == 0) return (node *)((char *)p+m);
   if(s%n == m) return (node *)((char *)p-m);
@@ -137,7 +137,7 @@ void *Bigloc(size_t size) {
 void release(node *p) {
   if(p->kval < p->order){
   node *s = my_buddy(p);
-  while((uintptr_t)s>=my_start && (uintptr_t)s<=pm_end && s->tag==0 && s->kval==p->kval)
+  while(s->tag==0 && s->kval==p->kval)
   {
 	  if(s->llink == s && s->rlink == NULL) avail[s->kval].first = NULL;
 	  else
