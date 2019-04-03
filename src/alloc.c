@@ -167,11 +167,8 @@ void release(node *p) {
 		  s->kval = p->kval +1;
 		  p = s;
 	  }
-	  printf("s = %x\n",(uintptr_t)s);
-	  printf("p->kval = %d\n",p->kval);
 	  s = my_buddy(p);
   }
-//  printf("free|p = %x",(uintptr_t)p);
   p -> tag = 0;
   if(avail[p->kval].first==NULL) {
 	  avail[p->kval].first = p;
@@ -194,18 +191,14 @@ static void *kalloc(size_t size) {
   cnt++;
   printf("This is %d request\n",cnt);
   temp = Bigloc((size_t)(size+0x10));
-//  printf("alloc = %x\n",temp - scale);
   unlock(&spinlock);
   return temp;
 }
 
 static void kfree(void *ptr) {
   lock(&spinlock);
-//  printf("locked\n");
-//  printf("cpu = %d\n",_cpu());
   if(ptr!=NULL){printf("free = %x\n",(uintptr_t)ptr - scale);
   release((node *)((uintptr_t)ptr - scale));}
-//  printf("unlocked\n");
   unlock(&spinlock);
 }
 
