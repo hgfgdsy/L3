@@ -25,7 +25,7 @@ static void os_run() {
 
   while (1) {
   int i;
-  int fk = rand()%2+1;
+  int fk = rand()%1+1;
   if(fk == 1){
 	  if(cnt==498) {printf("I'm full"); break;}
 	  int rc = rand()%100 +1;
