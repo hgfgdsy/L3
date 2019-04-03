@@ -16,10 +16,10 @@ static void hello() {
 static void os_run() {
   hello();
   _intr_write(1);
-  void *p1 = pmm->alloc(0x110);
-  void *p2 = pmm->alloc(0x110);
-  pmm->free(p1);
-  pmm->free(p2);
+//  void *p1 = pmm->alloc(0x110);
+//  void *p2 = pmm->alloc(0x110);
+//  pmm->free(p1);
+//  pmm->free(p2);
   int cnt = 0;
   uintptr_t cha[500];
 
