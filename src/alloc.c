@@ -135,7 +135,7 @@ void *Bigloc(size_t size) {
 }
 
 void release(node *p) {
-  if(p->kval < p->order){
+  if(p->kval < p->order && p->kval > 10){
   node *s = my_buddy(p);
   while(s->tag==0 && s->kval==p->kval)
   {
