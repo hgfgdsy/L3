@@ -19,7 +19,7 @@ uintptr_t allmem;
 
 static void os_init() {
   pmm->init();
-  srand(uptime()+100);
+  srand(uptime()+1000);
   allmem = 0;
   sp = 0;
   for(int i =0 ;i<=499;i++) cha[i] = 0;
