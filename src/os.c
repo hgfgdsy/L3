@@ -39,7 +39,7 @@ static void os_run() {
   while (1) {
   lock(&sp);
   int i;
-  int fk = rand()%2+1;
+  int fk = rand()%3+1;
   if(fk == 1){
 	  if(cnt==498) {printf("I'm full"); 
 	  for(int i=0;i<=499;i++){
