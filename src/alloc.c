@@ -181,7 +181,7 @@ static void *kalloc(size_t size) {
   void *temp;
   lock(&spinlock);
   cntt++;
-  printf("This is %d request\n",cntt);
+//  printf("This is %d request\n",cntt);
   temp = Bigloc((size_t)(size+scale));
   unlock(&spinlock);
   return temp;
@@ -189,7 +189,7 @@ static void *kalloc(size_t size) {
 
 static void kfree(void *ptr) {
   lock(&spinlock);
-  if(ptr!=NULL){printf("free = %x\n",(uintptr_t)ptr - scale);
+//  if(ptr!=NULL){printf("free = %x\n",(uintptr_t)ptr - scale);
   release((node *)((uintptr_t)ptr - scale));}
   unlock(&spinlock);
 }
