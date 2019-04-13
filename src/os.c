@@ -41,11 +41,11 @@ static void os_run() {
   int i;
   int fk = rand()%2+1;
   if(fk == 1){
-	  if(cnt==498) {printf("I'm full"); 
+	  if(cnt==498) {//printf("I'm full"); 
 	  for(int i=0;i<=499;i++){
 				  if(cha[i]!=0) pmm->free((void *)cha[i]);
 			  }
-			  _yield();
+			 // _yield();
           }
 	  int rc = rand()%100 +1;
 	  if(rc>=58){
