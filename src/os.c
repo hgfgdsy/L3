@@ -18,7 +18,7 @@ uintptr_t allmem;
 static void os_init() {
   pmm->init();
   handle_head = NULL;
-  os->on_irq(0,_EVENT_NULL,pmm->alloc);
+  os->on_irq(0,_EVENT_NULL,hello);
 /*  srand(uptime()+990);
   allmem = 0;
   sp = 0;
