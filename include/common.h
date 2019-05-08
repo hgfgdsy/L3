@@ -3,9 +3,20 @@
 
 #include <kernel.h>
 #include <nanos.h>
+#include <intrin.h>
 
-struct task {};
-struct spinlock {};
+struct task {
+	int tag;
+	const char *name;
+	_Context context;
+	char stack[4096];
+};
+
+struct spinlock {
+	const char *name;
+	int locked;
+	int cpu;
+};
 struct semaphore {};
 
 typedef struct my_handle {
@@ -16,8 +27,11 @@ typedef struct my_handle {
 	handler_t handler;
 } handle ;
 
-
-
 handle *handle_head;
+
+typedef struct my_cpu {
+	int ncli;
+	int INIF;
+} MYCPU;
 
 #endif
