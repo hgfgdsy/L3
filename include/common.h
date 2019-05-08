@@ -8,13 +8,15 @@ struct task {};
 struct spinlock {};
 struct semaphore {};
 
-typedef struct handle {
+typedef struct my_handle {
 	struct handle *pre;
 	struct handle *suc;
 	int seq;
 	int event;
 	handler_t handler;
-};
+} handle ;
+
+
 
 handle *handle_head;
 
