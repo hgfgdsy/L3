@@ -27,9 +27,6 @@ uintptr_t my_start,my_start1;
 
 static uintptr_t pm_start, pm_end;
 
-void cli(){asm volatile ("cli");}
-void sti(){asm volatile ("sti");}
-
 
 intptr_t spinlock;
 int scale = sizeof(node);

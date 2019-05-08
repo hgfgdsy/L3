@@ -7,7 +7,7 @@ MYCPU mycpu[20];
 
 static void kmt_init(){
 	for(int i=0;i<20;i++) { tagging[i] = -1; tasks[i] = NULL; 
-		                mycpu[i]->ncli = 0; mycpu[i] -> INIF = 1;
+		                mycpu[i].ncli = 0; mycpu[i].INIF = 1;
 	}
 
 }
@@ -51,18 +51,18 @@ static void kmt_spin_init(spinlock_t *lk,const char *name){
 
 void pushcli() {
 	int eflags = get_efl();
-	asm volatile ("cli");
-	if(mycpu[_cpu()]->ncli == 0)
-		mycpu[_cpu()]->INIF = eflags & FL_IF;
-	mycpu[_cpu()]->ncli += 1;
+	cli();
+	if(mycpu[_cpu()].ncli == 0)
+		mycpu[_cpu()].INIF = eflags & FL_IF;
+	mycpu[_cpu()].ncli += 1;
 }
 
 void popcli() {
 	if(get_efl() & FL_IF)
 		panic("popcli while If = 1\n");
-	if(--mycpu[_cpu()]->ncli < 0)
+	if(--mycpu[_cpu()].ncli < 0)
 		panic("ncli less than 0\n");
-	if(mycpu[_cpu()]->ncli == 0 && mycpu[_cpu()]->INIF)
+	if(mycpu[_cpu()].ncli == 0 && mycpu[_cpu()].INIF)
 		sti();
 }
 
