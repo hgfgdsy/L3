@@ -36,7 +36,7 @@ static void os_run() {
   _intr_write(1);
 
   while(1){
-	  yield();
+	  _yield();
   }
 
 /*  while (1) {
