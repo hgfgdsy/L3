@@ -111,7 +111,7 @@ static _Context *os_trap(_Event ev, _Context *context) {
 		  if (next) ret = next;
 	  }
   }
-  return next;
+  return ret;
 }
 
 static void os_on_irq(int seq, int event, handler_t handler) {
@@ -155,7 +155,7 @@ static void os_on_irq(int seq, int event, handler_t handler) {
 			  mid -> event = event;
 			  mid -> handler = handler;
 			  now -> pre -> suc = mid;
-			  noe -> pre = mid;
+			  now -> pre = mid;
 		  }
 	  }
 }
