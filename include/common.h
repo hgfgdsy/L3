@@ -9,8 +9,8 @@ struct spinlock {};
 struct semaphore {};
 
 typedef struct my_handle {
-	struct handle *pre;
-	struct handle *suc;
+	struct my_handle *pre;
+	struct my_handle *suc;
 	int seq;
 	int event;
 	handler_t handler;
