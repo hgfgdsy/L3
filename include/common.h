@@ -14,7 +14,7 @@ typedef struct handle {
 	int seq;
 	int event;
 	handler_t handler;
-}
+};
 
 handle *handle_head;
 
