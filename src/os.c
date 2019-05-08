@@ -116,7 +116,7 @@ static _Context *os_trap(_Event ev, _Context *context) {
 }
 
 static void os_on_irq(int seq, int event, handler_t handler) {
-/*  if(handle_head == NULL) {
+  if(handle_head == NULL) {
 	  handle_head = (handle *)pmm->alloc(sizeof(handle));
 	  handle_head -> pre = NULL;
 	  handle_head -> suc = NULL;
@@ -158,7 +158,8 @@ static void os_on_irq(int seq, int event, handler_t handler) {
 			  now -> pre -> suc = mid;
 			  now -> pre = mid;
 		  }
-	  }*/
+	  }
+  }
 }
 
 MODULE_DEF(os) {
