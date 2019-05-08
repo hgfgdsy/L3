@@ -1,28 +1,27 @@
 #include <common.h>
 #include <klib.h>
 
+
+/*
 uintptr_t cha[500];
 int cnt = 0;
 
-/*void cli(){asm volatile ("cli");}
-void sti(){asm volatile ("sti");}
-
-void lock(intptr_t *lock){ cli();while(_atomic_xchg(lock,1));}
-void unlock(intptr_t *lock){ _atomic_xchg(lock,0);sti();}
-*/
 extern void lock(intptr_t *lock);
 extern void unlock(intptr_t *lock);
 
 intptr_t sp;
 
 uintptr_t allmem;
+*/
+
 
 static void os_init() {
   pmm->init();
-  srand(uptime()+990);
+  handle_head = NULL;
+/*  srand(uptime()+990);
   allmem = 0;
   sp = 0;
-  for(int i =0 ;i<=499;i++) cha[i] = 0;
+  for(int i =0 ;i<=499;i++) cha[i] = 0;*/
 }
 
 static void hello() {
@@ -36,7 +35,11 @@ static void os_run() {
   hello();
   _intr_write(1);
 
-  while (1) {
+  while(1){
+	  yield();
+  }
+
+/*  while (1) {
   lock(&sp);
   int i;
   int fk = rand()%2+1;
@@ -96,14 +99,65 @@ static void os_run() {
   }
   unlock(&sp);
     _yield();
-  }
+  }*/
 }
 
 static _Context *os_trap(_Event ev, _Context *context) {
-  return context;
+  _Context *ret = NULL;
+  handle *now = handle_head;
+  while(now != NULL){
+	  if(now->event == _EVENT_NULL || now->event == ev.event) {
+		  _Context *next = now->handler(ev,context);
+		  if (next) ret = next;
+	  }
+  }
+  return next;
 }
 
 static void os_on_irq(int seq, int event, handler_t handler) {
+  if(handle_head == NULL) {
+	  handle_head = (handle *)pmm->alloc(sizeof(handle));
+	  handle_head -> pre = NULL;
+	  handle_head -> suc = NULL;
+	  handle_head -> seq = seq;
+	  handle_head -> event = event;
+	  handle_head -> handler = handler;
+  }
+  else {
+	  handle *now = handle_head;
+	  while(now -> suc != NULL && now->seq < seq) {
+		  now = now -> suc;
+	  }
+	  if(now == handle_head) {
+		  handle_head = (handle *)pmm->alloc(sizeof(handle));
+		  handle_head -> pre = NULL;
+		  handle_head -> suc = now;
+		  handle_head -> seq = seq;
+		  handle_head -> event = event;
+		  handle_head -> handler = handler;
+		  now -> pre = handle_head;
+	  }
+	  else {
+		  if(seq > now -> seq) {
+			  handle *tail = (handle *)pmm->alloc(sizeof(handle));
+			  now -> suc = tail;
+			  tail -> pre = now;
+			  tail -> suc = NULL;
+			  tail -> seq = seq;
+			  tail -> event = event;
+			  tail -> handler = handler;
+		  }
+		  else {
+			  handle *mid = (handle *)pmm->alloc(sizeof(handle));
+			  mid -> pre = now -> pre;
+			  mid -> suc = now;
+			  mid -> seq = seq;
+			  mid -> event = event;
+			  mid -> handler = handler;
+			  now -> pre -> suc = mid;
+			  noe -> pre = mid;
+		  }
+	  }
 }
 
 MODULE_DEF(os) {
