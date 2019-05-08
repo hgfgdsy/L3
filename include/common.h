@@ -3,7 +3,6 @@
 
 #include <kernel.h>
 #include <nanos.h>
-#include <intrin.h>
 
 struct task {
 	int tag;
