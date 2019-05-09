@@ -19,6 +19,7 @@ spinlock_t OR;
 
 static void os_init() {
   pmm->init();
+  kmt->init();
   kmt->spin_init((spinlock_t *)&OT,"locktrap");
   kmt->spin_init((spinlock_t *)&OR,"lockirq");
   handle_head = NULL;
