@@ -39,4 +39,7 @@ typedef struct my_cpu {
 
 task_t *current[8];
 
+spinlock_t OT;
+
+
 #endif

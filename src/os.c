@@ -14,7 +14,6 @@ intptr_t sp;
 uintptr_t allmem;
 */
 
-spinlock_t OT;
 handle *handle_head;
 //spinlock_t OR;
 
