@@ -136,7 +136,7 @@ static _Context *os_trap(_Event ev, _Context *context) {
 	  }
 	  now = now->suc;
   }
-  if(ret->eip == context->eip) panic("fuck\n");
+//  if(ret->eip == context->eip) panic("fuck\n");
   kmt->spin_unlock((spinlock_t *)&OT);
   return ret;
 }
