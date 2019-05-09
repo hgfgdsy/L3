@@ -4,7 +4,7 @@
 #include <kernel.h>
 #include <nanos.h>
 #include <x86.h>
-#include <x86-qemu.h>
+#include <arch/x86-qemu.h>
 
 struct task {
 	int tag;
