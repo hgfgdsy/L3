@@ -25,7 +25,6 @@ static _Context *kmt_context_save(_Event ev, _Context *context) {
 
 static _Context *kmt_context_switch(_Event ev, _Context *context) {	
 	int cur_rec = -1;
-//	printf("hello from CPU %d\n",_cpu());
 	if(osruntk[_cpu()] == 0) {
 		for(int i = 0; i < 20; i++) {
 			if(tagging[i] != -1 && tasks[i] -> incpu == -1) {
@@ -152,7 +151,7 @@ int holding(spinlock_t *lk) {
 
 static void kmt_spin_lock(spinlock_t *lk){
 	pushcli();
-	if(holding(lk)){/*printf("%s\n",lk->name);*/
+	if(holding(lk)){printf("%s\n",lk->name);
 		panic("have required when lock");}
 	while(_atomic_xchg(&lk->locked,1));
 	lk -> cpu = _cpu();
