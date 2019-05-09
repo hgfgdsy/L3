@@ -15,6 +15,7 @@ uintptr_t allmem;
 */
 
 handle *handle_head;
+extern void panic(char *s);
 //spinlock_t OR;
 
 void syr(void *name){
