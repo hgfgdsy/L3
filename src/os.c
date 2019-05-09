@@ -19,8 +19,9 @@ handle *handle_head;
 //spinlock_t OR;
 
 void syr(void *name){
+	while(1){
 	printf("%s",(char *)name);
-	_yield();
+	_yield();}
 }
 
 static void os_init() {
