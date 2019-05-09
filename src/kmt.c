@@ -14,7 +14,7 @@ _Context init_tasks[8];
 int osruntk[8];
 
 static _Context *kmt_context_save(_Event ev, _Context *context) {
-	printf("It was saved\n");
+//	printf("It was saved\n");
 	if(osruntk[_cpu()] == 0) {
 		memcpy((void *)&init_tasks[_cpu()],(void *)context, sizeof(_Context));
 	}

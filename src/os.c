@@ -20,7 +20,7 @@ extern void panic(char *s);
 
 void syr(void *name){
 	while(1){
-	_putc('i');
+	printf("%s",name);
 	_yield();
 	}
 }
