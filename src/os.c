@@ -20,10 +20,10 @@ handle *handle_head;
 
 static void os_init() {
   pmm->init();
+  handle_head = NULL;
   kmt->init();
   kmt->spin_init((spinlock_t *)&OT,"locktrap");
 //  kmt->spin_init((spinlock_t *)&OR,"lockirq");
-  handle_head = NULL;
 //  os->on_irq(0,_EVENT_NULL,hello);
 /*  srand(uptime()+990);
   allmem = 0;
@@ -127,7 +127,7 @@ static _Context *os_trap(_Event ev, _Context *context) {
 
 static void os_on_irq(int seq, int event, handler_t handler) {
 //  kmt->spin_lock((spinlock_t *)&OR);
-  printf("irq is used\n");
+//  printf("irq is used\n");
   if(handle_head == NULL) {
 	  handle_head = (handle *)pmm->alloc(sizeof(handle));
 	  handle_head -> pre = NULL;
@@ -135,7 +135,7 @@ static void os_on_irq(int seq, int event, handler_t handler) {
 	  handle_head -> seq = seq;
 	  handle_head -> event = event;
 	  handle_head -> handler = handler;
-	  printf("%d\n",handle_head->seq);
+//	  printf("%d\n",handle_head->seq);
   }
   else {
 	  handle *now = handle_head;

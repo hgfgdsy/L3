@@ -21,7 +21,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context) {
 	        memcpy((void *)&tasks[current[_cpu()] -> tag] -> context,(void *)context, sizeof(_Context));
 	return NULL;
 }
-/*
+
 static _Context *kmt_context_switch(_Event ev, _Context *context) {
 	int cur_rec = -1;
 	printf("hello\n");
@@ -70,13 +70,12 @@ static _Context *kmt_context_switch(_Event ev, _Context *context) {
 	                return (_Context *)&current[_cpu()] -> context;
 		}
 	}
-}
-*/	
+}	
 
 static void kmt_init(){
 	for(int i=0;i<8;i++) { osruntk[i] = 0;}
 	os->on_irq(INT_MIN, _EVENT_NULL, kmt_context_save);
-//	os->on_irq(INT_MAX, _EVENT_NULL, kmt_context_switch);
+	os->on_irq(INT_MAX, _EVENT_NULL, kmt_context_switch);
 	for(int i=0;i<20;i++) { tagging[i] = -1; tasks[i] = NULL; 
 		                mycpu[i].ncli = 0; mycpu[i].INIF = 1;
 	}
