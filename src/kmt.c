@@ -33,7 +33,6 @@ static _Context *kmt_context_switch(_Event ev, _Context *context) {
 				break;
 			}
 		}
-printf("It was switching\n");
 		printf("cur_rec = %d OT = %d\n",cur_rec,OT.cpu);
 	}
 	else {
