@@ -33,14 +33,14 @@ static _Context *kmt_context_switch(_Event ev, _Context *context) {
 		}
 	}
 	else {
-	for(int i = current -> tag+1; i < 20; i++) {
+	for(int i = current[_cpu()] -> tag+1; i < 20; i++) {
 		if(tagging[i] != -1 && tasks[i] -> incpu == -1) {
 			cur_rec = i;
 			break;
 		}
 	}
 	if(cur_rec == -1) {
-		for(int i = 0 ;i <= current->tag-1; i++) {
+		for(int i = 0 ;i <= current[_cpu()]->tag-1; i++) {
 			if(tagging[i] != -1 && tasks[i] -> incpu == -1) {
 				cur_rec = i;
 				break;
@@ -60,13 +60,13 @@ static _Context *kmt_context_switch(_Event ev, _Context *context) {
 			osruntk[_cpu()] = 1;
 			tasks[cur_rec] -> incpu = _cpu();
 			current[_cpu()] = tasks[cur_rec];
-			return (_Context *)&current -> context;
+			return (_Context *)&current[_cpu()] -> context;
 		}
 		else {
 	                tasks[current[_cpu()] -> tag] -> incpu = -1;
 	                tasks[cur_rec] -> incpu = _cpu();
-	                current = tasks[cur_rec];
-	                return (_Context *)&current -> context;
+	                current[_cpu()] = tasks[cur_rec];
+	                return (_Context *)&current[_cpu()] -> context;
 		}
 }
 	
