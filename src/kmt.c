@@ -36,7 +36,8 @@ static int kmt_create(task_t *task, const char *name,
 
 
 static void kmt_teardown(task_t *tast){
-	tasks[task->tag] = -1;
+	tagging[task->tag] = -1;
+	tasks[task->tag] = NULL;
 	pmm->free((void *)task);
 }
 
@@ -67,7 +68,7 @@ void popcli() {
 int holding(spinlock_t *lk) {
 	int r;
 	pushcli();
-	r = lk -> locked & lk -> cpu == _cpu();
+	r = lk -> locked & ((lk -> cpu) == _cpu());
 	popcli();
 	return r;
 }
