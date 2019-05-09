@@ -23,8 +23,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context) {
 	return NULL;
 }
 
-static _Context *kmt_context_switch(_Event ev, _Context *context) {
-	printf("It was switching\n");
+static _Context *kmt_context_switch(_Event ev, _Context *context) {	
 	int cur_rec = -1;
 //	printf("hello from CPU %d\n",_cpu());
 	if(osruntk[_cpu()] == 0) {
@@ -34,6 +33,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context) {
 				break;
 			}
 		}
+printf("It was switching\n");
 		printf("cur_rec = %d OT = %d\n",cur_rec,OT.cpu);
 	}
 	else {
