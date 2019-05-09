@@ -103,7 +103,8 @@ static int kmt_create(task_t *task, const char *name,
 	task->name = name;
 	tasks[rec] = task;
 	_Area stack = (_Area){task->stack,task->stack + sizeof(task->stack)};
-	task->context = *_kcontext(stack,entry,arg);
+//	task->context = *_kcontext(stack,entry,arg);
+	memcpy((void *)&tasks[rec]->context,_kcontext(stack,entry,arg),sizeof(_context));
 	return rec;
 }
 
