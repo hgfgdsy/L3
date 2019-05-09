@@ -28,14 +28,14 @@ uintptr_t my_start,my_start1;
 static uintptr_t pm_start, pm_end;
 
 
-intptr_t spinlock;
 int scale = sizeof(node);
 int cntt=0;
 
-void lock(intptr_t *lock){ cli();while(_atomic_xchg(lock,1));}
-void unlock(intptr_t *lock){ _atomic_xchg(lock,0);sti();}
+
+spinlock_t heaplock;
 
 static void pmm_init() {
+  kmt->spin_init((spinlock_t *)&heaplock,"lock_alloc");
   pm_start = (uintptr_t)_heap.start;
   pm_end   = (uintptr_t)_heap.end;
   printf("%x\n",pm_start);
@@ -44,7 +44,6 @@ static void pmm_init() {
   printf("heap(up to down) = %x\n",pm_start - pm_end);
   else
   printf("heap(down to up) = %x\n",pm_end - pm_start);
-  spinlock = 0;
 
   //init list
   uintptr_t space = pm_end - pm_start;
@@ -176,19 +175,19 @@ void release(node *p) {
 
 static void *kalloc(size_t size) {
   void *temp;
-  lock(&spinlock);
+  kmt->spin_lock((spinlock_t *)&heaplock);
   cntt++;
 //  printf("This is %d request\n",cntt);
   temp = Bigloc((size_t)(size+scale));
-  unlock(&spinlock);
+  kmt->spin_unlock((spinlock_t *)&heaplock);
   return temp;
 }
 
 static void kfree(void *ptr) {
-  lock(&spinlock);
+  kmt->spin_lock((spinlock_t *)&heaplock);
   if(ptr!=NULL){//printf("free = %x\n",(uintptr_t)ptr - scale);
   release((node *)((uintptr_t)ptr - scale));}
-  unlock(&spinlock);
+  kmt->spin_unlock((spinlock_t *)&heaplock);
 }
 
 MODULE_DEF(pmm) {
