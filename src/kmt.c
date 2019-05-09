@@ -148,14 +148,14 @@ int holding(spinlock_t *lk) {
 static void kmt_spin_lock(spinlock_t *lk){
 	pushcli();
 	if(holding(lk))
-		panic("have required");
+		panic("have required when lock");
 	while(_atomic_xchg(&lk->locked,1));
 	lk -> cpu = _cpu();
 }
 
 
 static void kmt_spin_unlock(spinlock_t *lk){
-	if(holding(lk)) panic("have required");
+	if(holding(lk)) panic("have required when unlock");
 	lk -> cpu = -1;
         _atomic_xchg(&lk->locked,0);
 	popcli();
