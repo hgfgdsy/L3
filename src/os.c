@@ -20,6 +20,7 @@ handle *handle_head;
 
 void syr(void *name){
 	printf("%s",(char *)name);
+	_yield();
 }
 
 static void os_init() {
