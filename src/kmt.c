@@ -41,8 +41,6 @@ static void kmt_teardown(task_t *tast){
 }
 
 
-//int holding(spinlock_t *lk)
-
 static void kmt_spin_init(spinlock_t *lk,const char *name){
 	lk->name = name;
 	lk->locked = 0;
@@ -79,7 +77,7 @@ static void kmt_spin_lock(spinlock_t *lk){
 	pushcli();
 	if(holding(lk))
 		panic("have required");
-	while(_atomic_xchg(lk->locked,1));
+	while(_atomic_xchg(&lk->locked,1));
 	lk -> cpu = _cpu();
 }
 
@@ -87,7 +85,7 @@ static void kmt_spin_lock(spinlock_t *lk){
 static void kmt_spin_unlock(spinlock_t *lk){
 	if(holding(lk)) panic("have required");
 	lk -> cpu = -1;
-        _atomic_xchg(lk->locked,0);
+        _atomic_xchg(&lk->locked,0);
 	popcli();
 }
 
