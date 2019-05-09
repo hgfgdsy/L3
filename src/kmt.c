@@ -139,7 +139,7 @@ void popcli() {
 int holding(spinlock_t *lk) {
 	int r;
 	pushcli();
-	r = lk -> locked & ((lk -> cpu) == _cpu());
+	r = lk -> locked && ((lk -> cpu) == _cpu());
 	popcli();
 	return r;
 }
