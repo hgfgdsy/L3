@@ -35,7 +35,7 @@ static int kmt_create(task_t *task, const char *name,
 
 
 
-static void kmt_teardown(task_t *tast){
+static void kmt_teardown(task_t *task){
 	tagging[task->tag] = -1;
 	tasks[task->tag] = NULL;
 	pmm->free((void *)task);

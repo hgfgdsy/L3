@@ -4,7 +4,11 @@
 #include <kernel.h>
 #include <nanos.h>
 #include <x86.h>
-#include <arch/x86-qemu.h>
+
+void panic(char *s){
+	printf("%s\n",s);
+	_halt(1);
+}
 
 struct task {
 	int tag;
