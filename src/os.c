@@ -126,6 +126,7 @@ static _Context *os_trap(_Event ev, _Context *context) {
 
 static void os_on_irq(int seq, int event, handler_t handler) {
 //  kmt->spin_lock((spinlock_t *)&OR);
+  printf("irq is used\n");
   if(handle_head == NULL) {
 	  handle_head = (handle *)pmm->alloc(sizeof(handle));
 	  handle_head -> pre = NULL;
