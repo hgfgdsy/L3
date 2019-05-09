@@ -24,7 +24,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context) {
 
 static _Context *kmt_context_switch(_Event ev, _Context *context) {
 	int cur_rec = -1;
-	printf("hello\n");
+	printf("hello from CPU %d\n",_cpu());
 	if(osruntk[_cpu()] == 0) {
 		for(int i = 0; i < 20; i++) {
 			if(tagging[i] != -1 && tasks[i] -> incpu == -1) {
