@@ -62,7 +62,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context) {
 			osruntk[_cpu()] = 1;
 			tasks[cur_rec] -> incpu = _cpu();
 			current[_cpu()] = tasks[cur_rec];
-			printf("right here?\n");
+			printf("right here? %d \n",_cpu());
 			return (_Context *)&current[_cpu()] -> context;
 		}
 		else {
