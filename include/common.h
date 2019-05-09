@@ -32,8 +32,6 @@ typedef struct my_handle {
 	handler_t handler;
 } handle ;
 
-handle *handle_head;
-
 typedef struct my_cpu {
 	int ncli;
 	int INIF;
