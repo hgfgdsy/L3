@@ -31,7 +31,7 @@ static void os_init() {
   kmt->init();
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test1",syr,"t1\n");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test2",syr,"t2\n");
-kmt->create(pmm->alloc(sizeof(task_t)),"easy_test2",syr,"t3\n");
+//  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test2",syr,"t3\n");
 
 
 
@@ -137,14 +137,12 @@ static _Context *os_trap(_Event ev, _Context *context) {
 	  }
 	  now = now->suc;
   }
-//  if(ret->eip == context->eip) panic("fuck\n");
   kmt->spin_unlock((spinlock_t *)&OT);
   return ret;
 }
 
 static void os_on_irq(int seq, int event, handler_t handler) {
 //  kmt->spin_lock((spinlock_t *)&OR);
-//  printf("irq is used\n");
   if(handle_head == NULL) {
 	  handle_head = (handle *)pmm->alloc(sizeof(handle));
 	  handle_head -> pre = NULL;
