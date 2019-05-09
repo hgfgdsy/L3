@@ -18,10 +18,22 @@ spinlock_t OT;
 handle *handle_head;
 //spinlock_t OR;
 
+void syr(void *name){
+	printf("%s",(char *)name);
+}
+
 static void os_init() {
   pmm->init();
   handle_head = NULL;
   kmt->init();
+  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test1",syr,"t1\n");
+  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test2",syr,"t2\n");
+
+
+
+
+
+
   kmt->spin_init((spinlock_t *)&OT,"locktrap");
 //  kmt->spin_init((spinlock_t *)&OR,"lockirq");
 //  os->on_irq(0,_EVENT_NULL,hello);
