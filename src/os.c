@@ -135,7 +135,7 @@ static _Context *os_trap(_Event ev, _Context *context) {
 	  }
 	  now = now->suc;
   }
-  if(next == context) printf("fuck\n");
+  if(ret == context) printf("fuck\n");
   kmt->spin_unlock((spinlock_t *)&OT);
   return ret;
 }
