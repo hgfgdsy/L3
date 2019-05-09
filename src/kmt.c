@@ -10,12 +10,12 @@ task_t *tasks[20];
 int tagging[20];
 MYCPU mycpu[20];
 
-_Context *kmt_context_save(_EVENT ev, _Context *context) {
+static _Context *kmt_context_save(_Event ev, _Context *context) {
 	tasks[current -> tag] -> context = context;
 	return current -> context;
 }
 
-_Context *kmt_context_switch(_EVENT ev, _Context *context) {
+static _Context *kmt_context_switch(_Event ev, _Context *context) {
 	int cur_rec = -1;
 	for(int i = current -> tag+1; i < 20; i++) {
 		if(tagging[i] != -1 && tasks[i] -> incpu == -1) {
