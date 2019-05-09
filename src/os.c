@@ -20,8 +20,9 @@ handle *handle_head;
 
 void syr(void *name){
 	while(1){
-	printf("%s",(char *)name);
-	_yield();}
+	_putc("!");
+	_yield();
+	}
 }
 
 static void os_init() {
