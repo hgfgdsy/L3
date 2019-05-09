@@ -23,7 +23,6 @@ static _Context *kmt_context_save(_Event ev, _Context *context) {
 }
 
 static _Context *kmt_context_switch(_Event ev, _Context *context) {
-	kmt->spin_lock((spinlock_t *)&OT);
 	int cur_rec = -1;
 //	printf("hello from CPU %d\n",_cpu());
 	if(osruntk[_cpu()] == 0) {
@@ -73,7 +72,6 @@ static _Context *kmt_context_switch(_Event ev, _Context *context) {
 	                return (_Context *)&current[_cpu()] -> context;
 		}
 	}
-	kmt->spin_unlock((spinlock_t *)&OT);
 }	
 
 static void kmt_init(){
