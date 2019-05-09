@@ -13,7 +13,7 @@ MYCPU mycpu[20];
 _Context init_tasks[8];
 int osruntk[8];
 
-static _Context *kmt_context_save(_Event ev, _Context *context) {
+_Context *kmt_context_save(_Event ev, _Context *context) {
 	if(osruntk[_cpu()] == 0) {
 		memcpy((void *)&init_tasks[_cpu()],(void *)context, sizeof(_Context));
 	}
@@ -22,7 +22,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context) {
 	return NULL;
 }
 
-static _Context *kmt_context_switch(_Event ev, _Context *context) {
+_Context *kmt_context_switch(_Event ev, _Context *context) {
 	int cur_rec = -1;
 	if(osruntk[_cpu()] == 0) {
 		for(int i = 0; i < 20; i++) {
