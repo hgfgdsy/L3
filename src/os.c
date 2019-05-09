@@ -20,7 +20,7 @@ handle *handle_head;
 
 void syr(void *name){
 	while(1){
-	_putc("!");
+	_putc('i');
 	_yield();
 	}
 }
