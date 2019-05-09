@@ -32,7 +32,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context) {
 				break;
 			}
 		}
-		printf("cur_rec = %d OT = %d\n",cur_rec,OT->cpu);
+		printf("cur_rec = %d OT = %d\n",cur_rec,OT.cpu);
 	}
 	else {
 	for(int i = current[_cpu()] -> tag+1; i < 20; i++) {
