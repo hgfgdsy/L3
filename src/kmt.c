@@ -11,7 +11,7 @@ int tagging[20];
 MYCPU mycpu[20];
 
 static _Context *kmt_context_save(_Event ev, _Context *context) {
-	memcpy(&tasks[current -> tag] -> context,context);
+	memcpy((void *)&tasks[current -> tag] -> context,(void *)context, sizeof(_Context));
 	return context;
 }
 
@@ -35,7 +35,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context) {
 	tasks[current -> tag] -> incpu = -1;
 	tasks[cur_rec] -> incpu = _cpu();
 	current = tasks[cur_rec];
-	return (_context *)&current -> context;
+	return (_Context *)&current -> context;
 }
 	
 
