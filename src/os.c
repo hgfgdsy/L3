@@ -112,6 +112,7 @@ static _Context *os_trap(_Event ev, _Context *context) {
   kmt->spin_lock((spinlock_t *)&OT);
   _Context *ret = NULL;
   handle *now = handle_head;
+  if(now==NULL) printf("now is NULL\n");
   while(now != NULL){
 	  if(now->event == _EVENT_NULL || now->event == ev.event) {
 		  _Context *next = now->handler(ev,context);
