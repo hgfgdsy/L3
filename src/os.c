@@ -14,9 +14,13 @@ intptr_t sp;
 uintptr_t allmem;
 */
 
+spinlock_t OT;
+spinlock_t OR;
 
 static void os_init() {
   pmm->init();
+  kmt->spin_init((spinlock_t *)&OT,"locktrap");
+  kmt->spin_init((spinlock_t *)&OR,"lockirq");
   handle_head = NULL;
 //  os->on_irq(0,_EVENT_NULL,hello);
 /*  srand(uptime()+990);
@@ -104,6 +108,7 @@ static void os_run() {
 }
 
 static _Context *os_trap(_Event ev, _Context *context) {
+  kmt->spin_lock((spinlock_t *)&OT);
   _Context *ret = NULL;
   handle *now = handle_head;
   while(now != NULL){
@@ -112,10 +117,12 @@ static _Context *os_trap(_Event ev, _Context *context) {
 		  if (next) ret = next;
 	  }
   }
+  kmt->spin_unlock((spinlock_t *)&OT);
   return ret;
 }
 
 static void os_on_irq(int seq, int event, handler_t handler) {
+  kmt->spin_lock((spinlock_t *)&OR);
   if(handle_head == NULL) {
 	  handle_head = (handle *)pmm->alloc(sizeof(handle));
 	  handle_head -> pre = NULL;
@@ -160,6 +167,7 @@ static void os_on_irq(int seq, int event, handler_t handler) {
 		  }
 	  }
   }
+  kmt->spin_unlock((spinlock_t *)&OT);
 }
 
 MODULE_DEF(os) {
