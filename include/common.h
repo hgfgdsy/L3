@@ -36,4 +36,6 @@ typedef struct my_cpu {
 	int INIF;
 } MYCPU;
 
+task_t *current;
+
 #endif

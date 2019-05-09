@@ -11,6 +11,8 @@ int tagging[20];
 MYCPU mycpu[20];
 
 static void kmt_init(){
+	os->on_irq(INT_MIN, _EVENT_NULL, kmt_context_save);
+	os->on_irq(INT_MAX, _EVENT_NULL, kmt_context_switch);
 	for(int i=0;i<20;i++) { tagging[i] = -1; tasks[i] = NULL; 
 		                mycpu[i].ncli = 0; mycpu[i].INIF = 1;
 	}
