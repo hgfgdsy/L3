@@ -10,13 +10,29 @@ task_t *tasks[20];
 int tagging[20];
 MYCPU mycpu[20];
 
+_Context init_tasks[8];
+int osruntk[8];
+
 static _Context *kmt_context_save(_Event ev, _Context *context) {
-	memcpy((void *)&tasks[current -> tag] -> context,(void *)context, sizeof(_Context));
-	return context;
+	if(osruntk[_cpu()] == 0) {
+		memcpy((void *)&init_tasks[_cpu()],(void *)context, sizeof(_Context));
+	}
+	else
+	        memcpy((void *)&tasks[current[_cpu()] -> tag] -> context,(void *)context, sizeof(_Context));
+	return NULL;
 }
 
 static _Context *kmt_context_switch(_Event ev, _Context *context) {
 	int cur_rec = -1;
+	if(osruntk[_cpu()] == 0) {
+		for(int i = 0; i < 20; i++) {
+			if(tagging[i] != -1 && tasks[i] -> incpu == -1) {
+				cur_rec = i;
+				break;
+			}
+		}
+	}
+	else {
 	for(int i = current -> tag+1; i < 20; i++) {
 		if(tagging[i] != -1 && tasks[i] -> incpu == -1) {
 			cur_rec = i;
@@ -30,16 +46,33 @@ static _Context *kmt_context_switch(_Event ev, _Context *context) {
 				break;
 			}
 		}
+	}}
+	if(cur_rec == -1) {
+		if(osruntk[_cpu()] == 0) {
+			return (_Context *)&init_tasks[_cpu()];
+		}
+		else {
+			return (_Context *)&current[_cpu()] -> context;
+		}
 	}
-	if(cur_rec == -1) return (_Context *)&tasks[current->tag]->context;
-	tasks[current -> tag] -> incpu = -1;
-	tasks[cur_rec] -> incpu = _cpu();
-	current = tasks[cur_rec];
-	return (_Context *)&current -> context;
+	else {
+		if(osruntk[_cpu()] == 0) {
+			osruntk[_cpu()] = 1;
+			tasks[cur_rec] -> incpu = _cpu();
+			current[_cpu()] = tasks[cur_rec];
+			return (_Context *)&current -> context;
+		}
+		else {
+	                tasks[current[_cpu()] -> tag] -> incpu = -1;
+	                tasks[cur_rec] -> incpu = _cpu();
+	                current = tasks[cur_rec];
+	                return (_Context *)&current -> context;
+		}
 }
 	
 
 static void kmt_init(){
+	for(int i=0;i<8;i++) { osruntk[i] = 0;}
 	os->on_irq(INT_MIN, _EVENT_NULL, kmt_context_save);
 	os->on_irq(INT_MAX, _EVENT_NULL, kmt_context_switch);
 	for(int i=0;i<20;i++) { tagging[i] = -1; tasks[i] = NULL; 
