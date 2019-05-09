@@ -159,6 +159,16 @@ static void os_on_irq(int seq, int event, handler_t handler) {
 		  now = now -> suc;
 	  }
 	  if(now == handle_head) {
+		  if(now->seq < seq) {
+			  handle *tail = (handle *)pmm->alloc(sizeof(handle));
+			  tail -> pre = now;
+			  tail -> suc = NULL;
+			  tail -> seq = seq;
+			  tail -> event = event;
+			  tail -> handler = handler;
+			  now  -> suc = tail;
+		  }
+		  else {
 		  handle_head = (handle *)pmm->alloc(sizeof(handle));
 		  handle_head -> pre = NULL;
 		  handle_head -> suc = now;
@@ -166,6 +176,7 @@ static void os_on_irq(int seq, int event, handler_t handler) {
 		  handle_head -> event = event;
 		  handle_head -> handler = handler;
 		  now -> pre = handle_head;
+		  }
 	  }
 	  else {
 		  if(seq > now -> seq) {
