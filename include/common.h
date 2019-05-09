@@ -5,10 +5,7 @@
 #include <nanos.h>
 #include <x86.h>
 
-void panic(char *s){
-	printf("%s\n",s);
-	_halt(1);
-}
+
 
 struct task {
 	int tag;
