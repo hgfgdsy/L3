@@ -10,6 +10,35 @@ task_t *tasks[20];
 int tagging[20];
 MYCPU mycpu[20];
 
+_Context *kmt_context_save(_EVENT ev, _Context *context) {
+	tasks[current -> tag] -> context = context;
+	return current -> context;
+}
+
+_Context *kmt_context_switch(_EVENT ev, _Context *context) {
+	int cur_rec = -1;
+	for(int i = current -> tag+1; i < 20; i++) {
+		if(tagging[i] != -1 && tasks[i] -> incpu == -1) {
+			cur_rec = i;
+			break;
+		}
+	}
+	if(cur_rec == -1) {
+		for(int i = 0 ;i <= current->tag-1; i++) {
+			if(tagging[i] != -1 && tasks[i] -> incpu == -1) {
+				cur_rec = i;
+				break;
+			}
+		}
+	}
+	if(cur_rec == -1) return context;
+	tasks[current -> tag] -> incpu = -1;
+	tasks[cur_rec] -> incpu = _cpu();
+	current = tasks[cur_rec];
+	return current -> context;
+}
+	
+
 static void kmt_init(){
 	os->on_irq(INT_MIN, _EVENT_NULL, kmt_context_save);
 	os->on_irq(INT_MAX, _EVENT_NULL, kmt_context_switch);
@@ -32,6 +61,7 @@ static int kmt_create(task_t *task, const char *name,
 		}
 	}
 	tagging[rec] = rec;
+	task->incpu = -1;
 	task->tag = rec;
 	task->name = name;
 	tasks[rec] = task;

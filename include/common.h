@@ -11,6 +11,7 @@
 
 struct task {
 	int tag;
+	int incpu;
 	const char *name;
 	_Context context;
 	char stack[4096];
