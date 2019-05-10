@@ -32,7 +32,7 @@ static void os_init() {
   kmt->init();
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test1",syr,"1");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test2",syr,"2");
-  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test2",syr,"3");
+//  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test2",syr,"3");
 
 
 
