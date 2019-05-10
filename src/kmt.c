@@ -123,10 +123,9 @@ static void kmt_spin_init(spinlock_t *lk,const char *name){
 }
 
 void pushcli() {
-	int eflags = get_efl();
 	cli();
 	if(mycpu[_cpu()].ncli == 0)
-		mycpu[_cpu()].INIF = eflags & FL_IF;
+		mycpu[_cpu()].INIF = get_efl() & FL_IF;
 	mycpu[_cpu()].ncli += 1;
 }
 
