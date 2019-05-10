@@ -4,7 +4,7 @@
 #include <kernel.h>
 #include <nanos.h>
 #include <x86.h>
-
+#include <klib.h>
 
 #define INT_MAX 2147483647
 #define INT_MIN (-INT_MAX - 1)
