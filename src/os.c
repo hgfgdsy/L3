@@ -132,9 +132,9 @@ static void os_run() {
 }
 
 static _Context *os_trap(_Event ev, _Context *context) {
-      	int label = 0;
-  if(!holding(OT)){label = 1;
-  kmt->spin_lock(OT);}
+//      	int label = 0;
+//  if(!holding(OT)){label = 1;
+//  kmt->spin_lock(OT);}
 
   _Context *ret = NULL;
   handle *now = handle_head;
@@ -145,8 +145,8 @@ static _Context *os_trap(_Event ev, _Context *context) {
 	  }
 	  now = now->suc;
   }
-  if(label==1)
-  kmt->spin_unlock(OT);
+//  if(label==1)
+//  kmt->spin_unlock(OT);
   return ret;
 }
 
