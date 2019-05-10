@@ -67,6 +67,8 @@ _Context *kmt_context_switch(_Event ev, _Context *context) {
 		}
 	}
 	else {
+		if(current[_cpu()] != tasks[current[_cpu()]->tag])
+			panic("DIFFINT\n");
 	for(int i = current[_cpu()] -> tag+1; i < 20; i++) {
 		if(tagging[i] != -1 && tasks[i] -> incpu == -1) {
 			cur_rec = i;
