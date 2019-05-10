@@ -41,7 +41,7 @@ int tagging[20];
 _Context init_tasks[8];
 int osruntk[8];
 
-static _Context *kmt_context_save(_Event ev, _Context *context) {
+_Context *kmt_context_save(_Event ev, _Context *context) {
 	if(osruntk[_cpu()] == 0) {
 		memcpy((void *)&init_tasks[_cpu()],(void *)context, sizeof(_Context));
 	}
@@ -50,7 +50,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context) {
 	return NULL;
 }
 
-static _Context *kmt_context_switch(_Event ev, _Context *context) {	
+_Context *kmt_context_switch(_Event ev, _Context *context) {	
 //	int label = 0;
 //  if(!holding(OT)){label = 1;
 //  kmt->spin_lock(OT);}
