@@ -41,7 +41,15 @@ static void os_init() {
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test4",syr,"4");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test5",syr,"5");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test6",syr,"6");
-
+  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test7",syr,"7");
+  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test8",syr,"8");
+  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test9",syr,"9");
+  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test10",syr,"10");
+  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test11",syr,"11");
+  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test12",syr,"12");
+  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test13",syr,"13");
+  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test14",syr,"14");
+  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test15",syr,"15");
   kmt->spin_init((spinlock_t *)&OT,"locktrap");
 //  kmt->spin_init((spinlock_t *)&OR,"lockirq");
 //  os->on_irq(0,_EVENT_NULL,hello);
