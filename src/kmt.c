@@ -43,10 +43,12 @@ int osruntk[8];
 
 _Context *kmt_context_save(_Event ev, _Context *context) {
 	if(osruntk[_cpu()] == 0) {
-		memcpy((void *)init_tasks[_cpu()],(void *)context, sizeof(_Context));
+		init_tasks[_cpu()] = *context;
+//		memcpy((void *)&init_tasks[_cpu()],(void *)context, sizeof(_Context));
 	}
 	else
-	        memcpy((void *)(tasks[current[_cpu()] -> tag] -> context),(void *)context, sizeof(_Context));
+		current[_cpu()]->context = *context;
+//	        memcpy((void *)&(tasks[current[_cpu()] -> tag] -> context),(void *)context, sizeof(_Context));
 	return NULL;
 }
 
@@ -84,7 +86,7 @@ _Context *kmt_context_switch(_Event ev, _Context *context) {
 			return context;
 		}
 		else {
-			return (_Context *)(current[_cpu()] -> context);
+			return (_Context *)&(current[_cpu()] -> context);
 		}
 	}
 	else {
@@ -92,13 +94,13 @@ _Context *kmt_context_switch(_Event ev, _Context *context) {
 			osruntk[_cpu()] = 1;
 			tasks[cur_rec] -> incpu = _cpu();
 			current[_cpu()] = tasks[cur_rec];
-			return (_Context *)(tasks[cur_rec] -> context);
+			return (_Context *)&(tasks[cur_rec] -> context);
 		}
 		else {
 	                tasks[current[_cpu()] -> tag] -> incpu = -1;
 	                tasks[cur_rec] -> incpu = _cpu();
 	                current[_cpu()] = tasks[cur_rec];
-	                return (_Context *)(current[_cpu()] -> context);
+	                return (_Context *)&(current[_cpu()] -> context);
 		}
 	}
 //if(label==1)
@@ -134,8 +136,8 @@ static int kmt_create(task_t *task, const char *name,
 	task->name = name;
 	tasks[rec] = task;
 	_Area stack = (_Area){task->stack,task->stack + 4096};
-//	task->context = *_kcontext(stack,entry,arg);
-	memcpy((void *)tasks[rec]->context,_kcontext(stack,entry,arg),sizeof(_Context));
+	task->context = *_kcontext(stack,entry,arg);
+//	memcpy((void *)tasks[rec]->context,_kcontext(stack,entry,arg),sizeof(_Context));
 	return rec;
 }
 
