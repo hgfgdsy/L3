@@ -114,7 +114,7 @@ _Context *kmt_context_switch(_Event ev, _Context *context) {
 	int cur_rec = -1;
 	if(osruntk[_cpu()] == 0) {
 		for(int i = 0; i < 20; i++) {
-			if(tagging[i] != -1 && tasks[i] -> incpu == -1) {
+			if(tagging[i] != -1 && tasks[i] -> incpu == _cpu()) {
 				cur_rec = i;
 				break;
 			}
@@ -124,14 +124,14 @@ _Context *kmt_context_switch(_Event ev, _Context *context) {
 		if(current[_cpu()] != tasks[current[_cpu()]->tag])
 			panic("DIFFINT\n");
 	for(int i = current[_cpu()] -> tag+1; i < 20; i++) {
-		if(tagging[i] != -1 && (tasks[i] -> incpu == _cpu() || tasks[i] -> incpu == -1)) {
+		if(tagging[i] != -1 && tasks[i] -> incpu == _cpu()) {
 			cur_rec = i;
 			break;
 		}
 	}
 	if(cur_rec == -1) {
 		for(int i = 0 ;i <= current[_cpu()]->tag-1; i++) {
-			if(tagging[i] != -1 && (tasks[i] -> incpu == _cpu() || tasks[i] -> incpu == -1)) {
+			if(tagging[i] != -1 && tasks[i] -> incpu == _cpu()) {
 				cur_rec = i;
 				break;
 			}
@@ -204,7 +204,7 @@ static int kmt_create(task_t *task, const char *name,
 	}
 	if(rec == -1) panic("too much pthreads\n");
 	tagging[rec] = rec;
-	task->incpu = rec%4;
+	task->incpu = rec%CPUS;
 	task->tag = rec;
 	task->name = name;
 	tasks[rec] = task;
