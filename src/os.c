@@ -146,7 +146,7 @@ static _Context *os_trap(_Event ev, _Context *context) {
 }
 
 static void os_on_irq(int seq, int event, handler_t handler) {
-//  kmt->spin_lock((spinlock_t *)&OR);
+  kmt->spin_lock((spinlock_t *)&OR);
   if(handle_head == NULL) {
 	  handle_head = (handle *)pmm->alloc(sizeof(handle));
 	  handle_head -> pre = NULL;
@@ -154,7 +154,7 @@ static void os_on_irq(int seq, int event, handler_t handler) {
 	  handle_head -> seq = seq;
 	  handle_head -> event = event;
 	  handle_head -> handler = handler;
-//	  printf("%d\n",handle_head->seq);
+	  printf("%d\n",handle_head->seq);
   }
   else {
 	  handle *now = handle_head;

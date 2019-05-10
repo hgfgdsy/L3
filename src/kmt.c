@@ -152,7 +152,7 @@ static void kmt_spin_lock(spinlock_t *lk){
 	pushcli();
 	if(holding(lk)){printf("%s\n",lk->name);
 		panic("have required when lock");}
-	while(_atomic_xchg(&lk->locked,1));
+	while(_atomic_xchg(&lk->locked,1) != 0);
 	lk -> cpu = _cpu();
 }
 
