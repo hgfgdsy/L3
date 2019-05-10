@@ -46,7 +46,7 @@ static _Context *kmt_context_save(_Event ev, _Context *context) {
 		memcpy((void *)&init_tasks[_cpu()],(void *)context, sizeof(_Context));
 	}
 	else
-	        memcpy((void *)&tasks[current[_cpu()] -> tag] -> context,(void *)context, sizeof(_Context));
+	        memcpy((void *)&(tasks[current[_cpu()] -> tag] -> context),(void *)context, sizeof(_Context));
 	return NULL;
 }
 
@@ -85,7 +85,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context) {
 			return (_Context *)&init_tasks[_cpu()];
 		}
 		else {
-			return (_Context *)&current[_cpu()] -> context;
+			return (_Context *)&(current[_cpu()] -> context);
 		}
 	}
 	else {
@@ -100,7 +100,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context) {
 	                tasks[current[_cpu()] -> tag] -> incpu = -1;
 	                tasks[cur_rec] -> incpu = _cpu();
 	                current[_cpu()] = tasks[cur_rec];
-	                return (_Context *)&current[_cpu()] -> context;
+	                return (_Context *)&(current[_cpu()] -> context);
 		}
 	}
 //if(label==1)
@@ -124,7 +124,6 @@ static void kmt_init(){
 static int kmt_create(task_t *task, const char *name, 
 		void (*entry)(void *arg), void *arg){
 	int rec=0;
-	if(task==NULL) panic("alloc");
 	for(int i = 0 ;i < 20 ;i++) {
 		if(tagging[i] == -1) {
 			rec = i;
