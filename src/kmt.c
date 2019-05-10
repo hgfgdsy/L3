@@ -1,10 +1,7 @@
 #include <klib.h>
 #include <common.h>
 
-void panic(char *s){
-	printf("%s\n",s);
-	_halt(1);
-}
+
 
 task_t *tasks[20];
 int tagging[20];

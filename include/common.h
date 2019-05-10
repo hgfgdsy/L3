@@ -41,6 +41,11 @@ task_t *current[8];
 
 spinlock_t OT;
 
+void panic(char *s){
+	printf("%s\n",s);
+	_halt(1);
+}
+
 void pushcli() {
 	int eflags;
 
