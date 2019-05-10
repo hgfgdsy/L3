@@ -2,6 +2,8 @@
 #include <common.h>
 
 MYCPU mycpu[20];
+int CPUS;
+
 
 void panic(char *s){
 	printf("%s\n",s);
@@ -86,6 +88,7 @@ _Context *kmt_context_switch(_Event ev, _Context *context) {
 			sret = context;
 		}
 		else {
+
 			sret = (_Context *)&(current[_cpu()] -> context);
 		}
 	}
@@ -106,9 +109,21 @@ _Context *kmt_context_switch(_Event ev, _Context *context) {
 	if(cur_rec != -1 && (_Context *)&tasks[current[_cpu()]->tag]->context != sret) panic("beforeret\n");
 	return sret;
 
+/*	int cur_rec = -1;
+	if(osruntk[_cpu()] == 0) {
+		for(int i=0;i<20/CPUS;i++) {
+			if(tagging[i*CPUS + _cpu()] != -1 && tasks[i*CPUS + _cpu()] -> incpu == -1) {
+				current[_cpu()]
+			
+*/
+
+
+
+
 }	
 
 static void kmt_init(){
+	CPUS = _ncpu();
 	for(int i=0;i<8;i++) { osruntk[i] = 0;}
 	os->on_irq(INT_MIN, _EVENT_NULL, kmt_context_save);
 	os->on_irq(INT_MAX, _EVENT_NULL, kmt_context_switch);
@@ -123,14 +138,14 @@ static void kmt_init(){
 
 static int kmt_create(task_t *task, const char *name, 
 		void (*entry)(void *arg), void *arg){
-	int rec=0;
-	printf("%x\n",task);
+	int rec = -1;
 	for(int i = 0 ;i < 20 ;i++) {
 		if(tagging[i] == -1) {
 			rec = i;
 			break;
 		}
 	}
+	if(rec == -1) panic("too much pthreads\n"):
 	tagging[rec] = rec;
 	task->incpu = -1;
 	task->tag = rec;
