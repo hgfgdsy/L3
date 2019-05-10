@@ -183,7 +183,7 @@ _Context *kmt_context_switch(_Event ev, _Context *context) {
 
 static void kmt_init(){
 	CPUS = _ncpu();
-	kmm->spin_init((spinlock_t *)&CT,"create tasks");
+	kmt->spin_init((spinlock_t *)&CT,"create tasks");
 	printf("%d\n",CPUS);
 	for(int i=0;i<8;i++) { osruntk[i] = 0;}
 	os->on_irq(INT_MIN, _EVENT_NULL, kmt_context_save);
@@ -201,7 +201,7 @@ static int kmt_create(task_t *task, const char *name,
 		void (*entry)(void *arg), void *arg){
 
 	int rec = -1;
-	kmm->spin_lock((spinlock_t *)&CT);
+	kmt->spin_lock((spinlock_t *)&CT);
 	for(int i = 0 ;i < 20 ;i++) {
 		if(tagging[i] == -1) {
 			rec = i;
@@ -216,7 +216,7 @@ static int kmt_create(task_t *task, const char *name,
 	tasks[rec] = task;
 	_Area stack = (_Area){task->stack,task->stack + 4096};
 	task->context = *_kcontext(stack,entry,arg);
-	kmm->spin_unlock((spinlock_t *)&CT);
+	kmt->spin_unlock((spinlock_t *)&CT);
 //	memcpy((void *)tasks[rec]->context,_kcontext(stack,entry,arg),sizeof(_Context));
 	return rec;
 }
