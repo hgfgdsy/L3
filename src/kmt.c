@@ -6,7 +6,9 @@ int CPUS;
 
 
 void panic(char *s){
-	printf("%s\n",s);
+	while(*s!=NULL) {
+		_putc(*s++);
+	}
 	_halt(1);
 }
 
@@ -105,6 +107,7 @@ _Context *kmt_context_switch(_Event ev, _Context *context) {
 	                tasks[cur_rec] -> incpu = _cpu();
 	                current[_cpu()] = tasks[cur_rec];
 	                sret = (_Context *)&(current[_cpu()] -> context);
+
 		}
 	}
 	if(cur_rec != -1 && (_Context *)&tasks[current[_cpu()]->tag]->context != sret) panic("beforeret\n");
