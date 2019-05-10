@@ -103,7 +103,7 @@ _Context *kmt_context_switch(_Event ev, _Context *context) {
 	                sret = (_Context *)&(current[_cpu()] -> context);
 		}
 	}
-	if(cur_rec != -1 && (_Context *)&current[_cpu()]->context != sret) panic("beforeret\n");
+	if(cur_rec != -1 && (_Context *)&tasks[current[_cpu()]->tag]->context != sret) panic("beforeret\n");
 	return sret;
 
 }	
