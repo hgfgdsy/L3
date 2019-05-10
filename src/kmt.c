@@ -6,7 +6,7 @@ int CPUS;
 
 
 void panic(char *s){
-	while(*s!=NULL) {
+	while(s!=NULL) {
 		_putc(*s++);
 	}
 	_halt(1);
