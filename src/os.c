@@ -39,8 +39,8 @@ static void os_init() {
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test2",syr,"2");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test3",syr,"3");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test4",syr,"4");
-//  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test5",syr,"5");
-//  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test6",syr,"6");
+  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test5",syr,"5");
+  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test6",syr,"6");
 
   kmt->spin_init((spinlock_t *)&OT,"locktrap");
 //  kmt->spin_init((spinlock_t *)&OR,"lockirq");
