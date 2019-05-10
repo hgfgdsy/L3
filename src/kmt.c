@@ -81,12 +81,13 @@ _Context *kmt_context_switch(_Event ev, _Context *context) {
 			}
 		}
 	}}
+	_Context *sret;
 	if(cur_rec == -1) {
 		if(osruntk[_cpu()] == 0) {
-			return context;
+			sret = context;
 		}
 		else {
-			return (_Context *)&(current[_cpu()] -> context);
+			sret = (_Context *)&(current[_cpu()] -> context);
 		}
 	}
 	else {
@@ -94,15 +95,16 @@ _Context *kmt_context_switch(_Event ev, _Context *context) {
 			osruntk[_cpu()] = 1;
 			tasks[cur_rec] -> incpu = _cpu();
 			current[_cpu()] = tasks[cur_rec];
-			return (_Context *)&(tasks[cur_rec] -> context);
+			sret = (_Context *)&(tasks[cur_rec] -> context);
 		}
 		else {
 	                tasks[current[_cpu()] -> tag] -> incpu = -1;
 	                tasks[cur_rec] -> incpu = _cpu();
 	                current[_cpu()] = tasks[cur_rec];
-	                return (_Context *)&(current[_cpu()] -> context);
+	                sret = (_Context *)&(current[_cpu()] -> context);
 		}
 	}
+	return sret;
 //if(label==1)
 //  kmt->spin_unlock(OT);
 
