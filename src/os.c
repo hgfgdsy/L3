@@ -132,9 +132,10 @@ static void os_run() {
 }
 
 static _Context *os_trap(_Event ev, _Context *context) {
-      	int label = 0;
+  int label = 0;
   if(!holding(OT)){label = 1;
-  kmt->spin_lock(OT);}
+  kmt->spin_lock(OT);
+  printf("CPU %d #locked\n",_cpu());}
 
   _Context *ret = NULL;
   handle *now = handle_head;
@@ -145,13 +146,12 @@ static _Context *os_trap(_Event ev, _Context *context) {
 	  }
 	  now = now->suc;
   }
-  if(label==1)
-  kmt->spin_unlock(OT);
+  if(label==1){
+  kmt->spin_unlock(OT);printf("CPU #%d unlocked\n",_cpu());
   return ret;
 }
 
 static void os_on_irq(int seq, int event, handler_t handler) {
-//  kmt->spin_lock((spinlock_t *)&OR);
   if(handle_head == NULL) {
 	  handle_head = (handle *)pmm->alloc(sizeof(handle));
 	  handle_head -> pre = NULL;
@@ -159,7 +159,6 @@ static void os_on_irq(int seq, int event, handler_t handler) {
 	  handle_head -> seq = seq;
 	  handle_head -> event = event;
 	  handle_head -> handler = handler;
-	  printf("%d\n",handle_head->seq);
   }
   else {
 	  handle *now = handle_head;
@@ -208,7 +207,6 @@ static void os_on_irq(int seq, int event, handler_t handler) {
 		  }
 	  }
   }
-//  kmt->spin_unlock((spinlock_t *)&OT);
 }
 
 MODULE_DEF(os) {
