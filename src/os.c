@@ -131,11 +131,10 @@ static void os_run() {
 }
 
 static _Context *os_trap(_Event ev, _Context *context) {
-  int label = 0;
-//  kmt->spin_lock((spinlock_t *)&OR);
-  if(!holding((spinlock_t *)&OT)){label = 1;
-  kmt->spin_lock((spinlock_t *)&OT);}
-//  kmt->spin_unlock((spinlock_t *)&OR);
+//  int label = 0;
+//  if(!holding((spinlock_t *)&OT)){label = 1;
+//  kmt->spin_lock((spinlock_t *)&OT);}
+
   _Context *ret = NULL;
   handle *now = handle_head;
   if(handle_head==NULL) printf("handle_head is NULL\n");
@@ -147,7 +146,7 @@ static _Context *os_trap(_Event ev, _Context *context) {
 	  now = now->suc;
   }
   if(label==1)
-  kmt->spin_unlock((spinlock_t *)&OT);
+//  kmt->spin_unlock((spinlock_t *)&OT);
   return ret;
 }
 
