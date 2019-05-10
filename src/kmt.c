@@ -151,13 +151,13 @@ _Context *kmt_context_switch(_Event ev, _Context *context) {
 	else {
 		if(osruntk[_cpu()] == 0) {
 			osruntk[_cpu()] = 1;
-			tasks[cur_rec] -> incpu = _cpu();
+//			tasks[cur_rec] -> incpu = _cpu();
 			current[_cpu()] = tasks[cur_rec];
 			sret = (_Context *)&(tasks[cur_rec] -> context);
 		}
 		else {
-	                tasks[current[_cpu()] -> tag] -> incpu = _cpu();
-	                tasks[cur_rec] -> incpu = _cpu();
+//	                tasks[current[_cpu()] -> tag] -> incpu = _cpu();
+//	                tasks[cur_rec] -> incpu = _cpu();
 	                current[_cpu()] = tasks[cur_rec];
 	                sret = (_Context *)&(current[_cpu()] -> context);
 
