@@ -26,6 +26,8 @@ void syr(void *name){
 	}
 }
 
+extern int holding(spinlock_t *lk);
+
 static void os_init() {
   pmm->init();
   handle_head = NULL;
