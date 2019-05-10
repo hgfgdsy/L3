@@ -145,7 +145,7 @@ static _Context *os_trap(_Event ev, _Context *context) {
 	  }
 	  now = now->suc;
   }
-  if(label==1)
+//  if(label==1)
 //  kmt->spin_unlock((spinlock_t *)&OT);
   return ret;
 }
