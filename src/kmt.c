@@ -134,7 +134,7 @@ void popcli() {
 		panic("popcli while If = 1\n");
 	if(--mycpu[_cpu()].ncli < 0)
 		panic("ncli less than 0\n");
-	if(mycpu[_cpu()].ncli == 0 && mycpu[_cpu()].INIF)
+	if(mycpu[_cpu()].ncli == 0 && mycpu[_cpu()].INIF != 0)
 		sti();
 }
 

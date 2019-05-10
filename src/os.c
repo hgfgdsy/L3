@@ -26,6 +26,8 @@ void syr(void *name){
 	}
 }
 
+int test = 0;
+
 static void os_init() {
   pmm->init();
   handle_head = NULL;
@@ -36,8 +38,8 @@ static void os_init() {
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test4",syr,"4");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test5",syr,"5");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test6",syr,"6");
-
-
+  printf("%d\n",_atomic_xchg(&test,1));
+  
 
 
 
@@ -63,7 +65,7 @@ static void os_run() {
   _intr_write(1);
 
   while(1){
-	  _yield();
+//	  _yield();
   }
 
 /*  while (1) {

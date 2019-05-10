@@ -34,7 +34,7 @@ typedef struct my_handle {
 
 typedef struct my_cpu {
 	int ncli;
-	int INIF;
+	unsigned int INIF;
 } MYCPU;
 
 task_t *current[8];
