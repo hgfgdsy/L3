@@ -52,10 +52,7 @@ _Context *kmt_context_save(_Event ev, _Context *context) {
 	return NULL;
 }
 
-_Context *kmt_context_switch(_Event ev, _Context *context) {	
-//	int label = 0;
-//  if(!holding(OT)){label = 1;
-//  kmt->spin_lock(OT);}
+_Context *kmt_context_switch(_Event ev, _Context *context) {
 
 	int cur_rec = -1;
 	if(osruntk[_cpu()] == 0) {
@@ -107,8 +104,6 @@ _Context *kmt_context_switch(_Event ev, _Context *context) {
 		}
 	}
 	return sret;
-//if(label==1)
-//  kmt->spin_unlock(OT);
 
 }	
 
