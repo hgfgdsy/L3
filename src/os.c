@@ -42,7 +42,7 @@ static void os_init() {
 //  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test5",syr,"5");
 //  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test6",syr,"6");
 
-  kmt->spin_init(OT,"locktrap");
+  kmt->spin_init((spinlock_t *)&OT,"locktrap");
 //  kmt->spin_init((spinlock_t *)&OR,"lockirq");
 //  os->on_irq(0,_EVENT_NULL,hello);
 /*  srand(uptime()+990);
@@ -131,7 +131,7 @@ static void os_run() {
 
 static _Context *os_trap(_Event ev, _Context *context) {
   int label = 0;
-  if(!holding(OT)){label = 1;
+  if(!holding((spinlock_t *)&OT)){label = 1;
   kmt->spin_lock((spinlock_t *)&OT);
   /*printf("CPU #%d locked\n",_cpu());*/}
 
