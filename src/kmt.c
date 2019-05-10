@@ -82,7 +82,7 @@ _Context *kmt_context_switch(_Event ev, _Context *context) {
 	}}
 	if(cur_rec == -1) {
 		if(osruntk[_cpu()] == 0) {
-			return (_Context *)&init_tasks[_cpu()];
+			return context;
 		}
 		else {
 			return (_Context *)&(current[_cpu()] -> context);
