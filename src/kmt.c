@@ -88,8 +88,9 @@ _Context *kmt_context_switch(_Event ev, _Context *context) {
 			sret = context;
 		}
 		else {
-
 			sret = (_Context *)&(current[_cpu()] -> context);
+			if(context != sret || context != (_Context *)&tasks[current[_cpu()]->tag]->context)
+				panic("keep\n");
 		}
 	}
 	else {
