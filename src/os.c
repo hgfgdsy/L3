@@ -43,7 +43,6 @@ static void os_init() {
 //  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test6",syr,"6");
 
   kmt->spin_init((spinlock_t *)&OT,"locktrap");
-  _halt(1);
 //  kmt->spin_init((spinlock_t *)&OR,"lockirq");
 //  os->on_irq(0,_EVENT_NULL,hello);
 /*  srand(uptime()+990);
@@ -145,6 +144,7 @@ static _Context *os_trap(_Event ev, _Context *context) {
 	  }
 	  now = now->suc;
   }
+  ret = context;
   if(label==1){
   kmt->spin_unlock((spinlock_t *)&OT);/*printf("CPU #%d unlocked\n",_cpu());*/}
   return ret;
