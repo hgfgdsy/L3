@@ -130,7 +130,7 @@ static void os_run() {
 
 static _Context *os_trap(_Event ev, _Context *context) {
   int label = 0;
-  if(OT->cpu != _cpu()){label = 1;
+  if(OT.cpu != _cpu()){label = 1;
   kmt->spin_lock((spinlock_t *)&OT);}
   _Context *ret = NULL;
   handle *now = handle_head;
