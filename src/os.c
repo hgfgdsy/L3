@@ -41,7 +41,7 @@ static void os_init() {
 //  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test6",syr,"6");
   
 
-
+_halt(1);
 
 
   kmt->spin_init(OT,"locktrap");
