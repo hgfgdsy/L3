@@ -32,7 +32,7 @@ static void os_init() {
   kmt->init();
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test1",syr,"1");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test2",syr,"2");
-//  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test2",syr,"3");
+  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test2",syr,"3");
 
 
 
@@ -127,7 +127,7 @@ static void os_run() {
 }
 
 static _Context *os_trap(_Event ev, _Context *context) {
-  kmt->spin_lock((spinlock_t *)&OT);
+//  kmt->spin_lock((spinlock_t *)&OT);
   _Context *ret = NULL;
   handle *now = handle_head;
   if(handle_head==NULL) printf("handle_head is NULL\n");
@@ -138,7 +138,7 @@ static _Context *os_trap(_Event ev, _Context *context) {
 	  }
 	  now = now->suc;
   }
-  kmt->spin_unlock((spinlock_t *)&OT);
+//  kmt->spin_unlock((spinlock_t *)&OT);
   return ret;
 }
 
