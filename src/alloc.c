@@ -127,7 +127,7 @@ void *Bigloc(size_t size) {
 	  pa -> tag = 1;
 	  pa -> kval = k - (--i);
   }
-  return (void *)((char *)pa+scale);
+  return (void *)((char *)pa+0x20);
 }
 
 void release(node *p) {
@@ -178,7 +178,7 @@ static void *kalloc(size_t size) {
   kmt->spin_lock((spinlock_t *)&heaplock);
   cntt++;
 //  printf("This is %d request\n",cntt);
-  temp = Bigloc((size_t)(size+scale));
+  temp = Bigloc((size_t)(size+0x20));
   kmt->spin_unlock((spinlock_t *)&heaplock);
   return temp;
 }
