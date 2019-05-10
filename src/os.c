@@ -22,6 +22,7 @@ void syr(void *name){
 	while(1){
 	char temp = *(char *)name;
 	_putc(temp);
+	printf("from CPU #%d\n",_cpu());
 	_yield();
 	}
 }
