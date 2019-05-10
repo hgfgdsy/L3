@@ -128,10 +128,18 @@ static void os_run() {
   }*/
 }
 
+int holding(spinlock_t *lk) {
+	int r;
+	pushcli();
+	r = lk -> locked && ((lk -> cpu) == _cpu());
+	popcli();
+	return r;
+}
+
 static _Context *os_trap(_Event ev, _Context *context) {
   int label = 0;
 //  kmt->spin_lock((spinlock_t *)&OR);
-  if(OT.cpu != _cpu()){label = 1;
+  if(!holding((spinloc_t *)&OT)){label = 1;
   kmt->spin_lock((spinlock_t *)&OT);}
 //  kmt->spin_unlock((spinlock_t *)&OR);
   _Context *ret = NULL;
