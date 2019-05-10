@@ -20,7 +20,8 @@ extern void panic(char *s);
 
 void syr(void *name){
 	while(1){
-	printf("%s",name);
+	char temp = *(char *)name;
+	_putc(temp);
 	_yield();
 	}
 }
@@ -29,9 +30,9 @@ static void os_init() {
   pmm->init();
   handle_head = NULL;
   kmt->init();
-  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test1",syr,"t1\n");
-  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test2",syr,"t2\n");
-  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test2",syr,"t3\n");
+  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test1",syr,"1");
+  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test2",syr,"2");
+  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test2",syr,"3");
 
 
 
