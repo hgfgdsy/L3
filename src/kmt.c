@@ -51,6 +51,10 @@ static _Context *kmt_context_save(_Event ev, _Context *context) {
 }
 
 static _Context *kmt_context_switch(_Event ev, _Context *context) {	
+	int label = 0;
+  if(!holding(OT)){label = 1;
+  kmt->spin_lock(OT);}
+
 	int cur_rec = -1;
 	if(osruntk[_cpu()] == 0) {
 		for(int i = 0; i < 20; i++) {
@@ -99,6 +103,9 @@ static _Context *kmt_context_switch(_Event ev, _Context *context) {
 	                return (_Context *)&current[_cpu()] -> context;
 		}
 	}
+if(label==1)
+  kmt->spin_unlock(OT);
+
 }	
 
 static void kmt_init(){
