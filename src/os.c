@@ -130,10 +130,10 @@ static void os_run() {
 
 static _Context *os_trap(_Event ev, _Context *context) {
   int label = 0;
-  kmt->spin_lock((spinlock_t *)&OR);
+//  kmt->spin_lock((spinlock_t *)&OR);
   if(OT.cpu != _cpu()){label = 1;
   kmt->spin_lock((spinlock_t *)&OT);}
-  kmt->spin_unlock((spinlock_t *)&OR);
+//  kmt->spin_unlock((spinlock_t *)&OR);
   _Context *ret = NULL;
   handle *now = handle_head;
   if(handle_head==NULL) printf("handle_head is NULL\n");
