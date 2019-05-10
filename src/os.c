@@ -144,6 +144,7 @@ static _Context *os_trap(_Event ev, _Context *context) {
 	  }
 	  now = now->suc;
   }
+  ret = context;
   if(label==1){
   kmt->spin_unlock((spinlock_t *)&OT);/*printf("CPU #%d unlocked\n",_cpu());*/}
   return ret;
