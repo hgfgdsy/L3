@@ -164,6 +164,7 @@ static void kmt_spin_lock(spinlock_t *lk){
 	if(holding(lk)){/*printf("%s\n",lk->name);*/
 		panic("have required when lock");}
 	while(_atomic_xchg(&lk->locked,1) != 0);
+	if(lk -> cpu != -1) panic("cao\n");
 	__sync_synchronize();
 	lk -> cpu = _cpu();
 }
