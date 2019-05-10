@@ -16,7 +16,7 @@ uintptr_t allmem;
 
 handle *handle_head;
 extern void panic(char *s);
-//spinlock_t OR;
+spinlock_t OR;
 
 void syr(void *name){
 	while(1){
@@ -42,7 +42,7 @@ static void os_init() {
 
 
   kmt->spin_init((spinlock_t *)&OT,"locktrap");
-//  kmt->spin_init((spinlock_t *)&OR,"lockirq");
+  kmt->spin_init((spinlock_t *)&OR,"lockirq");
 //  os->on_irq(0,_EVENT_NULL,hello);
 /*  srand(uptime()+990);
   allmem = 0;
@@ -130,8 +130,10 @@ static void os_run() {
 
 static _Context *os_trap(_Event ev, _Context *context) {
   int label = 0;
+  kmt->spin_lock((spinlock_t *)&OR);
   if(OT.cpu != _cpu()){label = 1;
   kmt->spin_lock((spinlock_t *)&OT);}
+  kmt->spin_unlock((spinlock_t *)&OR);
   _Context *ret = NULL;
   handle *now = handle_head;
   if(handle_head==NULL) printf("handle_head is NULL\n");
