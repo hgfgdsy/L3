@@ -43,8 +43,8 @@ static void os_init() {
 
 
 
-  kmt->spin_init((spinlock_t *)&OT,"locktrap");
-  kmt->spin_init((spinlock_t *)&OR,"lockirq");
+  kmt->spin_init(OT,"locktrap");
+//  kmt->spin_init((spinlock_t *)&OR,"lockirq");
 //  os->on_irq(0,_EVENT_NULL,hello);
 /*  srand(uptime()+990);
   allmem = 0;
@@ -131,9 +131,9 @@ static void os_run() {
 }
 
 static _Context *os_trap(_Event ev, _Context *context) {
-//  int label = 0;
-//  if(!holding((spinlock_t *)&OT)){label = 1;
-//  kmt->spin_lock((spinlock_t *)&OT);}
+  int label = 0;
+  if(!holding(OT)){label = 1;
+  kmt->spin_lock(OT);}
 
   _Context *ret = NULL;
   handle *now = handle_head;
@@ -145,8 +145,8 @@ static _Context *os_trap(_Event ev, _Context *context) {
 	  }
 	  now = now->suc;
   }
-//  if(label==1)
-//  kmt->spin_unlock((spinlock_t *)&OT);
+  if(label==1)
+  kmt->spin_unlock(OT);
   return ret;
 }
 

@@ -59,7 +59,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context) {
 				break;
 			}
 		}
-		printf("cur_rec = %d OT = %d\n",cur_rec,OT.cpu);
+//		printf("cur_rec = %d OT = %d\n",cur_rec,OT.cpu);
 	}
 	else {
 	for(int i = current[_cpu()] -> tag+1; i < 20; i++) {
@@ -89,7 +89,7 @@ static _Context *kmt_context_switch(_Event ev, _Context *context) {
 			osruntk[_cpu()] = 1;
 			tasks[cur_rec] -> incpu = _cpu();
 			current[_cpu()] = tasks[cur_rec];
-			printf("right here? %d %d\n",_cpu(),OT.cpu);
+//			printf("right here? %d %d\n",_cpu(),OT.cpu);
 			return (_Context *)&(tasks[cur_rec] -> context);
 		}
 		else {
@@ -144,6 +144,7 @@ static void kmt_teardown(task_t *task){
 
 
 static void kmt_spin_init(spinlock_t *lk,const char *name){
+	lk = (spinlock_t *)pmm->alloc(sizeof(spinlock_t));
 	lk->name = name;
 	lk->locked = 0;
 	lk->cpu = -1;
