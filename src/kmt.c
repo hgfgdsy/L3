@@ -140,11 +140,11 @@ _Context *kmt_context_switch(_Event ev, _Context *context) {
 	_Context *sret;
 	if(cur_rec == -1) {
 		if(osruntk[_cpu()] == 0) {
-			sret = context;
+			sret = (_Context *)&init_tasks[_cpu()];
 		}
 		else {
 			sret = (_Context *)&(current[_cpu()] -> context);
-			if(context != sret || context != (_Context *)&tasks[current[_cpu()]->tag]->context)
+			if(context != (_Context *)&tasks[current[_cpu()]->tag]->context)
 				panic("keep\n");
 		}
 	}
