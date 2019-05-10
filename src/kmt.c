@@ -55,7 +55,7 @@ _Context *kmt_context_save(_Event ev, _Context *context) {
 }
 
 _Context *kmt_context_switch(_Event ev, _Context *context) {
-
+/*
 	int cur_rec = -1;
 	if(osruntk[_cpu()] == 0) {
 		for(int i = 0; i < 20; i++) {
@@ -102,6 +102,61 @@ _Context *kmt_context_switch(_Event ev, _Context *context) {
 		}
 		else {
 	                tasks[current[_cpu()] -> tag] -> incpu = -1;
+	                tasks[cur_rec] -> incpu = _cpu();
+	                current[_cpu()] = tasks[cur_rec];
+	                sret = (_Context *)&(current[_cpu()] -> context);
+
+		}
+	}
+	if(cur_rec != -1 && (_Context *)&tasks[current[_cpu()]->tag]->context != sret) panic("beforeret\n");
+	return sret;
+*/
+	int cur_rec = -1;
+	if(osruntk[_cpu()] == 0) {
+		for(int i = 0; i < 20; i++) {
+			if(tagging[i] != -1 && tasks[i] -> incpu == -1) {
+				cur_rec = i;
+				break;
+			}
+		}
+	}
+	else {
+		if(current[_cpu()] != tasks[current[_cpu()]->tag])
+			panic("DIFFINT\n");
+	for(int i = current[_cpu()] -> tag+1; i < 20; i++) {
+		if(tagging[i] != -1 && (tasks[i] -> incpu == _cpu() || tasks[i] -> incpu == -1)) {
+			cur_rec = i;
+			break;
+		}
+	}
+	if(cur_rec == -1) {
+		for(int i = 0 ;i <= current[_cpu()]->tag-1; i++) {
+			if(tagging[i] != -1 && (tasks[i] -> incpu == _cpu() || tasks[i] -> incpu == -1)) {
+				cur_rec = i;
+				break;
+			}
+		}
+	}}
+	_Context *sret;
+	if(cur_rec == -1) {
+		if(osruntk[_cpu()] == 0) {
+			sret = context;
+		}
+		else {
+			sret = (_Context *)&(current[_cpu()] -> context);
+			if(context != sret || context != (_Context *)&tasks[current[_cpu()]->tag]->context)
+				panic("keep\n");
+		}
+	}
+	else {
+		if(osruntk[_cpu()] == 0) {
+			osruntk[_cpu()] = 1;
+			tasks[cur_rec] -> incpu = _cpu();
+			current[_cpu()] = tasks[cur_rec];
+			sret = (_Context *)&(tasks[cur_rec] -> context);
+		}
+		else {
+	                tasks[current[_cpu()] -> tag] -> incpu = _cpu();
 	                tasks[cur_rec] -> incpu = _cpu();
 	                current[_cpu()] = tasks[cur_rec];
 	                sret = (_Context *)&(current[_cpu()] -> context);
