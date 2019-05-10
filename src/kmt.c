@@ -181,6 +181,7 @@ _Context *kmt_context_switch(_Event ev, _Context *context) {
 
 static void kmt_init(){
 	CPUS = _ncpu();
+	printf("%d\n",CPUS);
 	for(int i=0;i<8;i++) { osruntk[i] = 0;}
 	os->on_irq(INT_MIN, _EVENT_NULL, kmt_context_save);
 	os->on_irq(INT_MAX, _EVENT_NULL, kmt_context_switch);
