@@ -24,7 +24,7 @@ void syr(void *name){
 	_putc(temp);
 	_putc('f');
 	_putc("01234567"[_cpu()]);
-	_putc("\n");
+	_putc('\n');
 	_yield();
 	}
 }
