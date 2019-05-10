@@ -21,7 +21,12 @@ struct spinlock {
 	int locked;
 	int cpu;
 };
-struct semaphore {};
+struct semaphore {
+	const char *name;
+	int count;
+	spinlock_t lock;
+	int tks[20];
+};
 
 typedef struct my_handle {
 	struct my_handle *pre;
