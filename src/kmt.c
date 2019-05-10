@@ -204,7 +204,7 @@ static int kmt_create(task_t *task, const char *name,
 	}
 	if(rec == -1) panic("too much pthreads\n");
 	tagging[rec] = rec;
-	task->incpu = -1;
+	task->incpu = rec%4;
 	task->tag = rec;
 	task->name = name;
 	tasks[rec] = task;
