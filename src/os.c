@@ -22,7 +22,9 @@ void syr(void *name){
 	while(1){
 	char temp = *(char *)name;
 	_putc(temp);
-	printf("from CPU #%d\n",_cpu());
+	_putc('f');
+	_putc("01234567"[_cpu()]);
+	_putc("\n");
 	_yield();
 	}
 }
@@ -132,7 +134,7 @@ static _Context *os_trap(_Event ev, _Context *context) {
   int label = 0;
   if(!holding(OT)){label = 1;
   kmt->spin_lock(OT);
-  printf("CPU #%d locked\n",_cpu());}
+  /*printf("CPU #%d locked\n",_cpu());*/}
 
   _Context *ret = NULL;
   handle *now = handle_head;
@@ -144,7 +146,7 @@ static _Context *os_trap(_Event ev, _Context *context) {
 	  now = now->suc;
   }
   if(label==1){
-  kmt->spin_unlock(OT);printf("CPU #%d unlocked\n",_cpu());}
+  kmt->spin_unlock(OT);/*printf("CPU #%d unlocked\n",_cpu());*/}
   return ret;
 }
 
