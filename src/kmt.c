@@ -306,7 +306,7 @@ static void kmt_spin_init(spinlock_t *lk,const char *name){
 
 static void kmt_spin_lock(spinlock_t *lk){
 	pushcli();
-	if(holding(lk)){/*printf("%s\n",lk->name);*/
+	if(holding(lk)){printf("%s\n",lk->name);
 		panic("have required when lock");}
 	while(_atomic_xchg(&lk->locked,1) != 0);
 	if(lk -> cpu != -1) panic("cao\n");
@@ -316,10 +316,9 @@ static void kmt_spin_lock(spinlock_t *lk){
 
 
 static void kmt_spin_unlock(spinlock_t *lk){
-	if(!holding(lk)) {/*printf("%s\n",lk->name);*/panic("not have when unlock");}
+	if(!holding(lk)) {printf("%s\n",lk->name);panic("not have when unlock");}
 	lk -> cpu = -1;
 	__sync_synchronize();
-//        _atomic_xchg(&lk->locked,0);
 	asm volatile("movl $0, %0" : "+m" (lk->locked) : );
 	popcli();
 }
