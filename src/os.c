@@ -65,7 +65,7 @@ static void os_init() {
   pmm->init();
   handle_head = NULL;
   kmt->init();
-//  kmt->sem_init(&openhl,"sem1",0);
+  kmt->sem_init(&openhl,"sem1",0);
   dev->init();
 /*  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test1",syr,"1");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test2",syr,"2");
@@ -89,8 +89,8 @@ static void os_init() {
   kmt->spin_init((spinlock_t *)&OT,"locktrap");
 
 
-//  kmt->create(pmm->alloc(sizeof(task_t)),"producer",left,"(");
-//  kmt->create(pmm->alloc(sizeof(task_t)),"consumer",right,")");
+  kmt->create(pmm->alloc(sizeof(task_t)),"producer",left,"(");
+  kmt->create(pmm->alloc(sizeof(task_t)),"consumer",right,")");
 
 
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty1");
