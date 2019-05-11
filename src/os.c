@@ -35,7 +35,7 @@ static void os_init() {
   pmm->init();
   handle_head = NULL;
   kmt->init();
-/*  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test1",syr,"1");
+  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test1",syr,"1");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test2",syr,"2");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test3",syr,"3");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test4",syr,"4");
@@ -51,7 +51,7 @@ static void os_init() {
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test14",syr,"14");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test15",syr,"15");
   kmt->spin_init((spinlock_t *)&OT,"locktrap");
-*/
+
 //  dev->init();
   
 //  kmt->spin_init((spinlock_t *)&OR,"lockirq");
