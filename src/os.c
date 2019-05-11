@@ -69,7 +69,6 @@ static void os_init() {
 
   kmt->spin_init((spinlock_t *)&OT,"locktrap");
 
-  dev->init();
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty1");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty2");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty3");
