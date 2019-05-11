@@ -366,7 +366,7 @@ static void kmt_sem_wait(sem_t *sem){
 static void kmt_sem_signal(sem_t *sem){
 	kmt->spin_lock((spinlock_t *)&sem->lock);
 	sem->count++;
-	if(sem->count < 0) {
+	if(sem->count <= 0) {
 		int max = 0;
 		int rec = -1;
 		for(int i=0;i<20;i++) {
