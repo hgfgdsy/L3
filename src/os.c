@@ -31,7 +31,7 @@ void syr(void *name){
 	}
 }
 
-sem_t openhl;
+//sem_t openhl;
 
 void left(void *s) {
 	while(1){
@@ -65,8 +65,8 @@ static void os_init() {
   pmm->init();
   handle_head = NULL;
   kmt->init();
-  kmt->sem_init(&openhl,"sem1",0);
-//  dev->init();
+//  kmt->sem_init(&openhl,"sem1",0);
+  dev->init();
 /*  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test1",syr,"1");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test2",syr,"2");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test3",syr,"3");
@@ -89,15 +89,15 @@ static void os_init() {
   kmt->spin_init((spinlock_t *)&OT,"locktrap");
 
 
-  kmt->create(pmm->alloc(sizeof(task_t)),"producer",left,"(");
-  kmt->create(pmm->alloc(sizeof(task_t)),"consumer",right,")");
+//  kmt->create(pmm->alloc(sizeof(task_t)),"producer",left,"(");
+//  kmt->create(pmm->alloc(sizeof(task_t)),"consumer",right,")");
 
-/*
+
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty1");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty2");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty3");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty4");
-*/
+
 
 
 //  kmt->spin_init((spinlock_t *)&OR,"lockirq");
