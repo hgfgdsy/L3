@@ -18,7 +18,7 @@ handle *handle_head;
 //extern void panic(char *s);
 spinlock_t OR;
 
-extern ssize_t tty_write(device_t *dev, off_t offset, const void *buf, size_t count);
+//extern ssize_t tty_write(device_t *dev, off_t offset, const void *buf, size_t count);
 
 void syr(void *name){
 	while(1){
