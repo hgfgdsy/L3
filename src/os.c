@@ -31,7 +31,7 @@ void syr(void *name){
 	}
 }
 
-//sem_t openhl;
+sem_t openhl;
 
 void left(void *s) {
 	while(1){
