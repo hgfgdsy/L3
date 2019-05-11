@@ -31,11 +31,24 @@ void syr(void *name){
 
 extern int holding(spinlock_t *lk);
 
+
+void echo_task(void *name) {
+  device_t *tty = dev_lookup(name);
+  while (1) {
+    char line[128], text[128];
+    sprintf(text, "(%s) $ ", name); tty_write(tty, text);
+    int nread = tty->ops->read(tty, 0, line, sizeof(line));
+    line[nread - 1] = '\0';
+    sprintf(text, "Echo: %s.\n", line); tty_write(tty, text);
+  }
+}
+
 static void os_init() {
   pmm->init();
   handle_head = NULL;
   kmt->init();
-  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test1",syr,"1");
+  dev->init();
+/*  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test1",syr,"1");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test2",syr,"2");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test3",syr,"3");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test4",syr,"4");
@@ -50,9 +63,17 @@ static void os_init() {
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test13",syr,"13");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test14",syr,"14");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test15",syr,"15");
+*/
+
+
+
   kmt->spin_init((spinlock_t *)&OT,"locktrap");
 
-//  dev->init();
+  dev->init();
+  kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty1");
+  kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty2");
+  kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty3");
+  kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty4");
   
 //  kmt->spin_init((spinlock_t *)&OR,"lockirq");
 //  os->on_irq(0,_EVENT_NULL,hello);
