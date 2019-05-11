@@ -33,17 +33,17 @@ void syr(void *name){
 
 sem_t openhl;
 
-void left(char *s) {
+void left(void *s) {
 	while(1){
-	_putc(*s);
+	_putc(*(char *)s);
 	kmt->sem_signal(&openhl);
 	}
 }
 
-void right(char *s) {
+void right(void *s) {
 	while(1) {
 		kmt->sem_wait(&openhl);
-		_putc(*s);
+		_putc(*(char *)s);
 	}
 }
 
