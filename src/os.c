@@ -15,7 +15,7 @@ uintptr_t allmem;
 */
 
 handle *handle_head;
-//extern void panic(char *s);
+
 spinlock_t OR;
 
 extern ssize_t tty_write(device_t *dev, off_t offset, const void *buf, size_t count);
@@ -28,6 +28,22 @@ void syr(void *name){
 	_putc("01234567"[_cpu()]);
 	_putc('\n');
 	_yield();
+	}
+}
+
+sem_t openhl;
+
+void left(char *s) {
+	while(1){
+	_putc(*s);
+	kmt->sem_signal(&openhl);
+	}
+}
+
+void right(char *s) {
+	while(1) {
+		kmt->sem_wait(&openhl);
+		_putc(*s);
 	}
 }
 
@@ -49,7 +65,8 @@ static void os_init() {
   pmm->init();
   handle_head = NULL;
   kmt->init();
-  dev->init();
+  kmt->sem_init(&openhl,"sem1",0);
+//  dev->init();
 /*  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test1",syr,"1");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test2",syr,"2");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test3",syr,"3");
@@ -72,15 +89,15 @@ static void os_init() {
   kmt->spin_init((spinlock_t *)&OT,"locktrap");
 
 
-//  kmt->create(pmm->alloc(sizeof(task_t)),"producer",left,"(");
-//  kmt->create(pmm->alloc(sizeof(task_t)),"consumer",right,")");
+  kmt->create(pmm->alloc(sizeof(task_t)),"producer",left,"(");
+  kmt->create(pmm->alloc(sizeof(task_t)),"consumer",right,")");
 
-
+/*
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty1");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty2");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty3");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty4");
-
+*/
 
 
 //  kmt->spin_init((spinlock_t *)&OR,"lockirq");
