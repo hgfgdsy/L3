@@ -89,8 +89,8 @@ static void os_init() {
   kmt->spin_init((spinlock_t *)&OT,"locktrap");
 
 
-  kmt->create(pmm->alloc(sizeof(task_t)),"producer",left,"(");
-  kmt->create(pmm->alloc(sizeof(task_t)),"consumer",right,")");
+//  kmt->create(pmm->alloc(sizeof(task_t)),"producer",left,"(");
+//  kmt->create(pmm->alloc(sizeof(task_t)),"consumer",right,")");
 
 
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty1");
@@ -98,7 +98,8 @@ static void os_init() {
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty3");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty4");
 
-
+  handle *now = handle_head;
+  while(now!=NULL) {printf("%d\n",now->seq); now = now->suc;}
 
 //  kmt->spin_init((spinlock_t *)&OR,"lockirq");
 //  os->on_irq(0,_EVENT_NULL,hello);
