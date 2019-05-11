@@ -370,7 +370,7 @@ static void kmt_sem_signal(sem_t *sem){
 		int max = 0;
 		int rec = -1;
 		for(int i=0;i<20;i++) {
-			if(sem->tks[i] > max) {
+			if(sem->tks[i] >= max) {
 				max = sem->tks[i];
 				rec = i;
 			}
