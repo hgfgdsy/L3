@@ -1,6 +1,6 @@
 #include <common.h>
 #include <klib.h>
-#include <devides.h>
+#include <devices.h>
 
 /*
 uintptr_t cha[500];
