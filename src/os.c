@@ -38,10 +38,10 @@ void echo_task(void *name) {
   device_t *tty = dev_lookup(name);
   while (1) {
     char line[128], text[128];
-    sprintf(text, "(%s) $ ", name); tty_write(tty, text);
+    sprintf(text, "(%s) $ ", name); tty_write(tty, 0, text ,strlen(name)+5);
     int nread = tty->ops->read(tty, 0, line, sizeof(line));
     line[nread - 1] = '\0';
-    sprintf(text, "Echo: %s.\n", line); tty_write(tty, text);
+    sprintf(text, "Echo: %s.\n", line); tty_write(tty, 0, text, strlen(line)+8);
   }
 }
 
@@ -71,11 +71,18 @@ static void os_init() {
 
   kmt->spin_init((spinlock_t *)&OT,"locktrap");
 
+
+//  kmt->create(pmm->alloc(sizeof(task_t)),"producer",left,"(");
+//  kmt->create(pmm->alloc(sizeof(task_t)),"consumer",right,")");
+
+
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty1");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty2");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty3");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty4");
-  
+
+
+
 //  kmt->spin_init((spinlock_t *)&OR,"lockirq");
 //  os->on_irq(0,_EVENT_NULL,hello);
 /*  srand(uptime()+990);
