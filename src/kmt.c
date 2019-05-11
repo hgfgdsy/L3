@@ -1,15 +1,16 @@
 #include <klib.h>
 #include <common.h>
+#include <devices.h>
 
 MYCPU mycpu[20];
 int CPUS;
 
-
+/*
 void panic(char *s){
 	printf("%s",s);
 	_halt(1);
 }
-
+*/
 void pushcli() {
 	int eflags;
 
