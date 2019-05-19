@@ -250,7 +250,6 @@ _Context *kmt_context_switch(_Event ev, _Context *context) {
 static void kmt_init(){
 	CPUS = _ncpu();
 	kmt->spin_init((spinlock_t *)&CT,"create tasks");
-	printf("%d\n",CPUS);
 	for(int i=0;i<8;i++) { osruntk[i] = 0; cpuisin[i] = -1;}
 	os->on_irq(INT_MIN, _EVENT_NULL, kmt_context_save);
 	os->on_irq(INT_MAX, _EVENT_NULL, kmt_context_switch);
@@ -332,7 +331,6 @@ static void kmt_sem_init(sem_t *sem, const char *name, int value){
 	sem->lock = *(spinlock_t *)pmm->alloc(sizeof(spinlock_t));
 	kmt->spin_init((spinlock_t *)&sem->lock,"semlock");
 	for(int i=0;i<20;i++) sem->tks[i] = -1;
-
 }
 
 
