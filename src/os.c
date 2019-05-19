@@ -68,8 +68,8 @@ static void os_init() {
   pmm->init();
   handle_head = NULL;
   kmt->init();
-  kmt->sem_init(&openhl,"sem1",0);
-  kmt->sem_init(&closehl,"sem2",1);
+/*  kmt->sem_init(&openhl,"sem1",0);
+  kmt->sem_init(&closehl,"sem2",1);*/
   dev->init();
 /*  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test1",syr,"1");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test2",syr,"2");
@@ -96,12 +96,12 @@ static void os_init() {
 //  kmt->create(pmm->alloc(sizeof(task_t)),"producer",left,"(");
 //  kmt->create(pmm->alloc(sizeof(task_t)),"consumer",right,")");
 
-
+/*
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty1");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty2");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty3");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty4");
-
+*/
 //  handle *now = handle_head;
 //  while(now!=NULL) {printf("%d\n",now->seq); now = now->suc;}
 
