@@ -38,13 +38,13 @@ static void pmm_init() {
   kmt->spin_init((spinlock_t *)&heaplock,"lock_alloc");
   pm_start = (uintptr_t)_heap.start;
   pm_end   = (uintptr_t)_heap.end;
-  printf("%x\n",pm_start);
+/*  printf("%x\n",pm_start);
   printf("%x\n",pm_end);
   if(pm_start > pm_end)
   printf("heap(up to down) = %x\n",pm_start - pm_end);
   else
   printf("heap(down to up) = %x\n",pm_end - pm_start);
-
+*/
   //init list
   uintptr_t space = pm_end - pm_start;
   my_start1 = pm_start;
