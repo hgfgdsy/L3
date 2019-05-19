@@ -19,7 +19,7 @@ handle *handle_head;
 spinlock_t OR;
 
 extern ssize_t tty_write(device_t *dev, off_t offset, const void *buf, size_t count);
-
+/*
 void syr(void *name){
 	while(1){
 	char temp = *(char *)name;
@@ -30,9 +30,6 @@ void syr(void *name){
 	_yield();
 	}
 }
-
-sem_t openhl;
-sem_t closehl;
 
 void left(void *s) {
 	while(1){
@@ -49,7 +46,7 @@ void right(void *s) {
 		kmt->sem_signal(&closehl);
 	}
 }
-
+*/
 extern int holding(spinlock_t *lk);
 
 
@@ -96,12 +93,12 @@ static void os_init() {
 //  kmt->create(pmm->alloc(sizeof(task_t)),"producer",left,"(");
 //  kmt->create(pmm->alloc(sizeof(task_t)),"consumer",right,")");
 
-/*
+
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty1");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty2");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty3");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty4");
-*/
+
 //  handle *now = handle_head;
 //  while(now!=NULL) {printf("%d\n",now->seq); now = now->suc;}
 
