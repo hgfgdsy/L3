@@ -93,12 +93,12 @@ static void os_init() {
 //  kmt->create(pmm->alloc(sizeof(task_t)),"producer",left,"(");
 //  kmt->create(pmm->alloc(sizeof(task_t)),"consumer",right,")");
 
-
+/*
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty1");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty2");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty3");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty4");
-
+*/
 //  handle *now = handle_head;
 //  while(now!=NULL) {printf("%d\n",now->seq); now = now->suc;}
 
