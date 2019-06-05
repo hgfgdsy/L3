@@ -117,7 +117,7 @@ struct inode {
 	void *ptr;
 	filesystem_t *fs;
 	inodeops_t *ops;
-}
+};
 
 
 #endif
