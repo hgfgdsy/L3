@@ -45,6 +45,12 @@ task_t *current[8];
 
 spinlock_t OT;
 
+
+
+
+typedef struct filesystem filesystem_t;
+
+
 typedef struct {
   void (*init)();
   int (*access)(const char *path, int mode);
@@ -85,7 +91,6 @@ struct filesystem{
   dev_t *dev;
 };
 
-typedef struct filesystem filesystem_t;
 
 
 typedef struct inodeops {
