@@ -62,4 +62,41 @@ typedef struct {
 } MODULE(vfs);
 
 
+typedef struct fsops {
+  void (*init)(struct filesystem *fs, const char *name, dev_t *dev);
+  inode_t *(*lookup)(struct filesystem *fs, const char *path, int flags);
+  int (*close)(inode_t *inode);
+} fsops_t;
+
+
+
+struct filesystem{
+  fsops_t *ops;
+  dev_t *dev;
+};
+
+typedef struct filesystem filesystem_t;
+
+
+typedef struct inodeops {
+  int (*open)(file_t *file, int flags);
+  int (*close)(file_t *file);
+  ssize_t (*read)(file_t *file, char *buf, size_t size);
+  ssize_t (*write)(file_t *file, const char *buf, size_t size);
+  off_t (*lseek)(file_t *file, off_t offset, int whence);
+  int (*mkdir)(const char *name);
+  int (*rmdir)(const char *name);
+  int (*link)(const char *name, inode_t *inode);
+  int (*unlink)(const char *name);
+  // 你可以自己设计readdir的功能
+} inodeops_t;
+
+struct inode {
+	int refcnt;
+	void *ptr;
+	filesystem_t *fs;
+	inodeops_t *ops;
+}
+
+
 #endif

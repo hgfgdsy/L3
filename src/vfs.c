@@ -64,7 +64,7 @@ off_t vfs_lseek(int fd, off_t offset, int whence){
 }
 
 
-int vff_close(int fd){
+int vfs_close(int fd){
 	return 0;
 }
 
