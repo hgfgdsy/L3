@@ -1,9 +1,9 @@
 #include <klib.h>
 #include <common.h>
-/*
+
 static void vfs_init(){
 }
-*/
+
 
 static int vfs_access(const char *path, int mode){
 	
@@ -68,7 +68,7 @@ static int vfs_close(int fd){
 
 
 MODULE_DEF(vfs){
-//	.init = vfs_init,
+	.init = vfs_init,
 	.access = vfs_access,
 	.mount = vfs_mount,
 	.unmount = vfs_unmount,

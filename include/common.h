@@ -45,14 +45,20 @@ task_t *current[8];
 
 spinlock_t OT;
 
-
+#define MODULE(name) \
+  mod_##name##_t; \
+  extern mod_##name##_t *name
+#define MODULE_DEF(name) \
+  extern mod_##name##_t __##name##_obj; \
+  mod_##name##_t *name = &__##name##_obj; \
+  mod_##name##_t __##name##_obj = 
 
 
 typedef struct filesystem filesystem_t;
 
 
 typedef struct {
-//  void (*init)();
+  void (*init)();
   int (*access)(const char *path, int mode);
   int (*mount)(const char *path, filesystem_t *fs);
   int (*unmount)(const char *path);
