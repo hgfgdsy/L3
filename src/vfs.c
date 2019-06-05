@@ -1,6 +1,5 @@
 #include <klib.h>
 #include <common.h>
-#include <devices.h>
 
 
 static void vfs_init(){
