@@ -2,9 +2,7 @@
 #include <common.h>
 
 
-static void vfs_init(){
-	int a = 1;
-	printf("%d\n",a);
+void vfs_init(){
 }
 
 
