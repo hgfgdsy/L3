@@ -69,6 +69,7 @@ struct file {
 	uint64_t offset;
 };
 
+typedef struct file file_t;
 
 
 typedef struct fsops {
