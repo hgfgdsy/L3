@@ -1,8 +1,7 @@
 #include <klib.h>
 #include <common.h>
 
-
-void vfs_init(){
+static void vfs_init(){
 }
 
 
