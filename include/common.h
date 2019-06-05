@@ -61,6 +61,15 @@ typedef struct {
   int (*close)(int fd);
 } MODULE(vfs);
 
+typedef struct inode inode_t;
+
+struct file {
+	int refcnt;
+	inode_t *inode;
+	uint64_t offset;
+};
+
+
 
 typedef struct fsops {
   void (*init)(struct filesystem *fs, const char *name, dev_t *dev);
