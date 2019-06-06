@@ -70,7 +70,7 @@ static void os_init() {
 /*  kmt->sem_init(&openhl,"sem1",0);
   kmt->sem_init(&closehl,"sem2",1);*/
   dev->init();
-  printf("%d\n",(intptr_t)&initrd_start - (intptr_t)&initrd_end);
+  printf("%x\n",-(intptr_t)&initrd_start + (intptr_t)&initrd_end);
 /*  kmt->create(pmm->alloc(sizeof(task_t)),"easy_test1",syr,"1");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test2",syr,"2");
   kmt->create(pmm->alloc(sizeof(task_t)),"easy_test3",syr,"3");
