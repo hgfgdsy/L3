@@ -16,7 +16,7 @@ struct task {
 	int incpu;
 	const char *name;
 	_Context context;
-
+	file_t *fildes[20];
 	char stack[4096];
 };
 
