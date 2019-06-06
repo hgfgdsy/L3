@@ -1,6 +1,6 @@
 #include <common.h>
 #include <klib.h>
-
+#include <device.h>
 
 int i_open(file_t file, int flags){
 	return 0;
