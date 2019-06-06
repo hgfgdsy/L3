@@ -1,5 +1,6 @@
 #include <klib.h>
 #include <common.h>
+#include <devides.h>
 
 extern f_init(struct filesystem *fs, const char *name, devide_t *dev);
 extern inode_t *f_lookup(struct filesystem *fs, const char *path, int flags);
