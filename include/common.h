@@ -8,11 +8,15 @@
 #define INT_MAX 2147483647
 #define INT_MIN (-INT_MAX - 1)
 
+typedef struct file file_t;
+
+
 struct task {
 	int tag;
 	int incpu;
 	const char *name;
 	_Context context;
+
 	char stack[4096];
 };
 
@@ -81,7 +85,6 @@ struct file {
 	uint64_t offset;
 };
 
-typedef struct file file_t;
 
 
 typedef struct fsops {
