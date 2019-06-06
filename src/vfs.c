@@ -2,6 +2,9 @@
 #include <common.h>
 
 static void vfs_init(){
+	ES->init = &f_init;
+	ES->lookup = &f_lookup;
+	ES->close = &f_close;
 
 }
 

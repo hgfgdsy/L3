@@ -122,5 +122,7 @@ struct inode {
 	inodeops_t *ops;
 };
 
+filesystem_t EXT2;
+fsops_t ES;
 
 #endif
