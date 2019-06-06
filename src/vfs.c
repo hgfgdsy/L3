@@ -2,7 +2,7 @@
 #include <common.h>
 #include <devices.h>
 
-extern f_init(struct filesystem *fs, const char *name, devide_t *dev);
+extern f_init(struct filesystem *fs, const char *name, device_t *dev);
 extern inode_t *f_lookup(struct filesystem *fs, const char *path, int flags);
 extern int f_close(inode_t *inode);
 
