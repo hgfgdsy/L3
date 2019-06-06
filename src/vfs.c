@@ -1,10 +1,15 @@
 #include <klib.h>
 #include <common.h>
 
+extern f_init(struct filesystem *fs, const char *name, devide_t *dev);
+extern inode_t *f_lookup(struct filesystem *fs, const char *path, int flags);
+extern int f_close(inode_t *inode);
+
+
 static void vfs_init(){
-	ES->init = &f_init;
-	ES->lookup = &f_lookup;
-	ES->close = &f_close;
+	ES.init = &f_init;
+	ES.lookup = &f_lookup;
+	ES.close = &f_close;
 
 }
 
