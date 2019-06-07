@@ -52,11 +52,11 @@ static void vfs_init(){
 	EXT2.dev->ops->write(EXT2.dev,0,c,1);
 	EXT2.dev->ops->write(EXT2.dev,MAP,(void *)&root,sizeof(root));
 	vfs->mkdir(&EXT2, "/", "abc");
-	printf("rts1 = %d\n",root.size);
+//	printf("rts1 = %d\n",root.size);
 	inode_t *temp = EXT2.ops->lookup(&EXT2,"/abc",0,0);
-	printf("rts2 = %d\n",root.size);
+//	printf("rts2 = %d\n",root.size);
 	printf("%d\n",temp->bid);
-	printf("rts3 = %d\n",root.size);
+//	printf("rts3 = %d\n",root.size);
 	vfs->mkdir(&EXT2, "/abc", "edf");
 
 	inode_t *temp1 = EXT2.ops->lookup(&EXT2,"/abc/edf",0,0);
@@ -118,9 +118,9 @@ static int vfs_mkdir(filesystem_t *fs, const char *path,const char *name){
 		printf("Invalid operation!\n");
 		return -1;
 	}
-	printf("hello\n");
+//	printf("hello\n");
 	inode_t *now = fs->ops->lookup(fs,path,0,0);
-	printf("hello\n");
+//	printf("hello\n");
 	if(now == NULL) {
 		printf("Invalid path3!\n");
 		return -1;

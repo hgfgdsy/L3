@@ -18,7 +18,7 @@ inode_t *f_lookup(struct filesystem *fs, const char *path, int flags, int from){
 		char data[1<<12];
 		int I;
 		int dlen = fs->dev->ops->read(fs->dev, D, (void *)data, root.size);
-		printf("dlen = %d, next_size = %d\n",dlen,root.size);
+//		printf("dlen = %d, next_size = %d\n",dlen,root.size);
 		inode_t *next;
 		next = (inode_t *)pmm->alloc(sizeof(inode_t));
 		memcpy(next,&root,sizeof(inode_t));
@@ -60,12 +60,12 @@ inode_t *f_lookup(struct filesystem *fs, const char *path, int flags, int from){
 		}
 		if(lcnt == 0) return next;
 		else{
-			printf("rts4 = %d\n",root.size);
+//			printf("rts4 = %d\n",root.size);
               		dir[lcnt] = '\0';
 			printf("%s\n",dir);
 			rec = 0;
 			int label = 0;
-			printf("%d\n",dlen);
+//			printf("%d\n",dlen);
 			while(rec < dlen){
 				I = *(int *)&data[rec];
 				if((int)data[rec+6] != lcnt || I == -1 || data[rec+7] == '1'){
