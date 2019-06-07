@@ -61,6 +61,7 @@ static void vfs_init(){
 	vfs->mkdir(&EXT2, "/abc", "vfsg");
 	vfs->mkdir(&EXT2, "/abc", "edfdff");
 	vfs->mkdir(&EXT2, "/abc", "vfsgsdf");
+	vfs->mkdir(&EXT2,"/abc/vfsgsdf","dsac");
 	inode_t *temp1 = EXT2.ops->lookup(&EXT2,"/abc/edf",0,0);
 	inode_t *temp2 = EXT2.ops->lookup(&EXT2,"/abc/vfsg",0,0);
 	inode_t *temp3 = EXT2.ops->lookup(&EXT2,"/abc/edfdff",0,0);
@@ -68,6 +69,12 @@ static void vfs_init(){
 
 //	inode_t *temp2 = EXT2.ops->lookup(&EXT2,"/abc/e",0,0);
 	printf("%d %d %d %d\n",temp1->bid,temp2->bid,temp3->bid,temp4->bid);
+
+	inode_t *temp7 = EXT2.ops->lookup(&EXT2,"/abc/edf/dsac",0,0);
+	inode_t *temp8 = EXT2.ops->lookup(&EXT2,"/abc/vfsgsdf/dsac",0,0);
+	printf("%d\n",temp7->bid);
+	if(temp8 == NULL) printf("cap\n");
+
 
 
 
