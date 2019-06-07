@@ -14,7 +14,7 @@ extern off_t i_lseek(file_t *file, off_t offset, int whence);
 extern int i_mkdir(const char *name);
 extern int i_rmdir(const char *name);
 extern int i_link(const char *name, inode_t *inode);
-extern i_unlink(const char *name);
+extern int i_unlink(const char *name);
 
 static void vfs_init(){
 	for(int i=0; i<10;i++) mnt[i] = NULL;
@@ -53,7 +53,7 @@ static int vfs_access(const char *path, int mode){
 static int vfs_mount(const char *path, filesystem_t *fs,char *name){
 	int i;
 	for(i=0; i<10; i++){
-		if(mnt[i] = NULL)
+		if(mnt[i] == NULL)
 			break;
 	}
 	mnt[i] = fs;
