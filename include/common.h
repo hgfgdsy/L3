@@ -146,7 +146,7 @@ struct tory{
 	char file_type;
 }
 
-typedef struct tory tory_t
+typedef struct tory tory_t;
 
 #define MAP (1<<12)
 #define D (1<<16)
