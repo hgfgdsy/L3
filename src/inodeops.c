@@ -104,7 +104,7 @@ int i_rmdir(inode_t *My, const char *name){
 			continue;
 		}
 		else{
-			if(strncmp(dir,&data[rec+8],lcnt) != 0){
+			if(strncmp(name,&data[rec+8],lcnt) != 0){
 			        rec += *(short *)&data[rec+4];
 			        continue;
 			}
