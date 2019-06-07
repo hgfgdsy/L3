@@ -39,6 +39,7 @@ static void vfs_init(){
 	root.bid = 0;
 	root.type = 1;
 	root.fs = &EXT2;
+	root.size = 0;
 	root.ops = &basic;
 
 
@@ -48,7 +49,7 @@ static void vfs_init(){
 
 	EXT2.dev->ops->write(EXT2.dev,0,c,1);
 	EXT2.dev->ops->write(EXT2.dev,MAP,(char *)&root,sizeof(root));
-	EXT2.ops->lookup(&EXT2,"/a",0,0);
+	EXT2.ops->lookup(EXT2,"/",0,0);
 
 
 
