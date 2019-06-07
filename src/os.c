@@ -91,6 +91,7 @@ static void os_init() {
 
 
   kmt->spin_init((spinlock_t *)&OT,"locktrap");
+  vfs->init();
 
 
 //  kmt->create(pmm->alloc(sizeof(task_t)),"producer",left,"(");
