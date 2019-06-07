@@ -27,14 +27,14 @@ inode_t *f_lookup(struct filesystem *fs, const char *path, int flags, int from){
 				rec = 0;
 				int label = 0;
 				while(rec < dlen){
-					I = *(int *)data[rec];
+					I = *(int *)&data[rec];
 					if((int)data[rec+6] != lcnt || I == -1 || data[rec+7] == '1'){
-						rec += *(short *)data[rec+4];
+						rec += *(short *)&data[rec+4];
 						continue;
 					}
 					else{
 						if(strncmp(dir,&data[rec+8],lcnt) != 0){
-						        rec += *(short *)data[rec+4];
+						        rec += *(short *)&data[rec+4];
 						        continue;
 						}
 						else{
@@ -60,14 +60,14 @@ inode_t *f_lookup(struct filesystem *fs, const char *path, int flags, int from){
 			rec = 0;
 			int label = 0;
 			while(rec < dlen){
-				I = *(int *)data[rec];
+				I = *(int *)&data[rec];
 				if((int)data[rec+6] != lcnt || I == -1 || data[rec+7] == '1'){
-					rec += *(short *)data[rec+4];
+					rec += *(short *)&data[rec+4];
 					continue;
 				}
 				else{
 					if(strncmp(dir,&data[rec+8],lcnt) != 0){
-					        rec += *(short *)data[rec+4];
+					        rec += *(short *)&data[rec+4];
 					        continue;
 					}
 					else{
