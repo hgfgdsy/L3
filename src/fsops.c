@@ -60,6 +60,7 @@ inode_t *f_lookup(struct filesystem *fs, const char *path, int flags, int from){
 		}
 		if(lcnt == 0) return next;
 		else{
+			printf("rts4 = %d\n",root.size);
               		dir[lcnt] = '\0';
 			printf("%s\n",dir);
 			rec = 0;
