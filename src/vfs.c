@@ -58,7 +58,9 @@ static void vfs_init(){
 	printf("%d\n",temp->bid);
 //	printf("rts3 = %d\n",root.size);
 	vfs->mkdir(&EXT2, "/abc", "edf");
-
+	vfs->mkdir(&EXT2, "/abc", "vfsg");
+	vfs->mkdir(&EXT2, "/abc", "edfdff");
+	vfs->mkdir(&EXT2, "/abc", "vfsgsdf");
 	inode_t *temp1 = EXT2.ops->lookup(&EXT2,"/abc/edf",0,0);
 	inode_t *temp2 = EXT2.ops->lookup(&EXT2,"/abc/e",0,0);
 	if(temp2 == NULL) printf("!!!\n");
