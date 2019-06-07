@@ -41,6 +41,7 @@ static void vfs_init(){
 	root.fs = &EXT2;
 	root.size = 0;
 	root.self = 0;
+	root.son = 0;
 	root.ptr = (void *)EXT2.dev;
 	root.ops = &basic;
 
@@ -145,7 +146,9 @@ static int vfs_mkdir(filesystem_t *fs, const char *path,const char *name){
 }
 
 
-static int vfs_rmdir(filesystem_t *fs, const char *path){
+static int vfs_rmdir(filesystem_t *fs, const char *path, const char *name){
+	inode_t *now = fs->ops->lookup(fs,path,0,0);
+	now->ops->rmdir(now,name);
 
 	return 0;
 }

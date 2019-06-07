@@ -57,8 +57,7 @@ int i_mkdir(inode_t *My, const char *name){
 	mi->ops->write(mi, MAP + (My->self)*64, (void *)My, sizeof(inode_t));
 	if(My->self == 0)
 		root.size = My->size;
-
-
+	My->son++;
 
 	inode_t new;
 	new.type = 1;
@@ -67,6 +66,7 @@ int i_mkdir(inode_t *My, const char *name){
 	new.self = k;
 	new.ptr = (void *)mi;
 	new.fs = My->fs;
+	new.son = 0;
 	new.ops = My->ops;
 	mi->ops->write(mi, MAP + 64*k, (void *)&new, sizeof(inode_t));
 
@@ -89,6 +89,53 @@ int i_mkdir(inode_t *My, const char *name){
 
 
 int i_rmdir(inode_t *My, const char *name){
+	device_t *mi = (device_t *)My->ptr;
+	char data[1<<12];
+	mi->ops->read(mi, D + (My->self)*(1<<12), (void *)data, (My->size));
+	int rec = 0;
+	int I;
+	int label = 0;
+	int lcnt = strlen(name);
+	tory_t ap;
+	while(rec < My->size){
+		I = *(int *)&data[rec];
+		if((int)data[rec+6] != lcnt || I == -1){
+			rec += *(short *)&data[rec+4];
+			continue;
+		}
+		else{
+			if(strncmp(dir,&data[rec+8],lcnt) != 0){
+			        rec += *(short *)&data[rec+4];
+			        continue;
+			}
+			else{
+				label = 1;
+				break;
+			}
+		}
+	}
+	if(label == 0){
+		printf("No such directory\n");
+		return -1;
+	}
+	else{
+		mi->ops->read(mi, D + (My->self)*(1<<12) + rec, (void *)&ap, (sizeof(ap)));
+		if(ap.I == -1){
+			printf("This directory has been deleted\n");
+			return -1;
+		}
+		inode_t ta;
+		mi->ops->read(mi, MAP + 64*ap.I, (void *)&ta, sizeof(ta));
+		if(ta.son != 0){
+			printf("It is not a empty directory\n");
+			return -1;
+		}
+		char c[1] = "0";
+		mi->ops->write(mi, 8*ap.I, (void *)c, 1);
+		ap.I = -1;
+		mi->ops->write(mi, D + (My->self)*(1<<12) + rec, (void *)&ap, (sizeof(ap)));
+		My->son--;
+	}
 	return 0;
 }
 

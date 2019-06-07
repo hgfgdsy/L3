@@ -67,7 +67,7 @@ typedef struct {
   int (*mount)(const char *path, filesystem_t *fs, char *name);
   int (*unmount)(const char *path);
   int (*mkdir)(filesystem_t *fs, const char *path, const char *name);
-  int (*rmdir)(filesystem_t *fs, const char *path);
+  int (*rmdir)(filesystem_t *fs, const char *path, const char *name);
   int (*link)(const char *oldpath, const char *newpath);
   int (*unlink)(const char *path);
   int (*open)(const char *path, int flags);
@@ -125,6 +125,7 @@ struct inode {
 	int bid;
 	int type;
 	int self;
+	int son;
 	filesystem_t *fs;
 	inodeops_t *ops;
 };
