@@ -3,7 +3,7 @@
 #include <devices.h>
 
 extern void f_init(struct filesystem *fs, const char *name, device_t *dev);
-extern inode_t *f_lookup(struct filesystem *fs, const char *path, int flags);
+extern inode_t *f_lookup(struct filesystem *fs, const char *path, int flags, int from);
 extern int f_close(inode_t *inode);
 
 extern int i_open(file_t *file, int flags);
@@ -19,7 +19,7 @@ extern int i_unlink(const char *name);
 static void vfs_init(){
 	for(int i=0; i<10;i++) mnt[i] = NULL;
 	ES.init = &f_init;
-	ES.lookup = (inode_t *)&f_lookup;
+	ES.lookup = &f_lookup;
 	ES.close = &f_close;
 	EXT2.ops = &ES;
 	EXT2.dev = dev_lookup("ramdisk1"); 
