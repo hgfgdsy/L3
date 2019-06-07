@@ -11,7 +11,7 @@ extern int i_close(file_t *file);
 extern ssize_t i_read(file_t *file, char *buf, size_t size);
 extern ssize_t i_write(file_t *file, const char *buf, size_t size);
 extern off_t i_lseek(file_t *file, off_t offset, int whence);
-extern int i_mkdir(const char *name);
+extern int i_mkdir(inode_t *My, const char *name);
 extern int i_rmdir(const char *name);
 extern int i_link(const char *name, inode_t *inode);
 extern int i_unlink(const char *name);
@@ -40,6 +40,8 @@ static void vfs_init(){
 	root.type = 1;
 	root.fs = &EXT2;
 	root.size = 0;
+	root.self = 0;
+	root.ptr = (void *)EXT2.dev;
 	root.ops = &basic;
 
 
@@ -49,8 +51,8 @@ static void vfs_init(){
 
 	EXT2.dev->ops->write(EXT2.dev,0,c,1);
 	EXT2.dev->ops->write(EXT2.dev,MAP,(char *)&root,sizeof(root));
-	inode_t *temp = EXT2.ops->lookup(&EXT2,"/",0,0);
-	printf("%d\n",temp->bid);
+//	inode_t *temp = EXT2.ops->lookup(&EXT2,"/",0,0);
+//	printf("%d\n",temp->bid);
 
 
 
@@ -101,7 +103,13 @@ static int vfs_unmount(const char *path){
 }
 
 
-static int vfs_mkdir(const char *path){
+static int vfs_mkdir(filesystem_t *fs, const char *path){
+	if(strcmp(fs->name,"blkfs") != 0){
+		printf("Invalid operation!\n");
+		return -1;
+	}
+	inode_t *now = fs->ops->lookup(fs,path,0,0);
+
 	return 0;
 }
 

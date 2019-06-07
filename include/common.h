@@ -66,7 +66,7 @@ typedef struct {
   int (*access)(const char *path, int mode);
   int (*mount)(const char *path, filesystem_t *fs, char *name);
   int (*unmount)(const char *path);
-  int (*mkdir)(const char *path);
+  int (*mkdir)(filesystem_t *fs, const char *path);
   int (*rmdir)(const char *path);
   int (*link)(const char *oldpath, const char *newpath);
   int (*unlink)(const char *path);
@@ -124,6 +124,7 @@ struct inode {
 	int bid;
 	int type;
 	int size;
+	int self;
 	filesystem_t *fs;
 	inodeops_t *ops;
 };
@@ -137,7 +138,17 @@ inodeops_t basic;
 
 inode_t root;
 
-#define MAP 1<<12
-#define D 1<<16
+
+struct tory{
+	int I;
+	short rec_len;
+	char name_len;
+	char file_type;
+}
+
+typedef struct tory tory_t
+
+#define MAP (1<<12)
+#define D (1<<16)
 
 #endif
