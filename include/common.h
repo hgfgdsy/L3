@@ -66,7 +66,7 @@ typedef struct {
   int (*access)(const char *path, int mode);
   int (*mount)(const char *path, filesystem_t *fs, char *name);
   int (*unmount)(const char *path);
-  int (*mkdir)(filesystem_t *fs, const char *path);
+  int (*mkdir)(filesystem_t *fs, const char *path, const char *name);
   int (*rmdir)(const char *path);
   int (*link)(const char *oldpath, const char *newpath);
   int (*unlink)(const char *path);
@@ -111,7 +111,7 @@ typedef struct inodeops {
   ssize_t (*read)(file_t *file, char *buf, size_t size);
   ssize_t (*write)(file_t *file, const char *buf, size_t size);
   off_t (*lseek)(file_t *file, off_t offset, int whence);
-  int (*mkdir)(const char *name);
+  int (*mkdir)(inode_t *My, const char *name);
   int (*rmdir)(const char *name);
   int (*link)(const char *name, inode_t *inode);
   int (*unlink)(const char *name);

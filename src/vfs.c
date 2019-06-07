@@ -103,13 +103,13 @@ static int vfs_unmount(const char *path){
 }
 
 
-static int vfs_mkdir(filesystem_t *fs, const char *path){
+static int vfs_mkdir(filesystem_t *fs, const char *path,const char *name){
 	if(strcmp(fs->name,"blkfs") != 0){
 		printf("Invalid operation!\n");
 		return -1;
 	}
 	inode_t *now = fs->ops->lookup(fs,path,0,0);
-
+	now->ops->mkdir(now, name);
 	return 0;
 }
 
