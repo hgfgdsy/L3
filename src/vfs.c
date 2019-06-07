@@ -69,6 +69,7 @@ static void vfs_init(){
 	inode_t *temp2 = EXT2.ops->lookup(&EXT2,"/abc/vfsg",0,0);
 	inode_t *temp3 = EXT2.ops->lookup(&EXT2,"/abc/edfdff",0,0);
 	inode_t *temp4 = EXT2.ops->lookup(&EXT2,"/abc/vfsgsdf",0,0);
+	vfs->mkdir(&EXT2,"/abc/edf","aaa");
 
 //	inode_t *temp2 = EXT2.ops->lookup(&EXT2,"/abc/e",0,0);
 	printf("%d %d %d %d\n",temp1->bid,temp2->bid,temp3->bid,temp4->bid);
