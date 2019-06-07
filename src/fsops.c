@@ -51,7 +51,7 @@ inode_t *f_lookup(struct filesystem *fs, const char *path, int flags, int from){
 					lcnt = 0;
 				}
 				else {
-					printf("Invalid path!\n");
+					printf("Invalid path1!\n");
 					return NULL;
 				}
 			}
@@ -84,7 +84,7 @@ inode_t *f_lookup(struct filesystem *fs, const char *path, int flags, int from){
 				return next;
 			}
 			else{
-				printf("Invalid path!\n");
+				printf("Invalid path2!\n");
 				return NULL;
 			}
 		}
