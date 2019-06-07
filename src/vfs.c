@@ -116,7 +116,7 @@ static int vfs_mkdir(filesystem_t *fs, const char *path,const char *name){
 		return -1;
 	}
 	printf("hello\n");
-	inode_t *now = fs->ops->lookup(fs,path,0,0);
+	inode_t *now = fs->ops->lookup(fs,"/abc",0,0);
 	printf("hello\n");
 	now->ops->mkdir(now, name);
 	return 0;
