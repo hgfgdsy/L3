@@ -33,7 +33,7 @@ off_t i_lseek(file_t *file, off_t offset, int whence){
 
 
 int i_mkdir(inode_t *My, const char *name){
-	devide_t *mi = (devide_t *)My->ptr;
+	device_t *mi = (devide_t *)My->ptr;
 	int nlen = strlen(name);
 	char omit[1];
 	int k;
@@ -50,7 +50,7 @@ int i_mkdir(inode_t *My, const char *name){
 	ap.I = k;
 	ap.rec_len = nlen + 9;
 	ap.file_type = 1;
-	ap.namelen = nlen+1;
+	ap.name_len = nlen;
 	mi->ops->write(mi, D + (My->bid)*(1<<12) + My->size,(void *)&ap,sizeof(ap));
 	mi->ops->write(mi, D + (My->bid)*(1<<12) + My->size + sizeof(ap),dname,nlen+1);
 	My -> size += ap.rec_len;
