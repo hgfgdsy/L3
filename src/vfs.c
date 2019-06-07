@@ -19,7 +19,7 @@ extern int i_unlink(const char *name);
 static void vfs_init(){
 	for(int i=0; i<10;i++) mnt[i] = NULL;
 	ES.init = &f_init;
-	ES.lookup = &f_lookup;
+	ES.lookup = (inode_t *)&f_lookup;
 	ES.close = &f_close;
 	EXT2.ops = &ES;
 	EXT2.dev = dev_lookup("ramdisk1"); 
