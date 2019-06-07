@@ -33,7 +33,7 @@ off_t i_lseek(file_t *file, off_t offset, int whence){
 
 
 int i_mkdir(inode_t *My, const char *name){
-	device_t *mi = (devide_t *)My->ptr;
+	device_t *mi = (device_t *)My->ptr;
 	int nlen = strlen(name);
 	char omit[1];
 	int k;
