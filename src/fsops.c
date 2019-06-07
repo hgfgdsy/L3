@@ -21,7 +21,7 @@ inode_t *f_lookup(struct filesystem *fs, const char *path, int flags, int from){
 		printf("dlen = %d, next_size = %d\n",dlen,root.size);
 		inode_t *next;
 		next = (inode_t *)pmm->alloc(sizeof(inode_t));
-		next = &root;
+		memcpy(next,&root,sizeof(inode_t));
 		for(int i = 1; i < len; i++){
 			if(*(path+i) != '/')
 				dir[lcnt++] = *(path+i);
