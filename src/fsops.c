@@ -48,10 +48,7 @@ inode_t *f_lookup(struct filesystem *fs, const char *path, int flags, int from){
 				if(label == 1){
 					fs->dev->ops->read(fs->dev,(MAP)+(I*64),(void *)next,sizeof(inode_t));
 					dlen = fs->dev->ops->read(fs->dev,(D)+((next->bid)*(1<<12)),(void *)data,next->size);
-					if(dlen != next->size){
-						printf("occur\n");
-						while(1);
-					}
+					printf("dlen = %d, next_size = %d\n",dlen,next->size);
 					lcnt = 0;
 				}
 				else {
