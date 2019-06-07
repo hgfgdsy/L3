@@ -30,7 +30,7 @@ inode_t *f_lookup(struct filesystem *fs, const char *path, int flags, int from){
 				int label = 0;
 				while(rec < dlen){
 					I = *(int *)&data[rec];
-					if((int)data[rec+6] != lcnt || I == -1 || data[rec+7] == '1'){
+					if((int)data[rec+6] != lcnt || I == -1){
 						rec += *(short *)&data[rec+4];
 						continue;
 					}
