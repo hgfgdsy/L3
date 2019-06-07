@@ -112,7 +112,7 @@ typedef struct inodeops {
   ssize_t (*write)(file_t *file, const char *buf, size_t size);
   off_t (*lseek)(file_t *file, off_t offset, int whence);
   int (*mkdir)(inode_t *My, const char *name);
-  int (*rmdir)(const char *name);
+  int (*rmdir)(inode_t *My, const char *name);
   int (*link)(const char *name, inode_t *inode);
   int (*unlink)(const char *name);
   // 你可以自己设计readdir的功能

@@ -62,7 +62,7 @@ int i_mkdir(inode_t *My, const char *name){
 
 	inode_t new;
 	new.type = 1;
-	new.size = 0;
+	new.size = 11;
 	new.bid = k;
 	new.self = k;
 	new.ptr = (void *)mi;
@@ -70,13 +70,25 @@ int i_mkdir(inode_t *My, const char *name){
 	new.ops = My->ops;
 	mi->ops->write(mi, MAP + 64*k, (void *)&new, sizeof(inode_t));
 
+	tory_t ddot;
+	ddot.I = My->self;
+	ddot.rec_len = 11;
+	ddot.file_type = 1;
+	ddot.name_len = 2;
+	dname[0] ='.';
+	dname[1] ='.';
+	dname[2] ='\0';
+	mi->ops->write(mi, D + k*(1<<12),(void *)&ddot,sizeof(ddot));
+	mi->ops->write(mi, D + k*(1<<12)+ sizeof(ddot),dname,2+1);
+
+
 
 	return 0;
 }
 
 
 
-int i_rmdir(const char *name){
+int i_rmdir(inode_t *My, const char *name){
 	return 0;
 }
 
