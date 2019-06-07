@@ -17,6 +17,16 @@ extern int i_link(const char *name, inode_t *inode);
 extern int i_unlink(const char *name);
 
 static void vfs_init(){
+	basic.open = &i_open;
+	basic.close = &i_close;
+	basic.read = &i_read;
+	basic.write = &i_write;
+	basic.lseek = &i_lseek;
+	basic.mkdir = &i_mkdir;
+	basic.rmdir = &i_rmdir;
+	basic.link = &i_link;
+	basic.unlink = &i_unlink;
+
 	for(int i=0; i<10;i++) mnt[i] = NULL;
 	ES.init = &f_init;
 	ES.lookup = &f_lookup;
@@ -27,8 +37,10 @@ static void vfs_init(){
 	inode_t root;
 	root.refcnt = 0;
 	root.ptr = NULL;
-	root.bid = 1;
+	root.bid = 0;
 	root.type = 1;
+	root.fs = &EXT2;
+	root.ops = &basic;
 
 
 	vfs->mount("/",&EXT2,"blkfs");
