@@ -119,11 +119,11 @@ typedef struct inodeops {
 } inodeops_t;
 
 struct inode {
+	int size;
 	int refcnt;
 	void *ptr;
 	int bid;
 	int type;
-	int size;
 	int self;
 	filesystem_t *fs;
 	inodeops_t *ops;
