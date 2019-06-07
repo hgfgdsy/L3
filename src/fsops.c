@@ -59,6 +59,7 @@ inode_t *f_lookup(struct filesystem *fs, const char *path, int flags, int from){
 		if(lcnt == 0) return next;
 		else{
               		dir[lcnt] = '\0';
+			printf("%s\n",dir);
 			rec = 0;
 			int label = 0;
 			while(rec < dlen){
