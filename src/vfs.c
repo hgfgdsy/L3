@@ -34,7 +34,6 @@ static void vfs_init(){
 	EXT2.ops = &ES;
 	EXT2.dev = dev_lookup("ramdisk1"); 
 
-	inode_t root;
 	root.refcnt = 0;
 	root.ptr = NULL;
 	root.bid = 0;
@@ -48,8 +47,7 @@ static void vfs_init(){
 	char c[1] = "1";
 
 	EXT2.dev->ops->write(EXT2.dev,0,c,1);
-	EXT2.dev->ops->write(EXT2.dev,1<<12,c,1);
-	EXT2.dev->ops->write(EXT2.dev,2<<12,(char *)&root,sizeof(root));
+	EXT2.dev->ops->write(EXT2.dev,MAP,(char *)&root,sizeof(root));
 
 
 

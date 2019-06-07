@@ -123,6 +123,7 @@ struct inode {
 	void *ptr;
 	int bid;
 	int type;
+	int size;
 	filesystem_t *fs;
 	inodeops_t *ops;
 };
@@ -133,5 +134,10 @@ fsops_t ES;
 filesystem_t *mnt[10];
 
 inodeops_t basic;
+
+inode_t root;
+
+#define MAP 1<<12
+#define D 1<<16
 
 #endif
