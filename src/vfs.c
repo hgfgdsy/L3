@@ -49,7 +49,8 @@ static void vfs_init(){
 
 	EXT2.dev->ops->write(EXT2.dev,0,c,1);
 	EXT2.dev->ops->write(EXT2.dev,MAP,(char *)&root,sizeof(root));
-	EXT2.ops->lookup(EXT2,"/",0,0);
+	inode_t *temp = EXT2.ops->lookup(&EXT2,"/",0,0);
+	printf("%d\n",temp->bid);
 
 
 
