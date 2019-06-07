@@ -96,6 +96,8 @@ typedef struct fsops {
 
 
 struct filesystem{
+  char mounton[50];
+  char name[50];
   fsops_t *ops;
   device_t *dev;
 };
@@ -118,11 +120,17 @@ typedef struct inodeops {
 struct inode {
 	int refcnt;
 	void *ptr;
+	int bid;
+	int type;
 	filesystem_t *fs;
 	inodeops_t *ops;
 };
 
 filesystem_t EXT2;
 fsops_t ES;
+
+filesystem_t *mnt[10];
+
+inodeops_t basic;
 
 #endif

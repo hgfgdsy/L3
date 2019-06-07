@@ -2,7 +2,7 @@
 #include <klib.h>
 #include <devices.h>
 
-int i_open(file_t file, int flags){
+int i_open(file_t *file, int flags){
 	return 0;
 }
 

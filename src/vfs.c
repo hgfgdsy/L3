@@ -6,12 +6,41 @@ extern void f_init(struct filesystem *fs, const char *name, device_t *dev);
 extern inode_t *f_lookup(struct filesystem *fs, const char *path, int flags);
 extern int f_close(inode_t *inode);
 
+extern int i_open(file_t *file, int flags);
+extern int i_close(file_t *file);
+extern ssize_t i_read(file_t *file, char *buf, size_t size);
+extern ssize_t i_write(file_t *file, const char *buf, size_t size);
+extern off_t i_lseek(file_t *file, off_t offset, int whence);
+extern int i_mkdir(const char *name);
+extern int i_rmdir(const char *name);
+extern int i_link(const char *name, inode_t *inode);
+extern i_unlink(const char *name);
 
 static void vfs_init(){
+	for(int i=0; i<10;i++) mnt[i] = NULL;
 	ES.init = &f_init;
 	ES.lookup = &f_lookup;
 	ES.close = &f_close;
 	EXT2.ops = &ES;
+	EXT2.dev = dev_lookup("ramdisk1"); 
+
+	inode_t root;
+	root.refcnt = 0;
+	root.ptr = NULL;
+	root.bid = 1;
+	root.type = 1;
+
+
+	vfs->mount("/",&EXT2,"blkfs");
+
+	char c[1] = '1';
+
+	EXT2.dev->ops->write(EXT2.dev,0,c,1);
+	EXT2.dev->ops->write(EXT2.dev,1<<12,c,1);
+	EXT2.dev->ops->write(EXT2.dev,2<<12,)
+
+
+
 }
 
 
@@ -21,13 +50,41 @@ static int vfs_access(const char *path, int mode){
 }
 
 
-static int vfs_mount(const char *path, filesystem_t *fs){
+static int vfs_mount(const char *path, filesystem_t *fs,char *name){
+	int i;
+	for(i=0; i<10; i++){
+		if(mnt[i] = NULL)
+			break;
+	}
+	mnt[i] = fs;
+
+	strcpy(fs->name,name);
+	fs->mounted = 1;
+
+	strcpy(fs->mounton, path);
+	
 	return 0;
 }
 
 
 static int vfs_unmount(const char *path){
-	return 0;
+	for(int i=0;i<10;i++){
+		if(mnt[i]!=NULL){
+			if(strcmp(path,mnt->mounton) == 0){
+				if(mnt->mounted == 0){
+					printf("This filesystem has been unmounted!\n");
+					return -1;
+				}
+				else{
+					mnt->mounted = 0;
+					return 0;
+				}
+			}
+		}
+		else break;
+	}
+	printf("No such filesystem under this path!\n");
+	return -1;
 }
 
 

@@ -32,7 +32,7 @@ typedef struct {
 
 // RAM disk
 // -------------------------------------------------------------------
-
+#define BK_SIZE (4 << 10)
 #define RD_SIZE (4 << 20)
 
 typedef struct {
