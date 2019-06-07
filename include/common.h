@@ -98,6 +98,7 @@ typedef struct fsops {
 struct filesystem{
   char mounton[50];
   char name[50];
+  int mounted;
   fsops_t *ops;
   device_t *dev;
 };

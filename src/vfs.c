@@ -33,11 +33,11 @@ static void vfs_init(){
 
 	vfs->mount("/",&EXT2,"blkfs");
 
-	char c[1] = '1';
+	char c[1] = "1";
 
 	EXT2.dev->ops->write(EXT2.dev,0,c,1);
 	EXT2.dev->ops->write(EXT2.dev,1<<12,c,1);
-	EXT2.dev->ops->write(EXT2.dev,2<<12,)
+	EXT2.dev->ops->write(EXT2.dev,2<<12,(char *)&root,sizeof(root));
 
 
 
@@ -70,13 +70,13 @@ static int vfs_mount(const char *path, filesystem_t *fs,char *name){
 static int vfs_unmount(const char *path){
 	for(int i=0;i<10;i++){
 		if(mnt[i]!=NULL){
-			if(strcmp(path,mnt->mounton) == 0){
-				if(mnt->mounted == 0){
+			if(strcmp(path,mnt[i]->mounton) == 0){
+				if(mnt[i]->mounted == 0){
 					printf("This filesystem has been unmounted!\n");
 					return -1;
 				}
 				else{
-					mnt->mounted = 0;
+					mnt[i]->mounted = 0;
 					return 0;
 				}
 			}
