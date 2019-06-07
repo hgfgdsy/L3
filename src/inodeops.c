@@ -54,10 +54,10 @@ int i_mkdir(inode_t *My, const char *name){
 	mi->ops->write(mi, D + (My->bid)*(1<<12) + My->size,(void *)&ap,sizeof(ap));
 	mi->ops->write(mi, D + (My->bid)*(1<<12) + My->size + sizeof(ap),dname,nlen+1);
 	My -> size += ap.rec_len;
+	My->son++;
 	mi->ops->write(mi, MAP + (My->self)*64, (void *)My, sizeof(inode_t));
 	if(My->self == 0)
 		root.size = My->size;
-	My->son++;
 
 	inode_t new;
 	new.type = 1;
