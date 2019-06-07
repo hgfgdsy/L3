@@ -45,7 +45,7 @@ inode_t *f_lookup(struct filesystem *fs, const char *path, int flags, int from){
 				}
 				if(label == 1){
 					fs->dev->ops->read(fs->dev,MAP+I*64,(void *)&next,sizeof(next));
-					dlen = fs->dev->ops->read(fs->dev,D+next.bid*(1<<12),(void *)data,next.size);
+					dlen = fs->dev->ops->read(fs->dev,D+((next.bid)*(1<<12)),(void *)data,next.size);
 					lcnt = 0;
 				}
 				else {
@@ -78,7 +78,7 @@ inode_t *f_lookup(struct filesystem *fs, const char *path, int flags, int from){
 			}
 			if(label == 1){
 				fs->dev->ops->read(fs->dev,MAP+I*64,(void *)&next,sizeof(next));
-				dlen = fs->dev->ops->read(fs->dev,D+next.bid*(1<<12),(void *)data,next.size);
+				dlen = fs->dev->ops->read(fs->dev,D+(next.bid*(1<<12)),(void *)data,next.size);
 				return &next;
 			}
 			else{
