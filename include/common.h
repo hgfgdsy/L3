@@ -64,7 +64,7 @@ typedef struct filesystem filesystem_t;
 typedef struct {
   void (*init)();
   int (*access)(const char *path, int mode);
-  int (*mount)(const char *path, filesystem_t *fs);
+  int (*mount)(const char *path, filesystem_t *fs, char *name);
   int (*unmount)(const char *path);
   int (*mkdir)(const char *path);
   int (*rmdir)(const char *path);
@@ -89,7 +89,7 @@ struct file {
 
 typedef struct fsops {
   void (*init)(struct filesystem *fs, const char *name, device_t *dev);
-  inode_t *(*lookup)(struct filesystem *fs, const char *path, int flags);
+  inode_t *(*lookup)(struct filesystem *fs, const char *path, int flags, int from);
   int (*close)(inode_t *inode);
 } fsops_t;
 
