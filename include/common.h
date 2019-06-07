@@ -144,7 +144,7 @@ struct tory{
 	short rec_len;
 	char name_len;
 	char file_type;
-}
+};
 
 typedef struct tory tory_t;
 
