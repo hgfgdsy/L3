@@ -179,7 +179,7 @@ static void *kalloc(size_t size) {
   cntt++;
 //  printf("This is %d request\n",cntt);
   temp = Bigloc((size_t)(size+0x20));
-  memset(temp,0.size);
+  memset(temp,0,size);
   kmt->spin_unlock((spinlock_t *)&heaplock);
   return temp;
 }
