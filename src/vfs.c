@@ -52,8 +52,8 @@ static void vfs_init(){
 	EXT2.dev->ops->write(EXT2.dev,0,c,1);
 	EXT2.dev->ops->write(EXT2.dev,MAP,(char *)&root,sizeof(root));
 	vfs->mkdir(&EXT2, "/", "abc");
-	inode_t *temp = EXT2.ops->lookup(&EXT2,"/abc",0,0);
-	printf("%d\n",temp->bid);
+//	inode_t *temp = EXT2.ops->lookup(&EXT2,"/abc",0,0);
+//	printf("%d\n",temp->bid);
 /*	vfs->mkdir(&EXT2, "/abc", "edf");
 
 	inode_t *temp1 = EXT2.ops->lookup(&EXT2,"/abc/edf",0,0);
