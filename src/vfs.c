@@ -90,8 +90,8 @@ static void vfs_init(){
 	else{
 		printf("%d %d %d\n",temp9->self,temp10->self,temp10->refcnt);
 	}
-	vfs->unlink("/abc/b.c");
-	inode_t *temp11 = EXT2.ops->lookup(&EXT2, "/abc/edf/a.c",0,0);
+	vfs->unlink("/abc/edf/a.c");
+	inode_t *temp11 = EXT2.ops->lookup(&EXT2, "/abc/b.c",0,0);
 	if(temp11 == NULL) printf("yes\n");
 
 
