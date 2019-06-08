@@ -391,9 +391,9 @@ static off_t vfs_lseek(int fd, off_t offset, int whence){
 static int vfs_close(int fd){
 	int rec = cpuisin[_cpu()];
 	file_t *temp = tasks[rec]->fildes[fd];
-	now = temp->inode;
+	inode_t *now = temp->inode;
 	tasks[rec]->fildes[fd] = NULL;
-	if(fp->type == 1)
+	if(temp->type == 1)
 	now->ops->close(temp);
 	return 0;
 }
