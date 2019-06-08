@@ -126,6 +126,8 @@ static int vfs_cd(const char *left,char *path, int sto){
 	}
 	strcpy(lu,path);
 	strcpy(&lu[tlen],left+i);
+	int olen = strlen(lu);
+	lu[olen-2] = '\0';
 //	printf("C = %c\n",lu[1]);
 //	printf("%s\n",lu);
 	filesystem_t *fs = &EXT2;
@@ -144,8 +146,6 @@ static int vfs_cd(const char *left,char *path, int sto){
 		return 0;
 	}
 	strcpy(path,lu);
-	int olen = strlen(lu);
-	path[olen] = '\0';
 	return 0;
 }
 
