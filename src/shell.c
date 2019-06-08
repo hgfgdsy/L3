@@ -8,14 +8,15 @@ void shell_thread(void *ttyid) {
 	strncpy(buf,"/dev/tty",8);
 	buf[8] = '0' + tty_id;
 	buf[9] = '\0';
-	printf(":::  H  :::\n");
+//	printf(":::  H  :::\n");
 	int stdin = vfs->open(buf,O_RDONLY);
-	printf(":::  H  :::\n");
+//	printf(":::  H  :::\n");
 //	int stdout = vfs->open(buf,O_WRONLY);
 	char name[5];
 	strncpy(name,&buf[4],4);
 	name[4] = '\0';
 	device_t *tty = dev_lookup(name);
+	printf("HHH\n");
 	char text[1024];
 	char line[1024];
 	int nread=0;
