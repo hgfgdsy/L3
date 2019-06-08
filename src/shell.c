@@ -25,7 +25,6 @@ void shell_thread(void *ttyid) {
 		if(nread != 0){
 			if(line[nread-1] == '\n'){
 			        line[nread] = '\0';
-//			        vfs->write(stdout, line, strlen(line));
 				char cmd[50];
 				int lcnt=0;
 				for(int i=0;i<nread;i++){
@@ -41,9 +40,7 @@ void shell_thread(void *ttyid) {
 		}
 		else{
 			sprintf(text,"(%s) $ ",name);
-//			printf(":::\n");
-			tty_write(tty, 0, text, strlen(name)+5);
-//			printf("::::\n");
+			vfs->write(stdout, text, strlen(name)+5);
 			vfs->write(stdout, path, strlen(path));
 			nread = vfs->read(stdin, line, sizeof(line));
 		}
