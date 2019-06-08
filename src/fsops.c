@@ -3,7 +3,7 @@
 #include <devices.h>
 
 
-int cref(inode_t *My, const char *name){
+inode_t *cref(inode_t *My, const char *name){
 	device_t *mi = (device_t *)My->ptr;
 	int nlen = strlen(name);
 	char omit[1];
@@ -30,15 +30,15 @@ int cref(inode_t *My, const char *name){
 	if(My->self == 0)
 		root.size = My->size;
 
-	inode_t new;
-	new.type = 1;
-	new.size = 11;
-	new.bid = k;
-	new.self = k;
-	new.ptr = (void *)mi;
-	new.fs = My->fs;
-	new.son = 0;
-	new.ops = My->ops;
+	inode_t *new = (inode_t *)pmm->alloc(sizeof(inode_t));
+	new->type = 2;
+	new->size = 11;
+	new->bid = k;
+	new->self = k;
+	new->ptr = (void *)mi;
+	new->fs = My->fs;
+	new->son = 0;
+	new->ops = My->ops;
 	mi->ops->write(mi, MAP + 64*k, (void *)&new, sizeof(inode_t));
 /*
 	tory_t ddot;
@@ -51,7 +51,7 @@ int cref(inode_t *My, const char *name){
 	dname[2] ='\0';
 	mi->ops->write(mi, D + k*(1<<12),(void *)&ddot,sizeof(ddot));
 	mi->ops->write(mi, D + k*(1<<12)+ sizeof(ddot),dname,2+1);
-*/	return 0;
+*/	return new;
 }
 
 
