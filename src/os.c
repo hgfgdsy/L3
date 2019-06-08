@@ -21,7 +21,7 @@ handle *handle_head;
 spinlock_t OR;
 
 extern ssize_t tty_write(device_t *dev, off_t offset, const void *buf, size_t count);
-/*
+
 void syr(void *name){
 	while(1){
 	char temp = *(char *)name;
@@ -32,7 +32,7 @@ void syr(void *name){
 	_yield();
 	}
 }
-
+/*
 void left(void *s) {
 	while(1){
 	kmt->sem_wait(&closehl);
