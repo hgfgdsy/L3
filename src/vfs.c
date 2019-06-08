@@ -126,6 +126,7 @@ static int vfs_cd(const char *left,char *path, int sto){
 	}
 	strcpy(lu,path);
 	strcpy(&lu[tlen],left+i);
+	printf("C = %c\n",lu[1]);
 	printf("%s\n",lu);
 	filesystem_t *fs = &EXT2;
 	inode_t *now = fs->ops->lookup(fs,lu,0,0);
