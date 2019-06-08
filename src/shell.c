@@ -40,7 +40,7 @@ void shell_thread(void *ttyid) {
 				}
 				if(strcmp(cmd,"cd") == 0){
 					vfs->cd(&line[3],path,stdout);
-					printf("path = %s\n",path);
+					printf("path = %d\n",strlen(path));
 				}
 				nread=0;
 			}
