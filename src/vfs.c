@@ -352,7 +352,7 @@ static int vfs_rmdir(const char *path){
 	char *my_path = (char *)pmm->alloc(200);
 	strncpy(my_path,path,len-lcnt-1);
 	printf("my_path = %s\n",my_path);
-	inode_t *now = fs->ops->lookup(fs,path,0,0);
+	inode_t *now = fs->ops->lookup(fs,my_path,0,0);
 	now->ops->rmdir(now,name);
 
 	return 0;
