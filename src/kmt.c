@@ -283,7 +283,7 @@ static int kmt_create(task_t *task, const char *name,
 	_Area stack = (_Area){task->stack,task->stack + 4096};
 	task->context = *_kcontext(stack,entry,arg);
 	for(int i=0; i<20; i++){
-		fildes[i] = NULL;
+		tasks[rec]->fildes[i] = NULL;
 	}
 	kmt->spin_unlock((spinlock_t *)&CT);
 //	memcpy((void *)tasks[rec]->context,_kcontext(stack,entry,arg),sizeof(_Context));
