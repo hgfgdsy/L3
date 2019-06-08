@@ -144,6 +144,8 @@ static int vfs_cd(const char *left,char *path, int sto){
 		return 0;
 	}
 	strcpy(path,lu);
+	int olen = strlen(lu);
+	psth[olen] = '\0';
 	return 0;
 }
 
