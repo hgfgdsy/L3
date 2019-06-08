@@ -48,9 +48,9 @@ static void vfs_init(){
 
 	vfs->mount("/",&EXT2,"blkfs");
 	
-	vfs->mkdir("/dev");
+//	vfs->mkdir("/dev");
 
-	vfs->mount("/dev",&EXT2, "devfs");
+//	vfs->mount("/dev",&EXT2, "devfs");
 
 	char c[1] = "1";
 
@@ -59,6 +59,7 @@ static void vfs_init(){
 
 	
 	vfs->mkdir("/abc");
+	vfs->mkdir("/sdfv");
 //	printf("rts1 = %d\n",root.size);
 	inode_t *temp = EXT2.ops->lookup(&EXT2,"/abc",0,0);
 //	printf("rts2 = %d\n",root.size);
