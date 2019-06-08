@@ -26,7 +26,7 @@ void shell_thread(void *ttyid) {
 			        line[nread] = '\0';
 				char cmd[50];
 				int lcnt=0;
-				for(int i=0;i<nread;i++){
+				for(int i=0;i<nread-1;i++){
 					if(line[i] == ' ') break;
 					cmd[lcnt++] = line[i];
 				}
