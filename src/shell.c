@@ -4,7 +4,7 @@
 extern ssize_t tty_write(device_t *dev, off_t offset, const void *buf, size_t count);
 void shell_thread(void *ttyid) {
 	int tty_id = *(int *)ttyid;
-	char buf[128];
+	char buf[32];
 	strncpy(buf,"/dev/tty",8);
 	buf[8] = '0' + tty_id;
 	buf[9] = '\0';
@@ -14,7 +14,7 @@ void shell_thread(void *ttyid) {
 	strncpy(name,&buf[5],4);
 	name[4] = '\0';
 //	device_t *tty = dev_lookup(name);
-	char text[128];
+	char text[32];
 	char line[128];
 	int nread=0;
 	char path[128];
