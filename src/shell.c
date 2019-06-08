@@ -33,6 +33,7 @@ void shell_thread(void *ttyid) {
 					cmd[lcnt++] = line[i];
 				}
 				cmd[lcnt] = '\0';
+				printf("tTTTTT\n");
 				if(strcmp(cmd,"ls") == 0){
 					vfs->ls(path,stdout);
 				}
