@@ -18,8 +18,11 @@ void shell_thread(void *ttyid) {
 	char line[128];
 	int nread=0;
 	char path[128];
+	memset(path,0,sizeof(path));
 	path[0] = '/';
-	path[1] = '\0';
+	path[1] = 'a';
+	path[2] = 'b';
+	path[3] = 'c';
 	while(1){
 		if(nread != 0){
 			if(line[nread-1] == '\n'){
