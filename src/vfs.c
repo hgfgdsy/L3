@@ -106,7 +106,7 @@ static void vfs_init(){
 
 }
 
-static int vfs_cd(const char *left,const char *path, int sto){
+static int vfs_cd(const char *left,char *path, int sto){
 	int i;
 	int llen = strlen(left);
 
