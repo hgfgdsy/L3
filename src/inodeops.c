@@ -162,7 +162,7 @@ int i_link(const char *name, inode_t *inode, inode_t *new){
 	ap.name_len = nlen;
 	device_t *mi = (device_t *)new->ptr;
 	mi->ops->write(mi,D + (new->bid)*(1<<12) + new->size, (void *)&ap, sizeof(ap));
-	mi->ops->write(mi,D + (new->bid)*(1<<12) + new->size + sizeof(ap), nlen+1);
+	mi->ops->write(mi,D + (new->bid)*(1<<12) + new->size + sizeof(ap), dname, nlen+1);
 	new->size += ap.rec_len;
 	mi->ops->write(mi,MAP + (new->self)*64, (void *)new, sizeof(inode_t));
 
