@@ -8,9 +8,7 @@ void shell_thread(void *ttyid) {
 	strncpy(buf,"/dev/tty",8);
 	buf[8] = '0' + tty_id;
 	buf[9] = '\0';
-//	printf(":::  H  :::\n");
 	int stdin = vfs->open(buf,O_RDONLY);
-//	printf(":::  H  :::\n");
 //	int stdout = vfs->open(buf,O_WRONLY);
 	char name[5];
 	strncpy(name,&buf[5],4);
@@ -30,9 +28,7 @@ void shell_thread(void *ttyid) {
 		else{
 			sprintf(text,"(%s) $",name);
 			tty_write(tty, 0, text, strlen(name)+5);
-			printf("hello\n");
 			nread = vfs->read(stdin, line, sizeof(line));
-			printf("cao!!\n");
 		}
 	}
 }
