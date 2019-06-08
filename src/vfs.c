@@ -305,7 +305,66 @@ static int vfs_unlink(const char *path){
 
 
 static int vfs_open(const char *path, int flags){
-	return 0;
+	char dir[50];
+	int lcnt = 0;
+	for(int i=1;;i++){
+		if(*(path+i) == '/') break;
+		else dir[lcnt++] = *(path+i);
+	}
+	dir[lcnt] ='\0';
+//	if(strcmp(dir,"proc")==0) { printf("Invalid path(vfs_proc)\n"); return -1;}
+//	if(strcmp(dir,"dev")==0) {printf("Invalid path(vfs_dev)\n"); return -1;}
+
+	if(strcmp(dir,"proc") == 0) {
+
+		return 0;
+	}
+
+	if(strcmp(dir,"dev") == 0) {
+		int i;
+		int label = 0;
+		for(i=0;i<10;i++){
+			if(mnt[i] != NULL && strncmp(&mnt[i]->mounton[1],"dev") == 0)
+			{
+				
+				label=1;
+				break;
+			}
+		}
+		if(label == 0){
+			printf("No such filesystem\n");
+			return -1;
+		}
+		if(mnt[i]->mounted == 0){
+			printf("This filesystem has been unmounted\n");
+			return -1;
+		}
+		inode_t *new = mnt[i]->fs->ops->lookup(mnt[i]->fs,path,0,1);
+		if(new == NULL) {printf("Unknown device\n"); return -1;}
+		int rec = cpuisin[_cpu()];
+		for(i=0;i<20;i++){
+			if(task[rec]->fildes[i] == NULL) break;
+		}
+		file_t *fp = (file_t *)pmm->alloc(sizeof(file_t));
+		fp->inode = new;
+		fp->offset = 0;
+		task[rec]->fildes[i] = fp;
+		return i;
+	}
+
+	int i;
+	filesystem_t *fs = &EXT2;
+	inode_t *now = fs->ops->lookup(fs,path,flags,0);
+	if(now == NULL) {printf("No such file\n"); return -1;}
+        int rec = cpuisin[_cpu()];
+	for(i=0;i<20;i++){
+		if(task[rec]->fildes[i] == NULL) break;
+	}
+	file_t *fp = (file_t *)pmm->alloc(sizeof(file_t));
+	fp->inode = new;
+	fp->offset = 0;
+	task[rec]->fildes[i] = fp;
+	return i;
 }
 
 

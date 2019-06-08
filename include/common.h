@@ -9,7 +9,7 @@
 #define INT_MIN (-INT_MAX - 1)
 
 typedef struct file file_t;
-
+int cpuisin[8];
 
 struct task {
 	int tag;
