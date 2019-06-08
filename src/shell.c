@@ -20,9 +20,11 @@ void shell_thread(void *ttyid) {
 	char line[1024];
 	int nread=0;
 	while(1){
-		if(nread!=0 && line[nread-1] == '\n'){
-			line[nread-1] = '\0';
-			tty_write(tty, 0, line, strlen(line));
+		if(nread!=0){
+			if(line[nread-1] == '\n'){
+			        line[nread-1] = '\0';
+			        tty_write(tty, 0, line, strlen(line));
+			}
 		}
 		else{
 			sprintf(text,"(%s) $",name);
