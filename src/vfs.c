@@ -106,6 +106,29 @@ static void vfs_init(){
 
 }
 
+static int vfs_rm(const char *path,int sto){
+	if(strncmp(path,"/dev",4)==0){
+		vfs->write(sto,"Permission denied\n",18);
+		return -1;
+	}
+	if(strncmp(path,"/proc",5)==0){
+		vfs->write(sto,"Permission denied\n",18);
+		return -1;
+	}
+	filesystem_t *fs = &EXT2;
+	inode_t *now = fs->ops->lookup(fs,path,0,0);
+	if(now == NULL){
+		vfs->write(sto,"Invalid target\n",15);
+		return -1;
+	}
+	if(now->type == 2){
+		vfs->unlink(path);
+	}
+	else
+		vfs->rmdir(path);
+	return 0;
+}
+
 static int vfs_cd(const char *left,char *path, int sto){
 	int i;
 	int llen = strlen(left);
@@ -552,6 +575,7 @@ static int vfs_close(int fd){
 
 MODULE_DEF(vfs){
 	.init = vfs_init,
+	.rm = vfs_rm,
 	.cd = vfs_cd,
 	.ls = vfs_ls,
 	.access = vfs_access,
