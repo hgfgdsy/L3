@@ -24,7 +24,7 @@ void shell_thread(int tty_id) {
 		else{
 			sprintf(text,"(%s) $",name);
 			tty_write(tty, 0, text, strlen(name)+5);
-			nread = tty->ops->read(stdin, 0, line, sizeof(line));
+			nread = vfs->read(stdin, line, sizeof(line));
 		}
 	}
 }
