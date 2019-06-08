@@ -43,7 +43,7 @@ void shell_thread(void *ttyid) {
 		else{
 			sprintf(text,"(%s) $",name);
 			vfs->write(stdout, text, strlen(name)+5);
-			vfs->write(stdout, path, strlen(path));
+//			vfs->write(stdout, path, strlen(path));
 			nread = vfs->read(stdin, line, sizeof(line));
 		}
 	}
