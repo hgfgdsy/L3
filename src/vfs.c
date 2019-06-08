@@ -151,6 +151,7 @@ static int vfs_ls(const char *path,int sto){
 static int vfs_access(const char *path, int mode){
 	char dir[50];
 	int lcnt = 0;
+	int llen = strlen(path);
 	for(int i=1;i<llen;i++){
 		if(*(path+i) == '/') break;
 		else dir[lcnt++] = *(path+i);
