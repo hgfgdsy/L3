@@ -70,9 +70,11 @@ ssize_t i_write(file_t *file, const char *buf, size_t size){
 			ask.size = newsize;
 			mi->ops->write(mi,MAP+64*(now->self),(void *)&ask,sizeof(ask));
 		}
+		return size;
 	}
-	printf("ft = %d",file->type);
-	return mi->ops->write(mi, off, (void *)buf, size);
+	int wlen = mi->ops->write(mi, off, (void *)buf, size);
+	printf("%d\n",wlen);
+	return wlen;
 }
 
 
