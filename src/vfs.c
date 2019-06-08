@@ -140,7 +140,7 @@ static int vfs_ls(const char *path,int sto){
 		}
 	}
 	vfs->write(sto,"\n",1);
-	now->ops->close(now);
+	fs->ops->close(now);
 	return 0;
 }
 
