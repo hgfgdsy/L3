@@ -6,9 +6,9 @@ int i_open(file_t *file, int flags){
 	inode_t *now = file->inode;
 	device_t *mi = (device_t *)now->ptr;
 	inode_t ask;
-	mi->ops->read(mi,MAP+64*(now->self),(void *)ask,sizeof(ask));
+	mi->ops->read(mi,MAP+64*(now->self),(void *)&ask,sizeof(ask));
 	ask.status += 1;
-	mi->ops->write(mi,MAP+64*(now->self),(void *)ask,sizeof(ask));
+	mi->ops->write(mi,MAP+64*(now->self),(void *)&ask,sizeof(ask));
 	return 0;
 }
 
@@ -18,9 +18,9 @@ int i_close(file_t *file){
 	inode_t *now = file->inode;
 	device_t *mi = (device_t *)now->ptr;
 	inode_t ask;
-	mi->ops->read(mi,MAP+64*(now->self),(void *)ask,sizeof(ask));
+	mi->ops->read(mi,MAP+64*(now->self),(void *)&ask,sizeof(ask));
 	ask.status -= 1;
-	mi->ops->write(mi,MAP+64*(now->self),(void *)ask,sizeof(ask));
+	mi->ops->write(mi,MAP+64*(now->self),(void *)&ask,sizeof(ask));
 
 	return 0;
 }
