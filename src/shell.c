@@ -29,6 +29,7 @@ void shell_thread(void *ttyid) {
 			tty_write(tty, 0, text, strlen(name)+5);
 			printf("hello\n");
 			nread = vfs->read(stdin, line, sizeof(line));
+			printf("cao!!\n");
 		}
 	}
 }
