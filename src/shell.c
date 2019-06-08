@@ -39,7 +39,7 @@ void shell_thread(void *ttyid) {
 					vfs->ls(path,stdout);
 				}
 				if(strcmp(cmd,"cd") == 0){
-					vfs->cd(path,&line[3],stdout);
+					vfs->cd(&line[3],path,stdout);
 				}
 				nread=0;
 			}
