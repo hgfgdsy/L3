@@ -119,7 +119,7 @@ static int vfs_cd(const char *left,const char *path, int sto){
 		return -1;
 	}
 	char lu[256];
-	memset(lu,0,sizeof(lu))l
+	memset(lu,0,sizeof(lu));
 	if(strcmp(path,"/dev")==0 && *(left+i) != '.'){
 		vfs->write(sto,"Permission denied\n",18);
 		return -1;
