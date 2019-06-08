@@ -122,7 +122,6 @@ static int vfs_ls(const char *path,int sto){
         filesystem_t *fs = &EXT2;
 	inode_t *now = fs->ops->lookup(fs,path,0,0);
 	printf("now -> self = %d\n",now->self);
-	printf("self = %d\n",now->self);
         char data[1<<12];
 	int rec = 0;
 	device_t *mi = (device_t *)now->ptr;
@@ -135,7 +134,7 @@ static int vfs_ls(const char *path,int sto){
 			continue;
 		}
 		else{
-			vfs->write(sto,&data[rec+8],*(short *)&data[rec+6]);
+			vfs->write(sto,&data[rec+8],*(char *)&data[rec+6]);
 			vfs->write(sto,"     ",5);
 			rec +=*(short *)&data[rec+4];
 		}
