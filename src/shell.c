@@ -13,7 +13,7 @@ void shell_thread(void *ttyid) {
 	char name[5];
 	strncpy(name,&buf[5],4);
 	name[4] = '\0';
-	device_t *tty = dev_lookup(name);
+//	device_t *tty = dev_lookup(name);
 	char text[128];
 	char line[128];
 	int nread=0;
