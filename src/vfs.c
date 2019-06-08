@@ -139,6 +139,7 @@ static int vfs_ls(const char *path,int sto){
 			rec +=*(short *)&data[rec+4];
 		}
 	}
+	vfs->write(sto,"\n",1);
 	return 0;
 }
 
