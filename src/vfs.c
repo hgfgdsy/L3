@@ -138,6 +138,10 @@ static int vfs_cd(const char *left,char *path, int sto){
 //	printf("%s\n",lu);
 	filesystem_t *fs = &EXT2;
 	inode_t *now = fs->ops->lookup(fs,lu,0,0);
+	if(now == NULL){
+		vfs->write(sto,"It is not a directory\n",22);
+		return -1;
+	}
 	if(now->type == 2){
 		vfs->write(sto,"It is not a directory\n",22);
 		return -1;
