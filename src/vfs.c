@@ -56,7 +56,7 @@ static void vfs_init(){
 	
 	vfs->mkdir("/", "abc");
 //	printf("rts1 = %d\n",root.size);
-	inode_t *temp = EXT2.ops->lookup("/abc",0,0);
+	inode_t *temp = EXT2.ops->lookup(&EXT2,"/abc",0,0);
 //	printf("rts2 = %d\n",root.size);
 	printf("%d\n",temp->bid);
 //	printf("rts3 = %d\n",root.size);
@@ -65,22 +65,22 @@ static void vfs_init(){
 	vfs->mkdir("/abc", "edfdff");
 	vfs->mkdir("/abc", "vfsgsdf");
 	vfs->mkdir("/abc/vfsgsdf","dsac");
-	inode_t *temp1 = EXT2.ops->lookup("/abc/edf",0,0);
-	inode_t *temp2 = EXT2.ops->lookup("/abc/vfsg",0,0);
-	inode_t *temp3 = EXT2.ops->lookup("/abc/edfdff",0,0);
-	inode_t *temp4 = EXT2.ops->lookup("/abc/vfsgsdf",0,0);
+	inode_t *temp1 = EXT2.ops->lookup(&EXT2, "/abc/edf",0,0);
+	inode_t *temp2 = EXT2.ops->lookup(&EXT2, "/abc/vfsg",0,0);
+	inode_t *temp3 = EXT2.ops->lookup(&EXT2, "/abc/edfdff",0,0);
+	inode_t *temp4 = EXT2.ops->lookup(&EXT2, "/abc/vfsgsdf",0,0);
 	vfs->mkdir("/abc/edf","aaa");
 
 //	inode_t *temp2 = EXT2.ops->lookup(&EXT2,"/abc/e",0,0);
 	printf("%d %d %d %d\n",temp1->bid,temp2->bid,temp3->bid,temp4->bid);
 
 	vfs->rmdir("/abc","edf");
-	inode_t *temp7 = EXT2.ops->lookup("/abc/edf/..",0,0);
-	inode_t *temp8 = EXT2.ops->lookup("/abc/vfsgsdf/dsac",0,0);
+	inode_t *temp7 = EXT2.ops->lookup(&EXT2, "/abc/edf/..",0,0);
+	inode_t *temp8 = EXT2.ops->lookup(&EXT2, "/abc/vfsgsdf/dsac",0,0);
 	printf("%d\n",temp8->bid);
 	if(temp7 == NULL) printf("cap\n");
 	else {printf("%d\n",temp7->bid);}
-	inode_t *temp9 = EXT2.ops->lookup("/abc/edf/a.c",1,0);
+	inode_t *temp9 = EXT2.ops->lookup(&EXT2, "/abc/edf/a.c",1,0);
 	printf("%d %d\n",temp9->bid,temp9->type);
 	printf("%d\n",vfs->access("/abc/edf/a.c",1));
 
