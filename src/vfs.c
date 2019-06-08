@@ -384,6 +384,10 @@ static ssize_t vfs_read(int fd, void *buf, size_t nbyte){
 	int rec = cpuisin[_cpu()];
 	printf("rec = %d\n",rec);
 	file_t *fp = tasks[rec]->fildes[fd];
+	if(fp == NULL){
+		printf("wei shen me\n");
+		while(1);
+	}
 	if(fp == NULL) {printf("Invalid file discriptor\n"); return 0;}
 	if(fp->type == 3){
 
