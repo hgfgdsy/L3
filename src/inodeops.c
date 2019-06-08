@@ -68,7 +68,7 @@ ssize_t i_write(file_t *file, const char *buf, size_t size){
 			inode_t ask;
 			mi->ops->read(mi,MAP+64*(now->self),(void *)&ask,sizeof(ask));
 			ask.size = newsize;
-			mi->ops->write(mi,MAP+64*(now->self),(void *)*ask,sizeof(ask));
+			mi->ops->write(mi,MAP+64*(now->self),(void *)&ask,sizeof(ask));
 		}
 	}
 	return mi->ops->read(mi, off, (void *)buf, size);
