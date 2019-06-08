@@ -84,7 +84,7 @@ static void vfs_init(){
 	printf("%d %d\n",temp9->bid,temp9->type);
 	printf("%d\n",vfs->access("/abc/edf/a.c",1));
 	printf("%d\n",sizeof(tory_t));
-	vfs->link("/abc/edf/a.c","/abc/b.c")
+	vfs->link("/abc/edf/a.c","/abc/b.c");
 	inode_t *temp10 = EXT2.ops->lookup(&EXT2, "/abc/b.c",0,0);
 	if(temp10 == NULL) printf("cap\n");
 	else{
