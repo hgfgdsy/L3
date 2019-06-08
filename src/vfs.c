@@ -113,6 +113,7 @@ static int vfs_cd(const char *left,char *path, int sto){
 	for(i=0;i<llen;i++)
 		if(*(left+i)!=' ')
 			break;
+	printf("%d\n",i);
 	int tlen = strlen(path);
 	if(tlen == 1 && *(path+i) == '.'){
 		vfs->write(sto,"error\n",6);
