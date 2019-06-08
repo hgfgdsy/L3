@@ -90,7 +90,18 @@ static void vfs_init(){
 }
 
 
-static int vfs_access(filesystem_t *fs, const char *path, int mode){
+static int vfs_access(const char *path, int mode){
+	char dir[50];
+	int lcnt = 0;
+	for(int i=1;;i++){
+		if(*(path+i) == '/') break;
+		else dir[lcnt++] = *(path+i);
+	}
+	dir[lcnt] ='\0';
+	if(strcmp(dir,"proc")==0) { printf("Invalid path(vfs_proc)\n"); return -1;}
+	if(strcmp(dir,"dev")==0) {printf("Invalid path(vfs_dev)\n"); return -1;}
+
+	filesystem_t *fs = &EXT2;
 	inode_t *now = fs->ops->lookup(fs, path, 0, 0);
 	if(now == NULL){
 		printf("No such file\n");
@@ -142,14 +153,19 @@ static int vfs_unmount(const char *path){
 }
 
 
-static int vfs_mkdir(filesystem_t *fs, const char *path,const char *name){
-	if(strcmp(fs->name,"blkfs") != 0){
-		printf("Invalid operation!\n");
-		return -1;
+static int vfs_mkdir(const char *path,const char *name){
+	char dir[50];
+	int lcnt = 0;
+	for(int i=1;;i++){
+		if(*(path+i) == '/') break;
+		else dir[lcnt++] = *(path+i);
 	}
-//	printf("hello\n");
+	dir[lcnt] ='\0';
+	if(strcmp(dir,"proc")==0) { printf("Invalid path(vfs_proc)\n"); return -1;}
+	if(strcmp(dir,"dev")==0) {printf("Invalid path(vfs_dev)\n"); return -1;}
+
+	filesystem_t *fs = &EXT2;
 	inode_t *now = fs->ops->lookup(fs,path,0,0);
-//	printf("hello\n");
 	if(now == NULL) {
 		printf("Invalid path3!\n");
 		return -1;
@@ -159,7 +175,18 @@ static int vfs_mkdir(filesystem_t *fs, const char *path,const char *name){
 }
 
 
-static int vfs_rmdir(filesystem_t *fs, const char *path, const char *name){
+static int vfs_rmdir(const char *path, const char *name){
+	char dir[50];
+	int lcnt = 0;
+	for(int i=1;;i++){
+		if(*(path+i) == '/') break;
+		else dir[lcnt++] = *(path+i);
+	}
+	dir[lcnt] ='\0';
+	if(strcmp(dir,"proc")==0) { printf("Invalid path(vfs_proc)\n"); return -1;}
+	if(strcmp(dir,"dev")==0) {printf("Invalid path(vfs_dev)\n"); return -1;}
+
+	filesystem_t *fs = &EXT2;
 	inode_t *now = fs->ops->lookup(fs,path,0,0);
 	now->ops->rmdir(now,name);
 
