@@ -64,7 +64,7 @@ void shell_thread(void *ttyid) {
 						if(line[j]!=' ')
 							np[olen++] = line[j];
 					}
-					vfs->rm(np);
+					vfs->rm(np,stdout);
 				}
 
 				nread=0;
