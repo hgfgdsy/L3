@@ -47,6 +47,10 @@ static void vfs_init(){
 
 
 	vfs->mount("/",&EXT2,"blkfs");
+	
+	vfs->mkdir("/dev");
+
+	vfs->mount("/dev",&EXT2, "devfs");
 
 	char c[1] = "1";
 
