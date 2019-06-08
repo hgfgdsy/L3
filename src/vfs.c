@@ -54,27 +54,27 @@ static void vfs_init(){
 	EXT2.dev->ops->write(EXT2.dev,MAP,(void *)&root,sizeof(root));
 
 	
-	vfs->mkdir("/", "abc");
+	vfs->mkdir("/abc");
 //	printf("rts1 = %d\n",root.size);
 	inode_t *temp = EXT2.ops->lookup(&EXT2,"/abc",0,0);
 //	printf("rts2 = %d\n",root.size);
 	printf("%d\n",temp->bid);
 //	printf("rts3 = %d\n",root.size);
-	vfs->mkdir("/abc", "edf");
-	vfs->mkdir("/abc", "vfsg");
-	vfs->mkdir("/abc", "edfdff");
-	vfs->mkdir("/abc", "vfsgsdf");
-	vfs->mkdir("/abc/vfsgsdf","dsac");
+	vfs->mkdir("/abc/edf");
+	vfs->mkdir("/abc/vfsg");
+	vfs->mkdir("/abc/edfdff");
+	vfs->mkdir("/abc/vfsgsdf");
+	vfs->mkdir("/abc/vfsgsdf/dsac");
 	inode_t *temp1 = EXT2.ops->lookup(&EXT2, "/abc/edf",0,0);
 	inode_t *temp2 = EXT2.ops->lookup(&EXT2, "/abc/vfsg",0,0);
 	inode_t *temp3 = EXT2.ops->lookup(&EXT2, "/abc/edfdff",0,0);
 	inode_t *temp4 = EXT2.ops->lookup(&EXT2, "/abc/vfsgsdf",0,0);
-	vfs->mkdir("/abc/edf","aaa");
+	vfs->mkdir("/abc/edf/aaa");
 
 //	inode_t *temp2 = EXT2.ops->lookup(&EXT2,"/abc/e",0,0);
 	printf("%d %d %d %d\n",temp1->bid,temp2->bid,temp3->bid,temp4->bid);
 
-	vfs->rmdir("/abc","edf");
+	vfs->rmdir("/abc/edf");
 	inode_t *temp7 = EXT2.ops->lookup(&EXT2, "/abc/edf/..",0,0);
 	inode_t *temp8 = EXT2.ops->lookup(&EXT2, "/abc/vfsgsdf/dsac",0,0);
 	printf("%d\n",temp8->bid);
@@ -153,7 +153,7 @@ static int vfs_unmount(const char *path){
 }
 
 
-static int vfs_mkdir(const char *path,const char *name){
+static int vfs_mkdir(const char *path){
 	char dir[50];
 	int lcnt = 0;
 	for(int i=1;;i++){
@@ -165,7 +165,18 @@ static int vfs_mkdir(const char *path,const char *name){
 	if(strcmp(dir,"dev")==0) {printf("Invalid path(vfs_dev)\n"); return -1;}
 
 	filesystem_t *fs = &EXT2;
-	inode_t *now = fs->ops->lookup(fs,path,0,0);
+	
+	char name[50];
+	int len = strlen(path);
+	for(int i=0;i<len;i++){
+		if(*(path+i) == '/' && i != len-1) lcnt = 0;
+		else name[lcnt++] = *(path+i);
+	}
+	name[lcnt] = '\0';
+	char *my_path = (char *)pmm->alloc(200);
+	strncpy(my_path,path,len-lcnt-1);
+
+	inode_t *now = fs->ops->lookup(fs,my_path,0,0);
 	if(now == NULL) {
 		printf("Invalid path3!\n");
 		return -1;
@@ -175,7 +186,7 @@ static int vfs_mkdir(const char *path,const char *name){
 }
 
 
-static int vfs_rmdir(const char *path, const char *name){
+static int vfs_rmdir(const char *path){
 	char dir[50];
 	int lcnt = 0;
 	for(int i=1;;i++){
@@ -187,6 +198,17 @@ static int vfs_rmdir(const char *path, const char *name){
 	if(strcmp(dir,"dev")==0) {printf("Invalid path(vfs_dev)\n"); return -1;}
 
 	filesystem_t *fs = &EXT2;
+
+	char name[50];
+	int len = strlen(path);
+	for(int i=0;i<len;i++){
+		if(*(path+i) == '/' && i != len-1) lcnt = 0;
+		else name[lcnt++] = *(path+i);
+	}
+	name[lcnt] = '\0';
+	char *my_path = (char *)pmm->alloc(200);
+	strncpy(my_path,path,len-lcnt-1);
+
 	inode_t *now = fs->ops->lookup(fs,path,0,0);
 	now->ops->rmdir(now,name);
 
@@ -195,6 +217,43 @@ static int vfs_rmdir(const char *path, const char *name){
 
 
 static int vfs_link(const char *oldpath, const char *newpath){
+	char dir[50];
+	int lcnt = 0;
+	int old = 0,new = 0;
+	for(int i=1;;i++){
+		if(*(oldpath+i) == '/') break;
+		else dir[lcnt++] = *(oldpath+i);
+	}
+	dir[lcnt] ='\0';
+	if(strcmp(dir,"proc")==0) {/*printf("Invalid path(vfs_proc)\n"); return -1;*/ old = 1;}
+	if(strcmp(dir,"dev")==0) {/*printf("Invalid path(vfs_dev)\n"); return -1;*/ old = 2;}
+
+	lcnt = 0;
+	for(int i=1;;i++){
+		if(*(newpath+i) == '/') break;
+		else dir[lcnt++] = *(newpath+i);
+	}
+	dir[lcnt] ='\0';
+	if(strcmp(dir,"proc")==0) {/* printf("Invalid path(vfs_proc)\n"); return -1;*/ new = 1;}
+	if(strcmp(dir,"dev")==0) {/* printf("Invalid path(vfs_dev)\n"); return -1;*/ new = 2;}
+
+	if(new != old){
+		printf("can't link files between different fs\n");
+		return -1;
+	}
+
+	if(new !=0 || old != 0){
+		printf("link fail\n");
+		return -1;
+	}
+
+	filesystem_t *fs = &EXT2;
+
+
+
+
+
+
 	return 0;
 }
 
