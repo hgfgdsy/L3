@@ -8,6 +8,11 @@
 #define INT_MAX 2147483647
 #define INT_MIN (-INT_MAX - 1)
 
+#define SEEK_SET 0
+#define SEEK_CUR 1
+#define SEEK_END 2
+
+
 typedef struct file file_t;
 int cpuisin[8];
 task_t *tasks[20];

@@ -77,7 +77,21 @@ ssize_t i_write(file_t *file, const char *buf, size_t size){
 
 
 off_t i_lseek(file_t *file, off_t offset, int whence){
-	return 0;
+	inode_t *now = file->inode;
+	if(whence == 0){
+		file->offset = offset;
+		return offset;
+	}
+	if(whence == 1){
+		file->offset+=offset;
+		return file->offset;
+	}
+	if(whence == 2){
+		file->offset+=offset+now->size;
+		return file->offset;
+	}
+	printf("Unknown whence\n");
+	return -1;
 }
 
 
