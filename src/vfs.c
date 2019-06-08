@@ -405,14 +405,14 @@ static ssize_t vfs_write(int fd, void *buf, size_t nbyte){
 
 
 static off_t vfs_lseek(int fd, off_t offset, int whence){
+	int rec =cpuisin[_cpu()];
+	file_t *fp = tasks[rec]->fildes[fd];
 	if(fp->type == 2){
 		printf("permission denied\n");
 		return -1;
 	}
-	int rec = cpuisin[_cpu()];
 	if(fp->type == 3){
 	}
-	file_t *fp = tasks[rec]->fildes[fd];
 	inode_t *now = fp->inode;
 	now->ops->lseek(fp,offset,whence);
 	return 0;
