@@ -72,12 +72,7 @@ ssize_t i_write(file_t *file, const char *buf, size_t size){
 		}
 		return size;
 	}
-	if(mi == NULL) printf("Are you?\n");
-	int wlen = mi->ops->write(mi, 0, (void *)buf, size);
-	printf("cao!!!\n");
-	file->offset += size;
-	printf("%d\n",wlen);
-	return wlen;
+	return mi->ops->write(mi, 0, (void *)buf, size);
 }
 
 

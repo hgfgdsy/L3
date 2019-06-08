@@ -121,6 +121,7 @@ static int vfs_ls(const char *path,int sto){
         }
         filesystem_t *fs = &EXT2;
 	inode_t *now = fs->ops->lookup(fs,path,0,0);
+	printf("now -> self = %d\n",now->self);
 	printf("self = %d\n",now->self);
         char data[1<<12];
 	int rec = 0;
@@ -136,6 +137,7 @@ static int vfs_ls(const char *path,int sto){
 		else{
 			vfs->write(sto,&data[rec+8],*(short *)&data[rec+6]);
 			vfs->write(sto,"     ",5);
+			rec +=*(short *)&data[rec+4];
 		}
 	}
 	return 0;
@@ -451,7 +453,6 @@ static ssize_t vfs_write(int fd, void *buf, size_t nbyte){
 	}
 	if(fp->type == 2){
 		inode_t *now = fp->inode;
-		printf(" np = %d\n",now->type);
 		return now->ops->write(fp,buf,nbyte);
 	}
 	inode_t *now = fp->inode;
