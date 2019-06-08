@@ -42,6 +42,18 @@ void shell_thread(void *ttyid) {
 					vfs->cd(&line[3],path,stdout);
 					printf("path = %d\n",strlen(path));
 				}
+				if(strcmp(cmd,"mkdir") == 0){
+					char np[256];
+					memset(np,0,sizeof(np));
+					strcpy(np,path);
+					int olen = strlen(path);
+					np[olen++] = '/';
+					for(int j=3;j<nread-1;j++){
+						if(line[j]!=' ')
+							np[olen++] = line[j];
+					}
+					vfs->mkdir(np);
+				}
 				nread=0;
 			}
 		}
