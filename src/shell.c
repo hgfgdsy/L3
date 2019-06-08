@@ -9,19 +9,19 @@ void shell_thread(void *ttyid) {
 	buf[8] = '0' + tty_id;
 	buf[9] = '\0';
 	int stdin = vfs->open(buf,O_RDONLY);
-//	int stdout = vfs->open(buf,O_WRONLY);
+	int stdout = vfs->open(buf,O_WRONLY);
 	char name[5];
 	strncpy(name,&buf[5],4);
 	name[4] = '\0';
-	device_t *tty = dev_lookup(name);
+//	device_t *tty = dev_lookup(name);
 	char text[1024];
 	char line[1024];
 	int nread=0;
 	while(1){
 		if(nread!=0){
 			if(line[nread-1] == '\n'){
-			        line[nread-1] = '\0';
-			        tty_write(tty, 0, line, strlen(line));
+			        line[nread] = '\0';
+			        vfs->write(stdout, line, strlen(line));
 				nread=0;
 			}
 		}
