@@ -381,6 +381,7 @@ static int vfs_open(const char *path, int flags){
 
 static ssize_t vfs_read(int fd, void *buf, size_t nbyte){
 	int rec = cpuisin[_cpu()];
+	printf("rec = %d\n",rec);
 	file_t *fp = tasks[rec]->fildes[fd];
 	if(fp == NULL) {printf("Invalid file discriptor\n"); return -1;}
 	if(fp->type == 3){
