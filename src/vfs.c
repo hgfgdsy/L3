@@ -391,7 +391,6 @@ static int vfs_open(const char *path, int flags){
 		inode_t *new = mnt[i]->ops->lookup(mnt[i],path,0,1);
 		if(new == NULL) {printf("Unknown device\n"); return -1;}
 		int rec = cpuisin[_cpu()];
-		printf("orec = %d\n",rec);
 		for(i=0;i<20;i++){
 			if(tasks[rec]->fildes[i] == NULL) break;
 		}
