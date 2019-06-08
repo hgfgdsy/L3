@@ -185,6 +185,7 @@ inode_t *f_lookup(struct filesystem *fs, const char *path, int flags, int from){
 
 
 int f_close(inode_t *inode){
+	pmm->free((void *)inode);
 	return 0;
 }
 
