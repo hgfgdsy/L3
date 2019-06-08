@@ -24,6 +24,7 @@ void shell_thread(void *ttyid) {
 			if(line[nread-1] == '\n'){
 			        line[nread-1] = '\0';
 			        tty_write(tty, 0, line, strlen(line));
+				nread=0;
 			}
 		}
 		else{
