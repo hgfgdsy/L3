@@ -42,6 +42,7 @@ ssize_t i_read(file_t *file, char *buf, size_t size){
 		file->offset = now->size;
 		return len;
 	}
+	printf("before ret\n");
 	return mi->ops->read(mi, off, (void *)buf, size);
 }
 
