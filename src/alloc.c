@@ -182,7 +182,7 @@ static void *kalloc(size_t size) {
   if(temp==NULL){
 	  printf("Memoty omit\n");
   }
-  memset(temp+0x20,0,size);
+  memset(temp,0,size);
   kmt->spin_unlock((spinlock_t *)&heaplock);
   return temp;
 }
