@@ -2,7 +2,8 @@
 #include <devices.h>
 #include <klib.h>
 extern ssize_t tty_write(device_t *dev, off_t offset, const void *buf, size_t count);
-void shell_thread(int tty_id) {
+void shell_thread(void *ttyid) {
+	int tty_id = *(int *)ttyid;
 	char buf[128];
 	strncpy(buf,"/dev/tty",8);
 	buf[8] = '0' + tty_id;
