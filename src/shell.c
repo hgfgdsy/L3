@@ -14,11 +14,11 @@ void shell_thread(void *ttyid) {
 	strncpy(name,&buf[5],4);
 	name[4] = '\0';
 	device_t *tty = dev_lookup(name);
-	char text[1024];
-	char line[1024];
+	char text[128];
+	char line[128];
 	int nread=0;
-	char path[1024];
-	memset(path,0,1024);
+	char path[128];
+	memset(path,0,sizeof(path));
 	path[0] = '/';
 //	printf("pathlen = %d\n",strlen(path));
 	while(1){
@@ -40,9 +40,9 @@ void shell_thread(void *ttyid) {
 			}
 		}
 		else{
-			sprintf(text,"(%s) $",name);
+			sprintf(text,"(%s) $ ",name);
 			printf(":::\n");
-			tty_write(tty, 0, text, strlen(name)+4);
+			tty_write(tty, 0, text, strlen(name)+5);
 			printf("::::\n");
 //			vfs->write(stdout, path, strlen(path));
 			nread = vfs->read(stdin, line, sizeof(line));
