@@ -20,7 +20,7 @@ void shell_thread(void *ttyid) {
 	char path[128];
 	memset(path,0,sizeof(path));
 	path[0] = '/';
-	path[1] = 'a';
+	path[1] = '\0';
 	path[2] = 'b';
 	path[3] = 'c';
 	char hal[1] = "$";
@@ -37,7 +37,10 @@ void shell_thread(void *ttyid) {
 				cmd[lcnt] = '\0';
 				if(strcmp(cmd,"ls") == 0){
 					vfs->ls(path,stdout);
-				}	
+				}
+				if(strcmp(cmd,"cd") == 0){
+					vfs->cd(path,&line[3],stdout);
+				}
 				nread=0;
 			}
 		}

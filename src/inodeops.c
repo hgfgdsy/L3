@@ -74,6 +74,7 @@ ssize_t i_write(file_t *file, const char *buf, size_t size){
 	}
 
 	ssize_t nwrite = mi->ops->write(mi, file->offset, (void *)buf, size);
+	file->offset+=size;
 	return nwrite;
 
 }

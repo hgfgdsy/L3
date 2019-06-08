@@ -106,6 +106,47 @@ static void vfs_init(){
 
 }
 
+static int vfs_cd(const char *left,const char *path, int sto){
+	int i;
+	int llen = strlen(left);
+
+	for(i=0;i<llen;i++)
+		if(*(left+i)!=' ')
+			break;
+	int tlen = strlen(path);
+	if(tlen == 1 && *(path+i) == '.'){
+		vfs->write(sto,"error\n",6);
+		return -1;
+	}
+	char lu[256];
+	memset(lu,0,sizeof(lu))l
+	if(strcmp(path,"/dev")==0 && *(left+i) != '.'){
+		vfs->write(sto,"Permission denied\n",18);
+		return -1;
+	}
+	strcpy(lu,path);
+	strcat(lu,left+i);
+	filesystem_t *fs = &EXT2;
+	inode_t *now = fs->ops->lookup(fs,lu,0,0);
+	if(now->type == 2){
+		vfs->write(sto,"It is not a directory\n",22);
+		return -1;
+	}
+	int j;
+	if(*(path+i) == '.'){
+		for(j=tlen-1;j>=0;j--){
+			if(*(path+j)=='/')
+				break;
+		}
+		path[j] ='\0';
+		return 0;
+	}
+	strcat(path,left+i);
+	return 0;
+}
+
+
+
 static int vfs_ls(const char *path,int sto){
 	char dir[50];
 	int lcnt = 0;
@@ -495,6 +536,7 @@ static int vfs_close(int fd){
 
 MODULE_DEF(vfs){
 	.init = vfs_init,
+	.cd = vfs_cd,
 	.ls = vfs_ls,
 	.access = vfs_access,
 	.mount = vfs_mount,
