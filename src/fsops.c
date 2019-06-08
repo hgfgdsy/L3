@@ -40,7 +40,7 @@ inode_t *cref(inode_t *My, const char *name,int right){
 	new->son = 0;
 	new->ops = My->ops;
 	new->right = right;
-	mi->ops->write(mi, MAP + 64*k, (void *)&new, sizeof(inode_t));
+	mi->ops->write(mi, MAP + 64*k, (void *)new, sizeof(inode_t));
 /*
 	tory_t ddot;
 	ddot.I = My->self;
