@@ -36,7 +36,7 @@ ssize_t i_read(file_t *file, char *buf, size_t size){
 		if(size < now->size - file->offset){
 			ssize_t rb =  mi->ops->read(mi, off, (void *)buf, size);
 			file->offset += size;
-			return rd;
+			return rb;
 		}
 		int len = mi->ops->read(mi, off, (void *)buf, now->size - file->offset);
 		file->offset = now->size;
