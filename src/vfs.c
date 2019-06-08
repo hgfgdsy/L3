@@ -72,7 +72,7 @@ static void vfs_init(){
 	vfs->mkdir("/abc/edfdff");
 	vfs->mkdir("/abc/vfsgsdf");
 	vfs->mkdir("/abc/vfsgsdf/dsac");
-	inode_t *temp1 = EXT2.ops->lookup(&EXT2, "/abc/edf",0,0);
+/*	inode_t *temp1 = EXT2.ops->lookup(&EXT2, "/abc/edf",0,0);
 	inode_t *temp2 = EXT2.ops->lookup(&EXT2, "/abc/vfsg",0,0);
 	inode_t *temp3 = EXT2.ops->lookup(&EXT2, "/abc/edfdff",0,0);
 	inode_t *temp4 = EXT2.ops->lookup(&EXT2, "/abc/vfsgsdf",0,0);
@@ -100,7 +100,7 @@ static void vfs_init(){
 	vfs->unlink("/abc/edf/a.c");
 	inode_t *temp11 = EXT2.ops->lookup(&EXT2, "/abc/b.c",0,0);
 	if(temp11 == NULL) printf("yes\n");
-
+*/
 
 
 

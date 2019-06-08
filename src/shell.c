@@ -20,7 +20,6 @@ void shell_thread(void *ttyid) {
 	char path[128];
 	memset(path,0,sizeof(path));
 	path[0] = '/';
-//	printf("pathlen = %d\n",strlen(path));
 	while(1){
 		if(nread != 0){
 			if(line[nread-1] == '\n'){
