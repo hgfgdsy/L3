@@ -88,7 +88,7 @@ static void vfs_init(){
 	inode_t *temp10 = EXT2.ops->lookup(&EXT2, "/abc/b.c",0,0);
 	if(temp10 == NULL) printf("cap\n");
 	else{
-		printf("%d %d %d\n",temp9->self,temp10->self,temp9->refcnt);
+		printf("%d %d %d\n",temp9->self,temp10->self,temp10->refcnt);
 	}
 
 

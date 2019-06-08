@@ -168,7 +168,6 @@ int i_link(const char *name, inode_t *inode, inode_t *new){
 	if(new->self == 0) root.size+=ap.rec_len;
 
 	inode->refcnt += 1;
-	printf("refcnt = %d\n",inode->refcnt);
 	mi->ops->write(mi,MAP + (inode->self)*64, (void *)inode, sizeof(inode_t));
 	return 0;
 }
