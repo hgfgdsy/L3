@@ -36,7 +36,8 @@ void shell_thread(void *ttyid) {
 				cmd[lcnt] = '\0';
 				if(strcmp(cmd,"ls") == 0){
 					vfs->ls(path,stdout);
-			}	
+					printf("cao!!\n");
+				}	
 				nread=0;
 			}
 		}
@@ -45,7 +46,6 @@ void shell_thread(void *ttyid) {
 			vfs->write(stdout, text, strlen(name)+5);
 			vfs->write(stdout, path, strlen(path));
 			nread = vfs->read(stdin, line, sizeof(line));
-			printf("cao!!\n");
 		}
 	}
 }
