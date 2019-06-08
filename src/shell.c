@@ -13,10 +13,9 @@ void shell_thread(void *ttyid) {
 //	printf(":::  H  :::\n");
 //	int stdout = vfs->open(buf,O_WRONLY);
 	char name[5];
-	strncpy(name,&buf[4],4);
+	strncpy(name,&buf[5],4);
 	name[4] = '\0';
 	device_t *tty = dev_lookup(name);
-	printf("HHH\n");
 	char text[1024];
 	char line[1024];
 	int nread=0;
