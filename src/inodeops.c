@@ -166,7 +166,6 @@ int i_link(const char *name, inode_t *inode, inode_t *new){
 	new->size += ap.rec_len;
 	mi->ops->write(mi,MAP + (new->self)*64, (void *)new, sizeof(inode_t));
 
-	inode->refcnt++;
 	mi->ops->write(mi,MAP + (inode->self)*64, (void *)inode, sizeof(inode_t));
 	return 0;
 }
