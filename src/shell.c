@@ -33,7 +33,6 @@ void shell_thread(void *ttyid) {
 					cmd[lcnt++] = line[i];
 				}
 				cmd[lcnt] = '\0';
-				printf("tTTTTT\n");
 				if(strcmp(cmd,"ls") == 0){
 					vfs->ls(path,stdout);
 				}
@@ -43,7 +42,9 @@ void shell_thread(void *ttyid) {
 		}
 		else{
 			sprintf(text,"(%s) $",name);
+			printf(":::\n");
 			vfs->write(stdout, text, strlen(name)+5);
+			printf("::::\n");
 //			vfs->write(stdout, path, strlen(path));
 			nread = vfs->read(stdin, line, sizeof(line));
 		}
