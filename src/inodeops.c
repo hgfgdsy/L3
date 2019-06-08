@@ -71,6 +71,7 @@ ssize_t i_write(file_t *file, const char *buf, size_t size){
 			mi->ops->write(mi,MAP+64*(now->self),(void *)&ask,sizeof(ask));
 		}
 	}
+	printf("ft = %d",file->type);
 	return mi->ops->write(mi, off, (void *)buf, size);
 }
 
