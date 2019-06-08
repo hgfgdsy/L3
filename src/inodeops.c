@@ -48,7 +48,30 @@ ssize_t i_read(file_t *file, char *buf, size_t size){
 
 
 ssize_t i_write(file_t *file, const char *buf, size_t size){
-	return 0;
+	inode_t *now = file->inode;
+	device_t *mi = (device_t *)now->ptr;
+	int off = 0;
+	if(file->type == 1){
+		off = D + (now->bid)*(1<<12) + file->offset;
+/*		if(size < (1<<12) - file->offset){
+			ssize_t rb =  mi->ops->write(mi, off, (void *)buf, size);
+			file->offset += size;
+			return rb;
+		}
+		printf("The file is too big\n");
+		int len = mi->ops->read(mi, off, (void *)buf, (1<<12) - file->offset);
+		file->offset = now-;
+		return len;*/
+		mi->ops->write(mi,off,(void *)buf,size);
+		int newsize = file->offset + size;
+		if(newsize > now->size){
+			inode_t ask;
+			mi->ops->read(mi,MAP+64*(now->self),(void *)&ask,sizeof(ask));
+			ask.size = newsize;
+			mi->ops->write(mi,MAP+64*(now->self),(void *)*ask,sizeof(ask));
+		}
+	}
+	return mi->ops->read(mi, off, (void *)buf, size);
 }
 
 

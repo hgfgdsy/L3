@@ -389,7 +389,18 @@ static ssize_t vfs_read(int fd, void *buf, size_t nbyte){
 
 
 static ssize_t vfs_write(int fd, void *buf, size_t nbyte){
-	return 0;
+	int rec = cpuisin[_cpu()];
+	file_t *fp = tasks[rec]->fildes[fd];
+	if(fp == NULL) {printf("Invalid file discriptor\n"); return -1;}
+	if(fp->type == 3){
+
+	}
+	if(fp->type == 2){
+		inode_t *now = fp->inode;
+		return now->ops->write(fp,buf,nbyte);
+	}
+	inode_t *now = fp->inode;
+	return now->ops->write(fp,buf,nbyte);
 }
 
 
