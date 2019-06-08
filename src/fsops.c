@@ -173,6 +173,7 @@ inode_t *f_lookup(struct filesystem *fs, const char *path, int flags, int from){
 		devname[dcnt] = '\0';
 		ret->ptr = (void *)dev_lookup(devname);
 		ret->ops = &basic;
+		ret->type = 4;
 		if(ret->ptr==NULL) {printf("Unknown device\n"); return NULL;}
 		return ret;
 	}
