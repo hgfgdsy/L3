@@ -41,10 +41,10 @@ void shell_thread(void *ttyid) {
 		}
 		else{
 			sprintf(text,"(%s) $ ",name);
-			printf(":::\n");
+//			printf(":::\n");
 			tty_write(tty, 0, text, strlen(name)+5);
-			printf("::::\n");
-//			vfs->write(stdout, path, strlen(path));
+//			printf("::::\n");
+			vfs->write(stdout, path, strlen(path));
 			nread = vfs->read(stdin, line, sizeof(line));
 		}
 	}
