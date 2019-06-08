@@ -22,7 +22,7 @@ void shell_thread(void *ttyid) {
 	path[0] = '/';
 //	printf("pathlen = %d\n",strlen(path));
 	while(1){
-		if(nread!=0){
+		if(nread != 0){
 			if(line[nread-1] == '\n'){
 			        line[nread] = '\0';
 //			        vfs->write(stdout, line, strlen(line));
@@ -35,15 +35,14 @@ void shell_thread(void *ttyid) {
 				cmd[lcnt] = '\0';
 				if(strcmp(cmd,"ls") == 0){
 					vfs->ls(path,stdout);
-				}
-				
+				}	
 				nread=0;
 			}
 		}
 		else{
 			sprintf(text,"(%s) $",name);
 			printf(":::\n");
-			tty_write(tty, 0, text, strlen(name)+5);
+			tty_write(tty, 0, text, strlen(name)+4);
 			printf("::::\n");
 //			vfs->write(stdout, path, strlen(path));
 			nread = vfs->read(stdin, line, sizeof(line));
