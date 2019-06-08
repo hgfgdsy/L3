@@ -56,7 +56,9 @@ static void vfs_init(){
 
 	EXT2.dev->ops->write(EXT2.dev,0,c,1);
 	EXT2.dev->ops->write(EXT2.dev,MAP,(void *)&root,sizeof(root));
+	vfs->mkdir("/dev");
 
+	vfs->mount("/dev",&EXT2, "devfs");
 	
 	vfs->mkdir("/abc");
 	vfs->mkdir("/sdfv");

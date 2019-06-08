@@ -103,7 +103,7 @@ static void os_init() {
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty3");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty4");
 */
-/*
+
   int t1[1],t2[2],t3[1],t4[1];
   t1[0] = 1;
   t2[0] = 2;
@@ -113,7 +113,7 @@ static void os_init() {
   kmt->create(pmm->alloc(sizeof(task_t)), "print", shell_thread, t2);
   kmt->create(pmm->alloc(sizeof(task_t)), "print", shell_thread, t3);
   kmt->create(pmm->alloc(sizeof(task_t)), "print", shell_thread, t4);
-*/
+
 //  handle *now = handle_head;
 //  while(now!=NULL) {printf("%d\n",now->seq); now = now->suc;}
 
