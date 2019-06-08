@@ -106,6 +106,40 @@ static void vfs_init(){
 
 }
 
+static int vfs_ls(const char *path,int sto){
+	char dir[50];
+	int lcnt = 0;
+	for(int i=1;;i++){
+		if(*(path+i) == '/') break;
+		else dir[lcnt++] = *(path+i);
+	}
+	dir[lcnt] ='\0';
+	if(strcmp(dir,"proc")==0) { printf("Invalid path(vfs_proc)\n"); return -1;}
+//	if(strcmp(dir,"dev")==0) {printf("Invalid path(vfs_dev)\n"); return -1;}
+        filesystem_t *fs = &EXT2;
+	inode_t *now = fs->ops->lookup(fs,path,0,0);
+        char data[1<<12];
+	int rec = 0;
+	device_t *mi = (device_t *)now->ptr;
+	int dlen = mi->ops->read(mi,D+(1<<12)*now->self,(void *)data,now->size);
+	int I;
+	while(rec < dlen){
+		I = *(int *)&data[rec];
+		if(I == -1){
+			rec += *(short *)&data[rec+4];
+			continue;
+		}
+		else{
+			vfs->write(sto,&data[rec+8],*(short *)&data[rec+6]);
+			vfs->write(sto,"     ",5);
+		}
+	}
+	return 0;
+}
+
+
+
+
 
 static int vfs_access(const char *path, int mode){
 	char dir[50];
@@ -179,7 +213,7 @@ static int vfs_mkdir(const char *path){
 	}
 	dir[lcnt] ='\0';
 	if(strcmp(dir,"proc")==0) { printf("Invalid path(vfs_proc)\n"); return -1;}
-	if(strcmp(dir,"dev")==0) {printf("Invalid path(vfs_dev)\n"); return -1;}
+//	if(strcmp(dir,"dev")==0) {printf("Invalid path(vfs_dev)\n"); return -1;}
 
 	filesystem_t *fs = &EXT2;
 	
@@ -446,6 +480,7 @@ static int vfs_close(int fd){
 
 MODULE_DEF(vfs){
 	.init = vfs_init,
+	.ls = vfs_ls,
 	.access = vfs_access,
 	.mount = vfs_mount,
 	.unmount = vfs_unmount,

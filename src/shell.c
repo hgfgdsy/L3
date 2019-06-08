@@ -17,17 +17,32 @@ void shell_thread(void *ttyid) {
 	char text[1024];
 	char line[1024];
 	int nread=0;
+	char path[1024];
+	memset(path,0,1024);
+	path[0] = '/';
 	while(1){
 		if(nread!=0){
 			if(line[nread-1] == '\n'){
 			        line[nread] = '\0';
-			        vfs->write(stdout, line, strlen(line));
+//			        vfs->write(stdout, line, strlen(line));
+				char cmd[50];
+				int lcnt=0;
+				for(int i=0;i<nread;i++){
+					if(line[i] == ' ') break;
+					cmd[lcnt++] = line[i];
+				}
+				cmd[lcnt] = '\0';
+				if(strcmp(cmd,"ls") == 0){
+					vfs->ls(path,stdout);
+				}
+				
 				nread=0;
 			}
 		}
 		else{
 			sprintf(text,"(%s) $",name);
 			vfs->write(stdout, text, strlen(name)+5);
+			vfs->write(stdout, path, strlen(path));
 			nread = vfs->read(stdin, line, sizeof(line));
 		}
 	}
