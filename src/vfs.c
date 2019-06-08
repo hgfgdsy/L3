@@ -82,6 +82,7 @@ static void vfs_init(){
 	else {printf("%d\n",temp7->bid);}
 	inode_t *temp9 = EXT2.ops->lookup(&EXT2,"/abc/edf/a.c",1,0);
 	printf("%d %d",temp9->bid,temp9->type);
+	printf("%d\n",vfs->access(&EXT2,"/abc/edf/a.c",1));
 
 
 
@@ -89,8 +90,16 @@ static void vfs_init(){
 }
 
 
-static int vfs_access(const char *path, int mode){
-	
+static int vfs_access(filesystem_t *fs, const char *path, int mode){
+	inode_t *now = fs->ops->lookup(fs, path, 0, 0);
+	if(now == NULL){
+		printf("No such file\n");
+		return -1;
+	}
+	if(now->right != mode){
+		printf("can't access in mode %d",mode);
+		return -1;
+	}
 	return 0;
 }
 

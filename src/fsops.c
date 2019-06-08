@@ -3,7 +3,7 @@
 #include <devices.h>
 
 
-inode_t *cref(inode_t *My, const char *name){
+inode_t *cref(inode_t *My, const char *name,int right){
 	device_t *mi = (device_t *)My->ptr;
 	int nlen = strlen(name);
 	char omit[1];
@@ -39,6 +39,7 @@ inode_t *cref(inode_t *My, const char *name){
 	new->fs = My->fs;
 	new->son = 0;
 	new->ops = My->ops;
+	new->right = flags;
 	mi->ops->write(mi, MAP + 64*k, (void *)&new, sizeof(inode_t));
 /*
 	tory_t ddot;
@@ -144,8 +145,8 @@ inode_t *f_lookup(struct filesystem *fs, const char *path, int flags, int from){
 				return next;
 			}
 			else{
-				if(flags == 1) {
-					return cref(next,dir);
+				if(flags != 0) {
+					return cref(next,dir,flags);
 				}
 				else {
 				        printf("Invalid path2!\n");
