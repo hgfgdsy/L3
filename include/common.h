@@ -128,6 +128,7 @@ struct inode {
 	int self;
 	int son;
 	int right;
+	int status;
 	filesystem_t *fs;
 	inodeops_t *ops;
 };

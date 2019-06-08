@@ -356,11 +356,13 @@ static int vfs_open(const char *path, int flags){
 	filesystem_t *fs = &EXT2;
 	inode_t *now = fs->ops->lookup(fs,path,flags,0);
 	if(now == NULL) {printf("No such file\n"); return -1;}
+	if(now->type == 1) {printf("Is is a directory\n"); return -1;}
         int rec = cpuisin[_cpu()];
 	for(i=0;i<20;i++){
 		if(tasks[rec]->fildes[i] == NULL) break;
 	}
 	file_t *fp = (file_t *)pmm->alloc(sizeof(file_t));
+	now->ops->open(fp,flags);
 	fp->inode = now;
 	fp->offset = 0;
 	tasks[rec]->fildes[i] = fp;
@@ -369,6 +371,7 @@ static int vfs_open(const char *path, int flags){
 
 
 static ssize_t vfs_read(int fd, void *buf, size_t nbyte){
+
 	return 0;
 }
 
@@ -384,6 +387,24 @@ static off_t vfs_lseek(int fd, off_t offset, int whence){
 
 
 static int vfs_close(int fd){
+	char dir[50];
+	int lcnt = 0;
+	for(int i=1;;i++){
+		if(*(path+i) == '/') break;
+		else dir[lcnt++] = *(path+i);
+	}
+	dir[lcnt] ='\0';
+	if(strcmp(dir,"proc") == 0){
+	}
+	if(strcmp(dir,"dev") == 0){
+		tasks[cpuisin[_cpu()]]->fildes[fd] = NULL;
+		return 0;
+	}
+	int rec = cpuisin[_cpu()];
+	file_t *temp = tasks[rec]->fildes[fd];
+	now = temp->inode;
+	tasks[rec]->fildes[fd] = NULL;
+	now->ops->close(temp);
 	return 0;
 }
 

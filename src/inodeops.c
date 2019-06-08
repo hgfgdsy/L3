@@ -3,12 +3,25 @@
 #include <devices.h>
 
 int i_open(file_t *file, int flags){
+	inode_t *now = file->inode;
+	device_t *mi = (device_t *)now->ptr;
+	inode_t ask;
+	mi->ops->read(mi,MAP+64*(now->self),(void *)ask,sizeof(ask));
+	ask.status += 1;
+	mi->ops->write(mi,MAP+64*(now->self),(void *)ask,sizeof(ask));
 	return 0;
 }
 
 
 
 int i_close(file_t *file){
+	inode_t *now = file->inode;
+	device_t *mi = (device_t *)now->ptr;
+	inode_t ask;
+	mi->ops->read(mi,MAP+64*(now->self),(void *)ask,sizeof(ask));
+	ask.status -= 1;
+	mi->ops->write(mi,MAP+64*(now->self),(void *)ask,sizeof(ask));
+
 	return 0;
 }
 
@@ -217,7 +230,7 @@ int i_unlink(const char *name, inode_t *inode){
 	mi->ops->write(mi , D + (inode->bid)*(1<<12) + rec, (void *)&ap, sizeof(tory_t));
 	inode_t tar;
 	mi->ops->read(mi, MAP + I*64, (void *)&tar, sizeof(inode_t));
-	if(tar.refcnt == 1){
+	if(tar.refcnt == 1 && tar.status == 0){
 		char c[1] = "0";
 		mi->ops->write(mi, I*8, (void *)c, 1);
 	}
