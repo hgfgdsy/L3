@@ -3,7 +3,7 @@
 #include <devices.h>
 
 extern char initrd_start, initrd_end;
-
+extern void shell_thread(int tty_id);
 /*
 uintptr_t cha[500];
 int cnt = 0;
@@ -97,11 +97,17 @@ static void os_init() {
 //  kmt->create(pmm->alloc(sizeof(task_t)),"producer",left,"(");
 //  kmt->create(pmm->alloc(sizeof(task_t)),"consumer",right,")");
 
-
+/*
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty1");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty2");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty3");
   kmt->create(pmm->alloc(sizeof(task_t)), "print", echo_task, "tty4");
+*/
+
+  kmt->create(pmm->alloc(sizeof(task_t)), "print", shell_thread, 1);
+  kmt->create(pmm->alloc(sizeof(task_t)), "print", shell_thread, 2);
+  kmt->create(pmm->alloc(sizeof(task_t)), "print", shell_thread, 3);
+  kmt->create(pmm->alloc(sizeof(task_t)), "print", shell_thread, 4);
 
 //  handle *now = handle_head;
 //  while(now!=NULL) {printf("%d\n",now->seq); now = now->suc;}
