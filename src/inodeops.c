@@ -72,7 +72,8 @@ ssize_t i_write(file_t *file, const char *buf, size_t size){
 		}
 		return size;
 	}
-	int wlen = mi->ops->write(mi, off, (void *)buf, size);
+	int wlen = mi->ops->write(mi, file->offset, (void *)buf, size);
+	file->offset += size;
 	printf("%d\n",wlen);
 	return wlen;
 }
