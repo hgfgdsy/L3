@@ -343,12 +343,12 @@ static int vfs_open(const char *path, int flags){
 		if(new == NULL) {printf("Unknown device\n"); return -1;}
 		int rec = cpuisin[_cpu()];
 		for(i=0;i<20;i++){
-			if(task[rec]->fildes[i] == NULL) break;
+			if(tasks[rec]->fildes[i] == NULL) break;
 		}
 		file_t *fp = (file_t *)pmm->alloc(sizeof(file_t));
 		fp->inode = new;
 		fp->offset = 0;
-		task[rec]->fildes[i] = fp;
+		tasks[rec]->fildes[i] = fp;
 		return i;
 	}
 
@@ -358,12 +358,12 @@ static int vfs_open(const char *path, int flags){
 	if(now == NULL) {printf("No such file\n"); return -1;}
         int rec = cpuisin[_cpu()];
 	for(i=0;i<20;i++){
-		if(task[rec]->fildes[i] == NULL) break;
+		if(tasks[rec]->fildes[i] == NULL) break;
 	}
 	file_t *fp = (file_t *)pmm->alloc(sizeof(file_t));
 	fp->inode = now;
 	fp->offset = 0;
-	task[rec]->fildes[i] = fp;
+	tasks[rec]->fildes[i] = fp;
 	return i;
 }
 
