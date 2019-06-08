@@ -12,6 +12,11 @@
 #define SEEK_CUR 1
 #define SEEK_END 2
 
+#define O_RDONLY 0x1
+#define O_WRONLY 0x2
+#define O_RWDR 0x4
+#define O_EXE 0x8
+
 
 typedef struct file file_t;
 int cpuisin[8];
