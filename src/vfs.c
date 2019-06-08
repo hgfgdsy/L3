@@ -113,7 +113,6 @@ static int vfs_cd(const char *left,char *path, int sto){
 	for(i=0;i<llen;i++)
 		if(*(left+i)!=' ')
 			break;
-	printf("%d\n",i);
 	int tlen = strlen(path);
 	if(tlen == 1 && *(path+i) == '.'){
 		vfs->write(sto,"error\n",6);
@@ -127,6 +126,7 @@ static int vfs_cd(const char *left,char *path, int sto){
 	}
 	strcpy(lu,path);
 	strcat(lu,left+i);
+	printf("%s\n",lu);
 	filesystem_t *fs = &EXT2;
 	inode_t *now = fs->ops->lookup(fs,lu,0,0);
 	if(now->type == 2){
