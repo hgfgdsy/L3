@@ -28,7 +28,7 @@ struct task {
 	const char *name;
 	_Context context;
 	file_t *fildes[20];
-	char stack[4096];
+	char stack[1<<20];
 };
 
 struct spinlock {
