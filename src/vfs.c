@@ -53,7 +53,7 @@ static void vfs_init(){
 	EXT2.dev->ops->write(EXT2.dev,0,c,1);
 	EXT2.dev->ops->write(EXT2.dev,MAP,(void *)&root,sizeof(root));
 
-/*	
+	
 	vfs->mkdir(&EXT2, "/", "abc");
 //	printf("rts1 = %d\n",root.size);
 	inode_t *temp = EXT2.ops->lookup(&EXT2,"/abc",0,0);
@@ -80,7 +80,8 @@ static void vfs_init(){
 	printf("%d\n",temp8->bid);
 	if(temp7 == NULL) printf("cap\n");
 	else {printf("%d\n",temp7->bid);}
-*/
+	inode_t *temp9 = EXT2.ops->lookup(&EXT2,"/abc/edf/a.c",1,0);
+
 
 
 
