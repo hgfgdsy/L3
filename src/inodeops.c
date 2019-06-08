@@ -214,7 +214,7 @@ int i_unlink(const char *name, inode_t *inode){
 	tory_t ap;
 	memcpy((void *)&ap,(void *)&data[rec],sizeof(tory_t));
 	ap.I = -1;
-	mi->write(mi , D + (inode->bid)*(1<<12) + rec, (void *)&ap, sizeof(tory_t));
+	mi->ops->write(mi , D + (inode->bid)*(1<<12) + rec, (void *)&ap, sizeof(tory_t));
 	inode_t tar;
 	mi->ops->read(mi, MAP + I*64, (void *)&tar, sizeof(inode_t));
 	if(tar.refcnt == 1){
