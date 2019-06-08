@@ -83,6 +83,13 @@ static void vfs_init(){
 	inode_t *temp9 = EXT2.ops->lookup(&EXT2, "/abc/edf/a.c",1,0);
 	printf("%d %d\n",temp9->bid,temp9->type);
 	printf("%d\n",vfs->access("/abc/edf/a.c",1));
+	printf("%d\n",sizeof(tory_t));
+	vfs->link("/abc/edf/a.c","/abc/b.c")
+	inode_t *temp10 = EXT2.ops->lookup(&EXT2, "/abc/b.c",0,0);
+	if(temp10 == NULL) printf("cap\n");
+	else{
+		printf("%d %d %d\n",temp9->self,temp10->self,temp9->refcnt);
+	}
 
 
 
