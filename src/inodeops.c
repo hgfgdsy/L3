@@ -141,7 +141,33 @@ int i_rmdir(inode_t *My, const char *name){
 
 
 
-int i_link(const char *name, inode_t *inode){
+int i_link(const char *name, inode_t *inode, inode_t *new){
+	if(inode == NULL){
+		printf("The target file does not exist\n");
+		return -1;
+	}
+	if(new == NULL){
+		printf("The origin dirrectory does not exist\n");
+		return -1;
+	}
+	int I = inode->self;
+	int nlen = strlen(name);
+	char dname[50];
+	strcpy(dname,name);
+	dname[nlen] = '\0';
+	tory_t ap;
+	ap.I = I;
+	ap.rec_len = nlen + 9;
+	ap.file_type = 2;
+	ap.name_len = nlen;
+	device_t *mi = (device_t *)new->ptr;
+	mi->ops->write(mi,D + (new->bid)*(1<<12) + new->size, (void *)&ap, sizeof(ap));
+	mi->ops->write(mi,D + (new->bid)*(1<<12) + new->size + sizeof(ap), nlen+1);
+	new->size += ap.rec_len;
+	mi->ops->write(mi,MAP + (new->self)*64, (void *)new, sizeof(inode_t));
+
+	inode->refcnt++;
+	mi->ops->write(mi,MAP + (inode->self)*64, (void *)inode, sizeof(inode_t));
 	return 0;
 }
 

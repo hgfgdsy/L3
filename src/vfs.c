@@ -247,14 +247,22 @@ static int vfs_link(const char *oldpath, const char *newpath){
 		return -1;
 	}
 
-//	filesystem_t *fs = &EXT2;
+	filesystem_t *fs = &EXT2;
+	inode_t *now = fs->ops->lookup(fs,oldpath,0,0);
 
+	char name[50];
+	int len = strlen(path);
+	for(int i=0;i<len;i++){
+		if(*(path+i) == '/' && i != len-1) lcnt = 0;
+		else name[lcnt++] = *(path+i);
+	}
+	name[lcnt] = '\0';
+	char *my_path = (char *)pmm->alloc(200);
+	strncpy(my_path,path,len-lcnt-1);
 
-
-
-
-
-	return 0;
+	inode_t *fre = fs->ops->lookup(fs,my_path,0,0);
+	
+	return now->ops->link(name,now,fre);
 }
 
 

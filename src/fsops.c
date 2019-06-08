@@ -31,6 +31,7 @@ inode_t *cref(inode_t *My, const char *name,int right){
 		root.size = My->size;
 
 	inode_t *new = (inode_t *)pmm->alloc(sizeof(inode_t));
+	new->refcnt = 1;
 	new->type = 2;
 	new->size = 0;
 	new->bid = k;
