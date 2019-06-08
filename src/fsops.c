@@ -157,9 +157,24 @@ inode_t *f_lookup(struct filesystem *fs, const char *path, int flags, int from){
 			}
 		}
 	}
-
-
-
+	if(from == 1){
+		inode_t *ret = (inode_t *)pmm->alloc(sizeof(inode_t));
+		ret->ptr = NULL;
+		char devname[20];
+		int dcnt=0;
+		int plen = strlen(path);
+		for(int i=5;i<plen;i++){
+			if(*(path+i) == '/'){
+				printf("Unknown device\n");
+				return NULL;
+			}
+			devname[dcnt++] = *(path+i);
+		}
+		devname[dcnt] = '\0';
+		ret->ptr = (void *)dev_lookup(devname);
+		if(ret->ptr==NULL) {printf("Unknown device\n"); return NULL;}
+		return ret;
+	}
 
 
 	return NULL;
