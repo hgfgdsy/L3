@@ -247,7 +247,7 @@ static int vfs_link(const char *oldpath, const char *newpath){
 		return -1;
 	}
 
-	filesystem_t *fs = &EXT2;
+//	filesystem_t *fs = &EXT2;
 
 
 
