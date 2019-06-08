@@ -54,6 +54,19 @@ void shell_thread(void *ttyid) {
 					}
 					vfs->mkdir(np);
 				}
+				if(strcmp(cmd,"rm") == 0){
+					char np[256];
+					memset(np,0,sizeof(np));
+					strcpy(np,path);
+					int olen = strlen(path);
+					np[olen++] = '/';
+					for(int j=6;j<nread-1;j++){
+						if(line[j]!=' ')
+							np[olen++] = line[j];
+					}
+					vfs->unlink(np);
+				}
+
 				nread=0;
 			}
 		}
