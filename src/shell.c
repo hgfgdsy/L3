@@ -8,7 +8,9 @@ void shell_thread(void *ttyid) {
 	strncpy(buf,"/dev/tty",8);
 	buf[8] = '0' + tty_id;
 	buf[9] = '\0';
+	printf(":::  H  :::\n");
 	int stdin = vfs->open(buf,O_RDONLY);
+	printf(":::  H  :::\n");
 //	int stdout = vfs->open(buf,O_WRONLY);
 	char name[5];
 	strncpy(name,&buf[4],4);
