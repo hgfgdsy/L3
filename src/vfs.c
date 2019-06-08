@@ -111,7 +111,7 @@ static int vfs_ls(const char *path,int sto){
 	int lcnt = 0;
 	int llen=strlen(path);
 	if(llen>1){
-	for(int i=1;1<llen;i++){
+	for(int i=1;i<llen;i++){
 		if(*(path+i) == '/') break;
 		else dir[lcnt++] = *(path+i);
 	}
