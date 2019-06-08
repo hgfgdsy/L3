@@ -137,7 +137,7 @@ static int vfs_cd(const char *left,char *path, int sto){
 		return -1;
 	}
 	int j;
-	if(*(path+i) == '.'){
+	if(*(left+i) == '.'){
 		for(j=tlen-1;j>=0;j--){
 			if(*(path+j)=='/')
 				break;
