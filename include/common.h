@@ -81,7 +81,7 @@ typedef struct {
 typedef struct inode inode_t;
 
 struct file {
-	int refcnt;
+	int fof;
 	int type;
 	inode_t *inode;
 	uint64_t offset;

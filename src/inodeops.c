@@ -28,7 +28,21 @@ int i_close(file_t *file){
 
 
 ssize_t i_read(file_t *file, char *buf, size_t size){
-       return 0;
+	inode_t *now = file->inode;
+	device_t *mi = (device_t *)now->ptr;
+	int off = 0;
+	if(file->type == 1){
+		off = D + (now->bid)*(1<<12) + file->offset;
+		if(size < now->size - file->offset){
+			ssize_t rb =  mi->ops->read(mi, off, (void *)buf, size);
+			file->offset += size;
+			return rd;
+		}
+		int len = mi->ops->read(mi, off, (void *)buf, now->size - file->offset);
+		file->offset = now->size;
+		return len;
+	}
+	return mi->ops->read(mi, off, (void *)buf, size);
 }
 
 
