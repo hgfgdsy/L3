@@ -28,6 +28,7 @@ int i_close(file_t *file){
 
 
 ssize_t i_read(file_t *file, char *buf, size_t size){
+	printf("Started\n");
 	inode_t *now = file->inode;
 	device_t *mi = (device_t *)now->ptr;
 	int off = 0;
