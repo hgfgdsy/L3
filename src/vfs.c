@@ -435,7 +435,6 @@ static ssize_t vfs_read(int fd, void *buf, size_t nbyte){
 	}
 	if(fp->type == 2){
 		inode_t *now = fp->inode;
-		printf("hello\n");
 		return now->ops->read(fp,buf,nbyte);
 	}
 	inode_t *now = fp->inode;
@@ -451,6 +450,7 @@ static ssize_t vfs_write(int fd, void *buf, size_t nbyte){
 
 	}
 	if(fp->type == 2){
+		printf("hello\n");
 		inode_t *now = fp->inode;
 		return now->ops->write(fp,buf,nbyte);
 	}
