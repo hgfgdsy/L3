@@ -13,7 +13,7 @@ void shell_thread(void *ttyid) {
 	char name[5];
 	strncpy(name,&buf[5],4);
 	name[4] = '\0';
-//	device_t *tty = dev_lookup(name);
+	device_t *tty = dev_lookup(name);
 	char text[1024];
 	char line[1024];
 	int nread=0;
@@ -43,7 +43,7 @@ void shell_thread(void *ttyid) {
 		else{
 			sprintf(text,"(%s) $",name);
 			printf(":::\n");
-			vfs->write(stdout, text, strlen(name)+4);
+			tty_write(tty, 0, text, strlen(name)+5);
 			printf("::::\n");
 //			vfs->write(stdout, path, strlen(path));
 			nread = vfs->read(stdin, line, sizeof(line));
