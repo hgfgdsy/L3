@@ -125,7 +125,13 @@ static int vfs_cd(const char *left,char *path, int sto){
 		return -1;
 	}
 	strcpy(lu,path);
-	strcpy(&lu[tlen],left+i);
+	if(tlen!=1){
+		lu[tlen] = '/';
+		strcpy(&lu[tlen+1],left+i);
+	}
+	else{
+	        strcpy(&lu[tlen],left+i);
+	}
 	int olen = strlen(lu);
 	lu[olen-1] = '\0';
 //	printf("C = %c\n",lu[1]);
