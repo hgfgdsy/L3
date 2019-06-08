@@ -71,7 +71,7 @@ ssize_t i_write(file_t *file, const char *buf, size_t size){
 			mi->ops->write(mi,MAP+64*(now->self),(void *)&ask,sizeof(ask));
 		}
 	}
-	return mi->ops->read(mi, off, (void *)buf, size);
+	return mi->ops->write(mi, off, (void *)buf, size);
 }
 
 
