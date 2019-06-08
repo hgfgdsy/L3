@@ -109,8 +109,8 @@ static void vfs_init(){
 static int vfs_ls(const char *path,int sto){
 	char dir[50];
 	int lcnt = 0;
-	int len=strlen(path);
-	if(len>1){
+	int llen=strlen(path);
+	if(llen>1){
 	for(int i=1;;i++){
 		if(*(path+i) == '/') break;
 		else dir[lcnt++] = *(path+i);
@@ -211,8 +211,8 @@ static int vfs_unmount(const char *path){
 static int vfs_mkdir(const char *path){
 	char dir[50];
 	int lcnt = 0;
-	int len = strlen(path);
-	if(len>1){
+	int llen = strlen(path);
+	if(llen>1){
 	for(int i=1;;i++){
 		if(*(path+i) == '/') break;
 		else dir[lcnt++] = *(path+i);
@@ -246,8 +246,8 @@ static int vfs_mkdir(const char *path){
 static int vfs_rmdir(const char *path){
 	char dir[50];
 	int lcnt = 0;
-	int len = strlen(path);
-	if(len>1){
+	int llen = strlen(path);
+	if(llen>1){
 	for(int i=1;;i++){
 		if(*(path+i) == '/') break;
 		else dir[lcnt++] = *(path+i);
