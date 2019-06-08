@@ -13,7 +13,7 @@ extern ssize_t i_write(file_t *file, const char *buf, size_t size);
 extern off_t i_lseek(file_t *file, off_t offset, int whence);
 extern int i_mkdir(inode_t *My, const char *name);
 extern int i_rmdir(inode_t *My, const char *name);
-extern int i_link(const char *name, inode_t *inode);
+extern int i_link(const char *name, inode_t *inode, inode_t *new);
 extern int i_unlink(const char *name);
 
 static void vfs_init(){
