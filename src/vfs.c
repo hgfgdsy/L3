@@ -118,6 +118,7 @@ static int vfs_ls(const char *path,int sto){
 //	if(strcmp(dir,"dev")==0) {printf("Invalid path(vfs_dev)\n"); return -1;}
         filesystem_t *fs = &EXT2;
 	inode_t *now = fs->ops->lookup(fs,path,0,0);
+	printf("self = %d\n",now->self);
         char data[1<<12];
 	int rec = 0;
 	device_t *mi = (device_t *)now->ptr;
