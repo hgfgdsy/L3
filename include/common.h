@@ -82,6 +82,7 @@ typedef struct inode inode_t;
 
 struct file {
 	int refcnt;
+	int type;
 	inode_t *inode;
 	uint64_t offset;
 };

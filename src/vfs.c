@@ -348,6 +348,7 @@ static int vfs_open(const char *path, int flags){
 		file_t *fp = (file_t *)pmm->alloc(sizeof(file_t));
 		fp->inode = new;
 		fp->offset = 0;
+		fp->type = 2;
 		tasks[rec]->fildes[i] = fp;
 		return i;
 	}
@@ -365,6 +366,7 @@ static int vfs_open(const char *path, int flags){
 	now->ops->open(fp,flags);
 	fp->inode = now;
 	fp->offset = 0;
+	fp->type = 1;
 	tasks[rec]->fildes[i] = fp;
 	return i;
 }
@@ -387,23 +389,11 @@ static off_t vfs_lseek(int fd, off_t offset, int whence){
 
 
 static int vfs_close(int fd){
-	char dir[50];
-	int lcnt = 0;
-	for(int i=1;;i++){
-		if(*(path+i) == '/') break;
-		else dir[lcnt++] = *(path+i);
-	}
-	dir[lcnt] ='\0';
-	if(strcmp(dir,"proc") == 0){
-	}
-	if(strcmp(dir,"dev") == 0){
-		tasks[cpuisin[_cpu()]]->fildes[fd] = NULL;
-		return 0;
-	}
 	int rec = cpuisin[_cpu()];
 	file_t *temp = tasks[rec]->fildes[fd];
 	now = temp->inode;
 	tasks[rec]->fildes[fd] = NULL;
+	if(fp->type == 1)
 	now->ops->close(temp);
 	return 0;
 }
