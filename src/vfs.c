@@ -151,7 +151,7 @@ static int vfs_ls(const char *path,int sto){
 static int vfs_access(const char *path, int mode){
 	char dir[50];
 	int lcnt = 0;
-	for(int i=1;;i++){
+	for(int i=1;i<llen;i++){
 		if(*(path+i) == '/') break;
 		else dir[lcnt++] = *(path+i);
 	}
@@ -216,7 +216,7 @@ static int vfs_mkdir(const char *path){
 	int lcnt = 0;
 	int llen = strlen(path);
 	if(llen>1){
-	for(int i=1;;i++){
+	for(int i=1;i<llen;i++){
 		if(*(path+i) == '/') break;
 		else dir[lcnt++] = *(path+i);
 	}
@@ -251,7 +251,7 @@ static int vfs_rmdir(const char *path){
 	int lcnt = 0;
 	int llen = strlen(path);
 	if(llen>1){
-	for(int i=1;;i++){
+	for(int i=1;i<llen;i++){
 		if(*(path+i) == '/') break;
 		else dir[lcnt++] = *(path+i);
 	}
@@ -282,7 +282,9 @@ static int vfs_link(const char *oldpath, const char *newpath){
 	char dir[50];
 	int lcnt = 0;
 	int old = 0,new = 0;
-	for(int i=1;;i++){
+	int ol = strlen(oldpath);
+	int nl = strlen(newpath);
+	for(int i=1;i<ol;i++){
 		if(*(oldpath+i) == '/') break;
 		else dir[lcnt++] = *(oldpath+i);
 	}
@@ -291,7 +293,7 @@ static int vfs_link(const char *oldpath, const char *newpath){
 	if(strcmp(dir,"dev")==0) {/*printf("Invalid path(vfs_dev)\n"); return -1;*/ old = 2;}
 
 	lcnt = 0;
-	for(int i=1;;i++){
+	for(int i=1;i<nl;i++){
 		if(*(newpath+i) == '/') break;
 		else dir[lcnt++] = *(newpath+i);
 	}
@@ -331,7 +333,9 @@ static int vfs_link(const char *oldpath, const char *newpath){
 static int vfs_unlink(const char *path){
 	char dir[50];
 	int lcnt = 0;
-	for(int i=1;;i++){
+	int llen = strlen(path);
+//	int nl = strlen(newpath);
+	for(int i=1;i<llen;i++){
 		if(*(path+i) == '/') break;
 		else dir[lcnt++] = *(path+i);
 	}
