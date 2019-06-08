@@ -38,7 +38,7 @@ int holding(spinlock_t *lk) {
 	return r;
 }
 
-task_t *tasks[20];
+//task_t *tasks[20];
 int tagging[20];
 int runable[20];
 

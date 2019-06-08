@@ -324,7 +324,7 @@ static int vfs_open(const char *path, int flags){
 		int i;
 		int label = 0;
 		for(i=0;i<10;i++){
-			if(mnt[i] != NULL && strncmp(&mnt[i]->mounton[1],"dev") == 0)
+			if(mnt[i] != NULL && strncmp(&mnt[i]->mounton[1],"dev", 3) == 0)
 			{
 				
 				label=1;
@@ -339,7 +339,7 @@ static int vfs_open(const char *path, int flags){
 			printf("This filesystem has been unmounted\n");
 			return -1;
 		}
-		inode_t *new = mnt[i]->fs->ops->lookup(mnt[i]->fs,path,0,1);
+		inode_t *new = mnt[i]->ops->lookup(mnt[i],path,0,1);
 		if(new == NULL) {printf("Unknown device\n"); return -1;}
 		int rec = cpuisin[_cpu()];
 		for(i=0;i<20;i++){
@@ -361,7 +361,7 @@ static int vfs_open(const char *path, int flags){
 		if(task[rec]->fildes[i] == NULL) break;
 	}
 	file_t *fp = (file_t *)pmm->alloc(sizeof(file_t));
-	fp->inode = new;
+	fp->inode = now;
 	fp->offset = 0;
 	task[rec]->fildes[i] = fp;
 	return i;

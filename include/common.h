@@ -10,6 +10,7 @@
 
 typedef struct file file_t;
 int cpuisin[8];
+task_t *tasks[20];
 
 struct task {
 	int tag;
