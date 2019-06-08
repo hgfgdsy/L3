@@ -142,7 +142,11 @@ static int vfs_cd(const char *left,char *path, int sto){
 			if(*(path+j)=='/')
 				break;
 		}
+		if(j!=0)
 		path[j] ='\0';
+		else{
+			path[j+1] = '\0';
+		}
 		return 0;
 	}
 	strcpy(path,lu);
