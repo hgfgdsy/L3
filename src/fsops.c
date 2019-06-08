@@ -145,7 +145,7 @@ inode_t *f_lookup(struct filesystem *fs, const char *path, int flags, int from){
 			}
 			else{
 				if(flags == 1) {
-					cref(next,dir);
+					return cref(next,dir);
 				}
 				else {
 				        printf("Invalid path2!\n");
