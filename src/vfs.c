@@ -97,7 +97,7 @@ static int vfs_access(filesystem_t *fs, const char *path, int mode){
 		return -1;
 	}
 	if(now->right != mode){
-		printf("can't access in mode %d",mode);
+		printf("can't access in mode %d %d",mode,now->right);
 		return -1;
 	}
 	return 0;
