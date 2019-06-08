@@ -222,6 +222,7 @@ int i_unlink(const char *name, inode_t *inode){
 		mi->ops->write(mi, I*8, (void *)c, 1);
 	}
 	else{
+		printf("hello\n");
 		tar.refcnt--;
 		mi->ops->write(mi, MAP + I*64, (void *)&tar, sizeof(inode_t));
 	}
