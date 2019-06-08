@@ -14,7 +14,7 @@ extern off_t i_lseek(file_t *file, off_t offset, int whence);
 extern int i_mkdir(inode_t *My, const char *name);
 extern int i_rmdir(inode_t *My, const char *name);
 extern int i_link(const char *name, inode_t *inode, inode_t *new);
-extern int i_unlink(const char *name);
+extern int i_unlink(const char *name,inode_t *inode);
 
 static void vfs_init(){
 	basic.open = &i_open;
@@ -274,7 +274,30 @@ static int vfs_link(const char *oldpath, const char *newpath){
 
 
 static int vfs_unlink(const char *path){
-	return 0;
+	char dir[50];
+	int lcnt = 0;
+	for(int i=1;;i++){
+		if(*(path+i) == '/') break;
+		else dir[lcnt++] = *(path+i);
+	}
+	dir[lcnt] ='\0';
+	if(strcmp(dir,"proc")==0) { printf("Invalid path(vfs_proc)\n"); return -1;}
+	if(strcmp(dir,"dev")==0) {printf("Invalid path(vfs_dev)\n"); return -1;}
+
+	filesystem_t *fs = &EXT2;
+
+	char name[50];
+	int len = strlen(path);
+	for(int i=0;i<len;i++){
+		if(*(path+i) == '/' && i != len-1) lcnt = 0;
+		else name[lcnt++] = *(path+i);
+	}
+	name[lcnt] = '\0';
+	char *my_path = (char *)pmm->alloc(200);
+	strncpy(my_path,path,len-lcnt-1);
+
+	inode_t *now = fs->ops->lookup(fs,my_path,0,0);
+	return now->ops->unlink(name,now);
 }
 
 

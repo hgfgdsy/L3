@@ -114,7 +114,7 @@ typedef struct inodeops {
   int (*mkdir)(inode_t *My, const char *name);
   int (*rmdir)(inode_t *My, const char *name);
   int (*link)(const char *name, inode_t *inode,inode_t *new);
-  int (*unlink)(const char *name);
+  int (*unlink)(const char *name,inode_t *inode);
   // 你可以自己设计readdir的功能
 } inodeops_t;
 

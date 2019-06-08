@@ -174,6 +174,56 @@ int i_link(const char *name, inode_t *inode, inode_t *new){
 
 
 
-int i_unlink(const char *name){
+int i_unlink(const char *name, inode_t *inode){
+	if(inode == NULL) {
+		printf("Invalid path\n");
+		return -1;
+	}
+
+	device_t *mi = (device_t *)inode->ptr;
+	char data[1<<12];
+	int dlen = mi->ops->read(mi,D + (inode->self)*(1<<12), (void *)data, inode->size);
+	int rec = 0;
+	int label = 0;
+	char dir[50];
+	int I;
+	int lcnt = strlen(name);
+	strcpy(dir,name);
+	dir[lcnt] = '\0';
+	while(rec < dlen){
+		I = *(int *)&data[rec];
+		if((int)data[rec+6] != lcnt || I == -1){
+			rec += *(short *)&data[rec+4];
+			continue;
+		}
+		else{
+			if(strncmp(dir,&data[rec+8],lcnt) != 0){
+			        rec += *(short *)&data[rec+4];
+			        continue;
+			}
+			else{
+				label = 1;
+				break;
+			}
+		}
+	}
+	if(label == 0){
+		printf("No such file\n");
+		return -1;
+	}
+	tory_t ap;
+	memcpy((void *)&ap,(void *)&data[rec],sizeof(tory_t));
+	ap.I = -1;
+	mi->write(mi , D + (inode->bid)*(1<<12) + rec, (void *)&ap, sizeof(tory_t));
+	inode_t tar;
+	mi->ops->read(mi, MAP + I*64, (void *)&tar, sizeof(inode_t));
+	if(tar.refcnt == 1){
+		char c[1] = "0";
+		mi->ops->write(mi, I*8, (void *)c, 1);
+	}
+	else{
+		tar.refcnt--;
+		mi->ops->write(mi, MAP + I*64, (void *)&tar, sizeof(inode_t));
+	}
 	return 0;
 }
