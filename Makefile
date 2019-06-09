@@ -1,7 +1,7 @@
 NAME           := kernel
 SRCS           := framework/main.c $(shell find -L ./src/ -name "*.c" -o -name "*.S")
 INC_DIR        := include/ framework/
-export TASK := L2
+export TASK := L3
 export AM_HOME := $(PWD)/../abstract-machine
 ifeq ($(ARCH),)
 export ARCH := x86-qemu
@@ -17,9 +17,6 @@ initrd:
 	@seq 1 8192 > build/ramdisk.img
 
 QEMU_FLAGS := -serial stdio -machine accel=kvm:tcg -drive format=raw,file=$(BINARY)
-
-run1: image
-	qemu-system-i386 -smp 1 $(QEMU_FLAGS)
 
 run2: image
 	qemu-system-i386 -smp 2 $(QEMU_FLAGS)
