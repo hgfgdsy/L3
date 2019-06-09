@@ -193,8 +193,8 @@ static int vfs_cat(const char *path, int sto){
 		return -1;
 	}
 	if(strncmp(path,"/proc",5)==0){
-		proc_read(path,sto);
-		return 0;
+//		proc_read(path,sto);
+//		return 0;
 		vfs->write(sto,"Permission denied\n",18);
 		return -1;
 	}
