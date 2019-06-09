@@ -59,7 +59,23 @@ static void vfs_init(){
 	vfs->mkdir("/dev");
 
 	vfs->mount("/dev",&EXT2, "devfs");
-	
+
+	vfs->mkdir("/proc");
+
+	vfs->mount("/proc",&EXT2, "procfs");
+
+	vfs->mkdir("/dev/tty1");
+
+	vfs->mkdir("/dev/tty2");
+
+	vfs->mkdir("/dev/tty3");
+
+	vfs->mkdir("/dev/tty4");
+
+	vfs->mkdir("/dev/ramdisk0");
+
+	vfs->mkdir("/dev/ramdisk1");
+/*	
 	vfs->mkdir("/abc");
 	vfs->mkdir("/sdfv");
 //	printf("rts1 = %d\n",root.size);
@@ -100,7 +116,7 @@ static void vfs_init(){
 //	vfs->unlink("/abc/edf/a.c");
 	inode_t *temp11 = EXT2.ops->lookup(&EXT2, "/abc/b.c",0,0);
 	if(temp11 == NULL) printf("yes\n");
-
+*/
 
 
 

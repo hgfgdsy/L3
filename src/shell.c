@@ -91,10 +91,10 @@ void shell_thread(void *ttyid) {
 						if(line[k]==' ') break;
 						np[olen++] = line[k];
 					}
-					for(k=k+1 ;line[k]==' '&&j<nread-1;k++);
+					for(k=k+1 ;line[k]==' '&&k<nread-1;k++);
 					int rcnt=0;
 					char buf[256];
-					for(k=k+1;line[k]!='"'&&j<nread-1;k++){
+					for(k=k+1;line[k]!='"'&&k<nread-1;k++){
 						buf[rcnt++] = line[k];
 					}
 					buf[rcnt] = '\0';
