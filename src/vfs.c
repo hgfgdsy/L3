@@ -440,8 +440,8 @@ static int vfs_rmdir(const char *path){
 		else dir[lcnt++] = *(path+i);
 	}
 	dir[lcnt] ='\0';
-	if(strcmp(dir,"proc")==0) { printf("Invalid path(vfs_proc)\n"); return -1;}
-	if(strcmp(dir,"dev")==0) {printf("Invalid path(vfs_dev)\n"); return -1;}
+	if(strcmp(dir,"proc")==0) { printf("Permission denied\n"); return -1;}
+	if(strcmp(dir,"dev")==0) {printf("Permission denied\n"); return -1;}
 	}
 	filesystem_t *fs = &EXT2;
 
@@ -524,8 +524,8 @@ static int vfs_unlink(const char *path){
 		else dir[lcnt++] = *(path+i);
 	}
 	dir[lcnt] ='\0';
-	if(strcmp(dir,"proc")==0) { printf("Invalid path(vfs_proc)\n"); return -1;}
-	if(strcmp(dir,"dev")==0) {printf("Invalid path(vfs_dev)\n"); return -1;}
+	if(strcmp(dir,"proc")==0) { printf("Permission denied\n"); return -1;}
+	if(strcmp(dir,"dev")==0) {printf("Permission denied\n"); return -1;}
 
 	filesystem_t *fs = &EXT2;
 
@@ -558,7 +558,8 @@ static int vfs_open(const char *path, int flags){
 
 	if(strcmp(dir,"proc") == 0) {
 
-		return 0;
+		printf("Permission denied\n");
+		return -1;
 	}
 
 	if(strcmp(dir,"dev") == 0) {
