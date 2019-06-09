@@ -158,6 +158,7 @@ fsops_t ES;
 void *cpuinfo;
 void *meminfo;
 int afd;
+int CTD[20];
 
 char pos[20][64];
 

@@ -17,7 +17,28 @@ extern int i_link(const char *name, inode_t *inode, inode_t *new);
 extern int i_unlink(const char *name,inode_t *inode);
 
 
-//void proc_read(const char *path, int sto){
+void proc_read(const char *path, int sto){
+	if(strcmp(path+6,"cpuinfo") == 0){
+		vfs->write(sto,cpuinfo,strlen(cpuinfo));
+		return ;
+	}
+	if(strcmp(path+6,"meminfo") == 0){
+		vfs->write(sto,meminfo,strlen(meminfo));
+		return ;
+	}
+	if(*(path+6)>='0' && *(path+6)<='9'){
+		int x = *(path+6) - '0';
+		if(*(path+7)>='0' && *(path+7)<='9')
+			x = x*10 + *(path+7) - '0';
+		if(x>=20 || CTD[x] == 0)
+			vfs->write(sto,"Unknown task\n",13);
+		else
+			vfs->write(sto,pos[x],strlen(pos[x]));
+		return ;
+	}
+	vfs->write(sto,"Unknown task\n",13);
+
+}
 
 
 
@@ -198,10 +219,10 @@ static int vfs_cat(const char *path, int sto){
 		return -1;
 	}
 	if(strncmp(path,"/proc",5)==0){
-//		proc_read(path,sto);
-//		return 0;
-		vfs->write(sto,"Permission denied\n",18);
-		return -1;
+		proc_read(path,sto);
+		return 0;
+//		vfs->write(sto,"Permission denied\n",18);
+//		return -1;
 	}
 	filesystem_t *fs = &EXT2;
 	inode_t *now = fs->ops->lookup(fs,path,0,0);

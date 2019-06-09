@@ -311,6 +311,7 @@ static int kmt_create(task_t *task, const char *name,
 	pos[rec][9] = '\n';
 	strcpy(&pos[rec][10],"Name : ");
 	strcpy(&pos[rec][17],name);
+	CTD[rec] = 1;
 	}
 
 

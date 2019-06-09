@@ -67,6 +67,7 @@ void echo_task(void *name) {
 static void os_init() {
   afd = 0;
   memset(pos,0,sizeof(pos));
+  for(int i=0;i<20;i++) CTD[i] = 0;
   pmm->init();
   handle_head = NULL;
   kmt->init();
