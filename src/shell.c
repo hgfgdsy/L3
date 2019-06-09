@@ -113,7 +113,6 @@ void shell_thread(void *ttyid) {
 					vfs->touch(np,stdout);
 				}
 
-				if(strcm)
 
 				nread=0;
 			}
