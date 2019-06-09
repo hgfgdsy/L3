@@ -204,7 +204,7 @@ int i_rmdir(inode_t *My, const char *name){
 		ap.I = -1;
 		mi->ops->write(mi, D + (My->self)*(1<<12) + rec, (void *)&ap, (sizeof(ap)));
 		My->son--;
-		mi->ops->write(mi, MAP + (My-self)*64, (void *)My, (sizeof(inode_t)));
+		mi->ops->write(mi, MAP + (My->self)*64, (void *)My, (sizeof(inode_t)));
 	}
 	return 0;
 }
