@@ -22,11 +22,11 @@ extern int i_unlink(const char *name,inode_t *inode);
 
 
 static void vfs_init(){
-/*	cpuinfo = pmm->alloc(100);
+	cpuinfo = pmm->alloc(100);
 	strcpy((char *)cpuinfo,"CPU:4\n");
 	meminfo = pmm->alloc(100);
 	strcpy((char *)meminfo,"MemtTotal : 16303692kB\n");
-*/
+
 	basic.open = &i_open;
 	basic.close = &i_close;
 	basic.read = &i_read;

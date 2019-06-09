@@ -285,8 +285,9 @@ static int kmt_create(task_t *task, const char *name,
 	for(int i=0; i<20; i++){
 		tasks[rec]->fildes[i] = NULL;
 	}
-	if(afd == 1){
 
+	if(afd == 1){
+	strcpy(pos[rec],"Task : ");
 	char ty[9];
 	memset(ty,0,sizeof(ty));
 	memcpy(ty,"/proc/",6);
@@ -298,6 +299,18 @@ static int kmt_create(task_t *task, const char *name,
 		ty[6] = rec + '0';
 	}
 	vfs->mkdir(ty);
+
+	if(rec>=10){
+		pos[rec][7] = (rec/10) + '0';
+		pos[rec][8] = (rec%10) + '0';
+	}
+	else{
+		pos[rec][7] = ' ';
+		pos[rec][8] = rec + '0';
+	}
+	pos[rec][9] = '\n';
+	strcpy(&pos[rec][10],"Name : ");
+	strcpy(&pos[rec][17],name);
 	}
 
 

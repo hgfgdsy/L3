@@ -159,6 +159,8 @@ void *cpuinfo;
 void *meminfo;
 int afd;
 
+char pos[20][64];
+
 filesystem_t *mnt[10];
 
 inodeops_t basic;
