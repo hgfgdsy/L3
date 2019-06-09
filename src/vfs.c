@@ -106,6 +106,63 @@ static void vfs_init(){
 
 }
 
+
+static int vfs_edit(const char *path,const char *buf){
+	if(strncmp(path,"/dev",4)==0){
+		vfs->write(sto,"Permission denied\n",18);
+		return -1;
+	}
+	if(strncmp(path,"/proc",5)==0){
+		vfs->write(sto,"Permission denied\n",18);
+		return -1;
+	}
+	filesystem_t *fs = &EXT2;
+	inode_t *now = fs->ops->lookup(fs,path,0,0);
+	if(now == NULL){
+		vfs->write(sto,"Invalid target\n",15);
+		retur n-1;
+	}
+	if(now->type == 1){
+		vfs->write(sto, "Is is a directory\n",18);
+		return -1;
+	}
+	device_t *mi = (device_t *)now->ptr;
+	int dlen = strlen(buf);
+	mi->ops->write(mi,D+(now->bid)*(1<<12)+now->size,buf,dlen);
+	now->size+=dlen;
+	mi->ops->write(mi,MAP+(now->self)*64,(void *)now,sizeof(inode_t));
+	return 0;
+}
+
+
+static int vfs_cat(const char *path, int sto){
+	if(strncmp(path,"/dev",4)==0){
+		vfs->write(sto,"Permission denied\n",18);
+		return -1;
+	}
+	if(strncmp(path,"/proc",5)==0){
+		vfs->write(sto,"Permission denied\n",18);
+		return -1;
+	}
+	filesystem_t *fs = &EXT2;
+	inode_t *now = fs->ops->lookup(fs,path,0,0);
+	if(now == NULL){
+		vfs->write(sto,"Invalid target\n",15);
+		retur n-1;
+	}
+	if(now->type == 1){
+		vfs->write(sto, "Is is a directory\n",18);
+		return -1;
+	}
+	device_t *mi = (device_t *)now->ptr;
+	char buf[1<<12];
+	mi->ops->read(mi,D+(now->self)*(1<<12),buf,now->size);
+	vfs->write(sto,buf,now->size);
+	return 0;
+}
+
+
+
 static int vfs_rm(const char *path,int sto){
 	if(strncmp(path,"/dev",4)==0){
 		vfs->write(sto,"Permission denied\n",18);
@@ -574,6 +631,8 @@ static int vfs_close(int fd){
 
 MODULE_DEF(vfs){
 	.init = vfs_init,
+	.edit = vfs_edit,
+	.cat = vfs_cat,
 	.rm = vfs_rm,
 	.cd = vfs_cd,
 	.ls = vfs_ls,

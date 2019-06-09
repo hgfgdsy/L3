@@ -66,7 +66,18 @@ void shell_thread(void *ttyid) {
 					}
 					vfs->rm(np,stdout);
 				}
-
+				if(strcmp(cmd,"cat") == 0){
+					char np[256];
+					memset(np,0,sizeof(np));
+					strcpy(np,path);
+					int olen = strlen(path);
+					np[olen++] = '/';
+					for(int j=4;j<nread-1;j++){
+						if(line[j]!=' ')
+							np[olen++] = line[j];
+					}
+					vfs->cat(np.stdout);
+				}
 				nread=0;
 			}
 		}
