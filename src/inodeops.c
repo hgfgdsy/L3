@@ -233,6 +233,7 @@ int i_link(const char *name, inode_t *inode, inode_t *new){
 	mi->ops->write(mi,D + (new->bid)*(1<<12) + new->size, (void *)&ap, sizeof(ap));
 	mi->ops->write(mi,D + (new->bid)*(1<<12) + new->size + sizeof(ap), dname, nlen+1);
 	new->size += ap.rec_len;
+	new->son++;
 	mi->ops->write(mi,MAP + (new->self)*64, (void *)new, sizeof(inode_t));
 	if(new->self == 0) root.size+=ap.rec_len;
 
@@ -289,6 +290,8 @@ int i_unlink(const char *name, inode_t *inode){
 	if(tar.refcnt == 1 && tar.status == 0){
 		char c[1] = "0";
 		mi->ops->write(mi, I*8, (void *)c, 1);
+		inode->son--;
+		mi->ops->write(mi,MAP+64*(inode->self),inode,sizeof(inode_t));
 	}
 	else{
 		tar.refcnt--;
