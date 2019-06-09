@@ -157,6 +157,7 @@ fsops_t ES;
 
 void *cpuinfo;
 void *meminfo;
+int afd;
 
 filesystem_t *mnt[10];
 

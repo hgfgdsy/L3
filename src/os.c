@@ -65,6 +65,7 @@ void echo_task(void *name) {
 }
 
 static void os_init() {
+  afd = 0;
   pmm->init();
   handle_head = NULL;
   kmt->init();
@@ -93,6 +94,7 @@ static void os_init() {
 
   kmt->spin_init((spinlock_t *)&OT,"locktrap");
   vfs->init();
+  afd = 1;
 
 
 //  kmt->create(pmm->alloc(sizeof(task_t)),"producer",left,"(");
