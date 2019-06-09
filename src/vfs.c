@@ -413,7 +413,7 @@ static int vfs_mkdir(const char *path){
 	name[lcnt] = '\0';
 	char *my_path = (char *)pmm->alloc(200);
 	strncpy(my_path,path,len-lcnt-1);
-
+	if(path[0]!='/') path[0] = '/';
 	inode_t *now = fs->ops->lookup(fs,my_path,0,0);
 	if(now == NULL) {
 		printf("Invalid path3!\n");
@@ -448,6 +448,7 @@ static int vfs_rmdir(const char *path){
 	name[lcnt] = '\0';
 	char *my_path = (char *)pmm->alloc(200);
 	strncpy(my_path,path,len-lcnt-1);
+	if(path[0]!='/') path[0] = '/';
 	printf("my_path = %s\n",my_path);
 	inode_t *now = fs->ops->lookup(fs,my_path,0,0);
 	return now->ops->rmdir(now,name);
