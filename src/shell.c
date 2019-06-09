@@ -20,6 +20,7 @@ void shell_thread(void *ttyid) {
 	char text[32];
 	char line[128];
 	memset(path,0,sizeof(path));
+	path[0] = '/';
 	int nread=0;
 	char hal[1] = "$";
 	while(1){
