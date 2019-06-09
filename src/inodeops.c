@@ -290,12 +290,13 @@ int i_unlink(const char *name, inode_t *inode){
 	if(tar.refcnt == 1 && tar.status == 0){
 		char c[1] = "0";
 		mi->ops->write(mi, I*8, (void *)c, 1);
-		inode->son--;
-		mi->ops->write(mi,MAP+64*(inode->self),inode,sizeof(inode_t));
 	}
 	else{
 		tar.refcnt--;
 		mi->ops->write(mi, MAP + I*64, (void *)&tar, sizeof(inode_t));
 	}
+	inode->son--;
+	mi->ops->write(mi,MAP+64*(inode->self),inode,sizeof(inode_t));
+
 	return 0;
 }
