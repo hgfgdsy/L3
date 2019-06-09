@@ -17,7 +17,7 @@ extern int i_link(const char *name, inode_t *inode, inode_t *new);
 extern int i_unlink(const char *name,inode_t *inode);
 
 
-void proc_read(const char *path, int sto){
+//void proc_read(const char *path, int sto){
 
 
 
