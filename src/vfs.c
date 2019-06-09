@@ -78,7 +78,7 @@ static void vfs_init(){
 
 	vfs->mount("/proc",&PFS, "procfs");
 
-	vfs->mkdir("/proc/4");
+//	vfs->mkdir("/proc/4");
 
 	vfs->mkdir("/dev/tty1");
 

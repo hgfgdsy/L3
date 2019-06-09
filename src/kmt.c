@@ -285,7 +285,7 @@ static int kmt_create(task_t *task, const char *name,
 	for(int i=0; i<20; i++){
 		tasks[rec]->fildes[i] = NULL;
 	}
-/*
+
 	char ty[9];
 	memset(ty,0,sizeof(ty));
 	memcpy(ty,"/proc/",6);
@@ -297,7 +297,7 @@ static int kmt_create(task_t *task, const char *name,
 		ty[6] = rec + '0';
 	}
 	vfs->mkdir(ty);
-*/
+
 
 	kmt->spin_unlock((spinlock_t *)&CT);
 //	memcpy((void *)tasks[rec]->context,_kcontext(stack,entry,arg),sizeof(_Context));
