@@ -1,6 +1,9 @@
 #include <common.h>
 #include <devices.h>
 #include <klib.h>
+
+static char path[128];
+
 extern ssize_t tty_write(device_t *dev, off_t offset, const void *buf, size_t count);
 void shell_thread(void *ttyid) {
 	int tty_id = *(int *)ttyid;
@@ -16,13 +19,8 @@ void shell_thread(void *ttyid) {
 //	device_t *tty = dev_lookup(name);
 	char text[32];
 	char line[128];
-	int nread=0;
-	char path[128];
 	memset(path,0,sizeof(path));
-	path[0] = '/';
-	path[1] = '\0';
-	path[2] = 'b';
-	path[3] = 'c';
+	int nread=0;
 	char hal[1] = "$";
 	while(1){
 		if(nread != 0){
