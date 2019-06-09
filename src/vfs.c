@@ -67,7 +67,7 @@ static void vfs_init(){
 	vfs->mkdir("/proc");
 
 	vfs->mount("/proc",&PFS, "procfs");
-/*
+
 	vfs->mkdir("/dev/tty1");
 
 	vfs->mkdir("/dev/tty2");
@@ -78,7 +78,7 @@ static void vfs_init(){
 
 	vfs->mkdir("/dev/ramdisk0");
 
-	vfs->mkdir("/dev/ramdisk1");*/
+	vfs->mkdir("/dev/ramdisk1");
 /*	
 	vfs->mkdir("/abc");
 	vfs->mkdir("/sdfv");
