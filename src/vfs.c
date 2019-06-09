@@ -108,6 +108,7 @@ static void vfs_init(){
 
 
 static int vfs_touch(const char *path, int sto){
+	printf("%s\n",path);
 	if(strncmp(path,"/dev",4)==0){
 		vfs->write(sto,"Permission denied\n",18);
 		return -1;
