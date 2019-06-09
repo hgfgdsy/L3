@@ -85,21 +85,35 @@ void shell_thread(void *ttyid) {
 					int olen = strlen(path);
 					np[olen++] = '/';
 					int j;
-					for(j=5;line[j]==' ';j++);
+					for(j=5;line[j]==' '&&j<nread-1;j++);
 					int k;
 					for(k = j;k < nread-1;k++){
 						if(line[k]==' ') break;
 						np[olen++] = line[k];
 					}
-					for(k=k+1 ;line[k]==' ';k++);
+					for(k=k+1 ;line[k]==' '&&j<nread-1;k++);
 					int rcnt=0;
 					char buf[256];
-					for(k=k+1;line[k]!='"';k++){
+					for(k=k+1;line[k]!='"'&&j<nread-1;k++){
 						buf[rcnt++] = line[k];
 					}
 					buf[rcnt] = '\0';
 					vfs->edit(np,buf,stdout);
 				}
+				if(strcmp(cmd,"touch") == 0){
+					char np[256];
+					memset(np,0,sizeof(np));
+					strcpy(np,path);
+					int olen = strlen(path);
+					np[olen++] = '/';
+					for(int j=6;j<nread-1;j++){
+						if(line[j]!=' ')
+							np[olen++] = line[j];
+					}
+					vfs->touch(np,stdout);
+				}
+
+				if(strcm)
 
 				nread=0;
 			}

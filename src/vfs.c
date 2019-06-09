@@ -107,6 +107,21 @@ static void vfs_init(){
 }
 
 
+static int vfs_touch(const char *path, int sto){
+	if(strncmp(path,"/dev",4)==0){
+		vfs->write(sto,"Permission denied\n",18);
+		return -1;
+	}
+	if(strncmp(path,"/proc",5)==0){
+		vfs->write(sto,"Permission denied\n",18);
+		return -1;
+	}
+	filesystem_t *fs = &EXT2;
+	inode_t *now = fs->ops->lookup(fs,path,1,0);
+	return now->self;
+}
+
+
 static int vfs_edit(const char *path,const char *buf,int sto){
 	if(strncmp(path,"/dev",4)==0){
 		vfs->write(sto,"Permission denied\n",18);
@@ -157,6 +172,7 @@ static int vfs_cat(const char *path, int sto){
 	device_t *mi = (device_t *)now->ptr;
 	char buf[1<<12];
 	mi->ops->read(mi,D+(now->self)*(1<<12),buf,now->size);
+	buf[now->size] = '\n';
 	vfs->write(sto,buf,now->size);
 	return 0;
 }
@@ -631,6 +647,7 @@ static int vfs_close(int fd){
 
 MODULE_DEF(vfs){
 	.init = vfs_init,
+	.touch = vfs_touch,
 	.edit = vfs_edit,
 	.cat = vfs_cat,
 	.rm = vfs_rm,
