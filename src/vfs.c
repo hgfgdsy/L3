@@ -23,9 +23,9 @@ extern int i_unlink(const char *name,inode_t *inode);
 
 static void vfs_init(){
 	cpuinfo = pmm->alloc(100);
-	memcpy(cpuinfo,"CPU:4\n");
+	strcpy((char *)cpuinfo,"CPU:4\n");
 	meminfo = pmm->alloc(100);
-	memcpy(meminfo,"MemtTotal : 16303692kB\n");
+	strcpy((char *)meminfo,"MemtTotal : 16303692kB\n");
 
 	basic.open = &i_open;
 	basic.close = &i_close;
