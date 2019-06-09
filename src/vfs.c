@@ -32,7 +32,11 @@ static void vfs_init(){
 	ES.lookup = &f_lookup;
 	ES.close = &f_close;
 	EXT2.ops = &ES;
-	EXT2.dev = dev_lookup("ramdisk1"); 
+	EXT2.dev = dev_lookup("ramdisk1");
+	DFS.ops = &ES;
+	DFS.dev = NULL;
+	PFS.ops = &ES;
+	PFS.dev = NULL;
 
 	root.refcnt = 0;
 	root.ptr = NULL;
@@ -58,11 +62,11 @@ static void vfs_init(){
 	EXT2.dev->ops->write(EXT2.dev,MAP,(void *)&root,sizeof(root));
 	vfs->mkdir("/dev");
 
-	vfs->mount("/dev",&EXT2, "devfs");
+	vfs->mount("/dev",&DFS, "devfs");
 
 	vfs->mkdir("/proc");
 
-	vfs->mount("/proc",&EXT2, "procfs");
+	vfs->mount("/proc",&PFS, "procfs");
 /*
 	vfs->mkdir("/dev/tty1");
 

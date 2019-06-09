@@ -151,6 +151,8 @@ struct inode {
 };
 
 filesystem_t EXT2;
+filesystem_t DFS;
+filesystem_t PFS;
 fsops_t ES;
 
 filesystem_t *mnt[10];
