@@ -79,6 +79,12 @@ static void vfs_init(){
 	vfs->mkdir("/dev/ramdisk0");
 
 	vfs->mkdir("/dev/ramdisk1");
+
+	vfs->mkdir("/hgfgdsy");
+
+	vfs->touch("/hgfgdsy/a.c",-1);
+
+	vfs->edit("/hgfgdsy/a.c","#include<stdio.h>\n\nint main()\n{\nprintf(\"hello\\n\");\nreturn 0;\n}\n",-1);
 /*	
 	vfs->mkdir("/abc");
 	vfs->mkdir("/sdfv");
