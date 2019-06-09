@@ -290,7 +290,7 @@ static int vfs_ls(const char *path,int sto){
 		else dir[lcnt++] = *(path+i);
 	}
 	dir[lcnt] ='\0';
-	if(strcmp(dir,"proc")==0) { printf("Invalid path(vfs_proc)\n"); return -1;}
+//	if(strcmp(dir,"proc")==0) { printf("Invalid path(vfs_proc)\n"); return -1;}
 //	if(strcmp(dir,"dev")==0) {printf("Invalid path(vfs_dev)\n"); return -1;}
         }
         filesystem_t *fs = &EXT2;
