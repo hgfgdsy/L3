@@ -107,7 +107,7 @@ static void vfs_init(){
 }
 
 
-static int vfs_edit(const char *path,const char *buf){
+static int vfs_edit(const char *path,const char *buf,int sto){
 	if(strncmp(path,"/dev",4)==0){
 		vfs->write(sto,"Permission denied\n",18);
 		return -1;
@@ -120,7 +120,7 @@ static int vfs_edit(const char *path,const char *buf){
 	inode_t *now = fs->ops->lookup(fs,path,0,0);
 	if(now == NULL){
 		vfs->write(sto,"Invalid target\n",15);
-		retur n-1;
+		return -1;
 	}
 	if(now->type == 1){
 		vfs->write(sto, "Is is a directory\n",18);
@@ -148,7 +148,7 @@ static int vfs_cat(const char *path, int sto){
 	inode_t *now = fs->ops->lookup(fs,path,0,0);
 	if(now == NULL){
 		vfs->write(sto,"Invalid target\n",15);
-		retur n-1;
+		return -1;
 	}
 	if(now->type == 1){
 		vfs->write(sto, "Is is a directory\n",18);

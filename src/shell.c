@@ -78,6 +78,29 @@ void shell_thread(void *ttyid) {
 					}
 					vfs->cat(np.stdout);
 				}
+				if(strcmp(cmd,"edit") == 0){
+					char np[256];
+					memset(np,0,sizeof(np));
+					strcpy(np,path);
+					int olen = strlen(path);
+					np[olen++] = '/';
+					int j;
+					for(j=5;line[j]==' ';j++);
+					int k;
+					for(k = j;k < nread-1;k++){
+						if(line[k]==' ') break;
+						np[olen++] = line[k];
+					}
+					for(k;line[k]==' ';k++);
+					int rcnt=0;
+					char buf[256];
+					for(k=k+1;line[k]!='"';k++){
+						buf[rcnt++] = link[k];
+					}
+					buf[rcnt] = '\0';
+					vfs->edit(np,buf,sto);
+				}
+
 				nread=0;
 			}
 		}
