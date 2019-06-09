@@ -155,6 +155,9 @@ filesystem_t DFS;
 filesystem_t PFS;
 fsops_t ES;
 
+void *cpuinfo;
+void *meminfo;
+
 filesystem_t *mnt[10];
 
 inodeops_t basic;

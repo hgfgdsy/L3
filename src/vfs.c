@@ -16,7 +16,17 @@ extern int i_rmdir(inode_t *My, const char *name);
 extern int i_link(const char *name, inode_t *inode, inode_t *new);
 extern int i_unlink(const char *name,inode_t *inode);
 
+
+void proc_read(const char *path, int sto){
+
+
+
 static void vfs_init(){
+	cpuinfo = pmm->alloc(100);
+	memcpy(cpuinfo,"CPU:4\n");
+	meminfo = pmm->alloc(100);
+	memcpy(meminfo,"MemtTotal : 16303692kB\n");
+
 	basic.open = &i_open;
 	basic.close = &i_close;
 	basic.read = &i_read;
@@ -183,6 +193,8 @@ static int vfs_cat(const char *path, int sto){
 		return -1;
 	}
 	if(strncmp(path,"/proc",5)==0){
+		proc_read(path,sto);
+		return 0;
 		vfs->write(sto,"Permission denied\n",18);
 		return -1;
 	}
