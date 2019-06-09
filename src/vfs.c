@@ -281,7 +281,7 @@ static int vfs_cd(const char *left,char *path, int sto){
 
 
 static int vfs_ls(const char *path,int sto){
-	char dir[50];
+/*	char dir[50];
 	int lcnt = 0;
 	int llen=strlen(path);
 	if(llen>1){
@@ -289,7 +289,7 @@ static int vfs_ls(const char *path,int sto){
 		if(*(path+i) == '/') break;
 		else dir[lcnt++] = *(path+i);
 	}
-	dir[lcnt] ='\0';
+	dir[lcnt] ='\0';*/
 //	if(strcmp(dir,"proc")==0) { printf("Invalid path(vfs_proc)\n"); return -1;}
 //	if(strcmp(dir,"dev")==0) {printf("Invalid path(vfs_dev)\n"); return -1;}
         }
