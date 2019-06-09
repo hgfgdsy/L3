@@ -74,6 +74,8 @@ static void vfs_init(){
 
 	vfs->mount("/dev",&DFS, "devfs");
 
+	printf("tql\n");
+
 	vfs->mkdir("/proc");
 
 	vfs->mount("/proc",&PFS, "procfs");
