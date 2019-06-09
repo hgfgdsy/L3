@@ -523,7 +523,7 @@ static int vfs_unlink(const char *path){
 		if(*(path+i) == '/' && i != len-1) lcnt = 0;
 		else name[lcnt++] = *(path+i);
 	}
-	name[lcnt] = '\0';i
+	name[lcnt] = '\0';
 	char *my_path = (char *)pmm->alloc(200);
 	strncpy(my_path,path,len-lcnt-1);
 
