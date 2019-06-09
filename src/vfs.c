@@ -63,7 +63,7 @@ static void vfs_init(){
 	vfs->mkdir("/proc");
 
 	vfs->mount("/proc",&EXT2, "procfs");
-
+/*
 	vfs->mkdir("/dev/tty1");
 
 	vfs->mkdir("/dev/tty2");
@@ -74,7 +74,7 @@ static void vfs_init(){
 
 	vfs->mkdir("/dev/ramdisk0");
 
-	vfs->mkdir("/dev/ramdisk1");
+	vfs->mkdir("/dev/ramdisk1");*/
 /*	
 	vfs->mkdir("/abc");
 	vfs->mkdir("/sdfv");
@@ -383,7 +383,7 @@ static int vfs_unmount(const char *path){
 
 
 static int vfs_mkdir(const char *path){
-	char dir[50];
+/*	char dir[50];
 	int lcnt = 0;
 	int llen = strlen(path);
 	if(llen>1){
@@ -392,12 +392,14 @@ static int vfs_mkdir(const char *path){
 		else dir[lcnt++] = *(path+i);
 	}
 	dir[lcnt] ='\0';
-	if(strcmp(dir,"proc")==0) { printf("Invalid path(vfs_proc)\n"); return -1;}
+//	if(strcmp(dir,"proc")==0) { printf("Invalid path(vfs_proc)\n"); return -1;}
 //	if(strcmp(dir,"dev")==0) {printf("Invalid path(vfs_dev)\n"); return -1;}
-        }
+        }*/
+
 	filesystem_t *fs = &EXT2;
 	
 	char name[50];
+	int lcnt=0;
 	int len = strlen(path);
 	for(int i=0;i<len;i++){
 		if(*(path+i) == '/' && i != len-1) lcnt = 0;
