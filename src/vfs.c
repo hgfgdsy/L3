@@ -34,7 +34,7 @@ void proc_read(const char *path, int sto){
 			vfs->write(sto,"Unknown task\n",13);
 		else{
 			vfs->write(sto,pos[x],strlen(pos[x]));
-			vfs->write(sto,'\n',1);
+			vfs->write(sto,"\n",1);
 		}
 		return ;
 	}
