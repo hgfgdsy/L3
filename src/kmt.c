@@ -302,7 +302,7 @@ static int kmt_create(task_t *task, const char *name,
 	else{
 		ty[6] = rec + '0';
 	}
-	vfs->mkdir(ty);
+//	vfs->mkdir(ty);
 
 
 	kmt->spin_unlock((spinlock_t *)&CT);
