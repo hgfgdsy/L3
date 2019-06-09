@@ -59,7 +59,8 @@ void shell_thread(void *ttyid) {
 					memset(np,0,sizeof(np));
 					strcpy(np,path);
 					int olen = strlen(path);
-					np[olen++] = '/';
+					if(olen!=1)
+					        np[olen++] = '/';
 					for(int j=3;j<nread-1;j++){
 						if(line[j]!=' ')
 							np[olen++] = line[j];
