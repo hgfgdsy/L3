@@ -78,6 +78,8 @@ static void vfs_init(){
 
 	vfs->mount("/proc",&PFS, "procfs");
 
+	vfs->mkdir("/proc/4");
+
 	vfs->mkdir("/dev/tty1");
 
 	vfs->mkdir("/dev/tty2");
@@ -95,6 +97,7 @@ static void vfs_init(){
 	vfs->touch("/hgfgdsy/a.c",-1);
 
 	vfs->edit("/hgfgdsy/a.c","#include<stdio.h>\n\nint main()\n{\nprintf(\"hello\\n\");\nreturn 0;\n}\n",-1);
+
 /*	
 	vfs->mkdir("/abc");
 	vfs->mkdir("/sdfv");

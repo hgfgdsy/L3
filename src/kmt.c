@@ -287,23 +287,17 @@ static int kmt_create(task_t *task, const char *name,
 	}
 /*
 	char ty[9];
-	ty[0] = '/';
-	ty[1] = 'p';
-	ty[2] = 'r';
-	ty[3] = 'o';
-	ty[4] = 'c';
-	ty[5] = '/';
-	ty[7] = '\0';
-	ty[8] = '\0';
+	memset(ty,0,sizeof(ty));
+	memcpy(ty,"/proc/",6);
 	if(rec>=10){
-	        ty[6] = (rec/10) + '0';
-	        ty[7] = (rec%10) + '0';
+		ty[6] = (rec/10)+'0';
+		ty[7] = (rec%10)+'0';
 	}
 	else{
 		ty[6] = rec + '0';
-	}*/
-//	vfs->mkdir(ty);
-
+	}
+	vfs->mkdir(ty);
+*/
 
 	kmt->spin_unlock((spinlock_t *)&CT);
 //	memcpy((void *)tasks[rec]->context,_kcontext(stack,entry,arg),sizeof(_Context));
