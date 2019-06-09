@@ -47,6 +47,7 @@ void shell_thread(void *ttyid) {
 					memset(np,0,sizeof(np));
 					strcpy(np,path);
 					int olen = strlen(path);
+					if(olen!=1)
 					np[olen++] = '/';
 					for(int j=6;j<nread-1;j++){
 						if(line[j]!=' ')
@@ -72,6 +73,7 @@ void shell_thread(void *ttyid) {
 					memset(np,0,sizeof(np));
 					strcpy(np,path);
 					int olen = strlen(path);
+					if(olen!=1)
 					np[olen++] = '/';
 					for(int j=4;j<nread-1;j++){
 						if(line[j]!=' ')
@@ -84,6 +86,7 @@ void shell_thread(void *ttyid) {
 					memset(np,0,sizeof(np));
 					strcpy(np,path);
 					int olen = strlen(path);
+					if(olen!=1)
 					np[olen++] = '/';
 					int j;
 					for(j=5;line[j]==' '&&j<nread-1;j++);
@@ -106,6 +109,7 @@ void shell_thread(void *ttyid) {
 					memset(np,0,sizeof(np));
 					strcpy(np,path);
 					int olen = strlen(path);
+					if(olen!=1)
 					np[olen++] = '/';
 					for(int j=6;j<nread-1;j++){
 						if(line[j]!=' ')
