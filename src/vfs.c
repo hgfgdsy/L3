@@ -212,6 +212,7 @@ static int vfs_rm(const char *path,int sto){
 	filesystem_t *fs = &EXT2;
 	inode_t *now = fs->ops->lookup(fs,path,0,0);
 	if(now == NULL){
+		printf("%s\n",path);
 		vfs->write(sto,"Invalid target\n",15);
 		return -1;
 	}
