@@ -32,8 +32,10 @@ void proc_read(const char *path, int sto){
 			x = x*10 + *(path+7) - '0';
 		if(x>=20 || CTD[x] == 0)
 			vfs->write(sto,"Unknown task\n",13);
-		else
+		else{
 			vfs->write(sto,pos[x],strlen(pos[x]));
+			vfs->write(sto,'\n',1);
+		}
 		return ;
 	}
 	vfs->write(sto,"Unknown task\n",13);
