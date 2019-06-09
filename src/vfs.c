@@ -523,7 +523,7 @@ static int vfs_unlink(const char *path){
 		if(*(path+i) == '/' && i != len-1) lcnt = 0;
 		else name[lcnt++] = *(path+i);
 	}
-	name[lcnt] = '\0';
+	name[lcnt] = '\0';i
 	char *my_path = (char *)pmm->alloc(200);
 	strncpy(my_path,path,len-lcnt-1);
 
@@ -535,7 +535,8 @@ static int vfs_unlink(const char *path){
 static int vfs_open(const char *path, int flags){
 	char dir[50];
 	int lcnt = 0;
-	for(int i=1;;i++){
+	int dlen = strlen(path);
+	for(int i=1;i<dlen;i++){
 		if(*(path+i) == '/') break;
 		else dir[lcnt++] = *(path+i);
 	}
@@ -555,6 +556,7 @@ static int vfs_open(const char *path, int flags){
 			if(mnt[i] != NULL && strncmp(&mnt[i]->mounton[1],"dev", 3) == 0)
 			{
 				
+				printf("%s\n",mnt[i]->mounton);
 				label=1;
 				break;
 			}
