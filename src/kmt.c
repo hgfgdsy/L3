@@ -285,7 +285,7 @@ static int kmt_create(task_t *task, const char *name,
 	for(int i=0; i<20; i++){
 		tasks[rec]->fildes[i] = NULL;
 	}
-
+/*
 	char ty[9];
 	ty[0] = '/';
 	ty[1] = 'p';
@@ -301,7 +301,7 @@ static int kmt_create(task_t *task, const char *name,
 	}
 	else{
 		ty[6] = rec + '0';
-	}
+	}*/
 //	vfs->mkdir(ty);
 
 
