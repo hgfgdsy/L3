@@ -560,7 +560,7 @@ static int vfs_open(const char *path, int flags){
 			}
 		}
 		if(label == 0){
-			printf("No such filesystem\n");
+			printf("No such filesystem hahha\n");
 			return -1;
 		}
 		if(mnt[i]->mounted == 0){
