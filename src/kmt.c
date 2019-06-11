@@ -2,7 +2,7 @@
 #include <common.h>
 #include <devices.h>
 
-
+int Tlen[20];
 _DEV_TIMER_UPTIME_t fclock = {0};
 int last_time = 0;
 MYCPU mycpu[20];
@@ -59,11 +59,11 @@ _Context *kmt_context_save(_Event ev, _Context *context) {
 	}
 	else{
 		current[_cpu()]->context = *context;
-/*		int tt = current[_cpu()]->tag;
+		int tt = current[_cpu()]->tag;
 		_io_read(_DEV_TIMER,_DEVREG_TIMER_UPTIME,&fclock,sizeof(fclock));
 		int ctm = fclock.lo - last_time;
 		last_time = fclock.lo;
-		int len = strlen(pos[tt]);
+		int len = Tlen[tt];
 		pos[tt][len] = '\n';
 		strcpy(&pos[tt][len+1],"Time : ");
 		char T[32];
@@ -79,7 +79,7 @@ _Context *kmt_context_save(_Event ev, _Context *context) {
 			T[tcnt-i-1] = temp[i];
 		}
 		strcpy(&pos[tt][len+8],T);
-*/
+
 	}
 //	        memcpy((void *)&(tasks[current[_cpu()] -> tag] -> context),(void *)context, sizeof(_Context));
 	return NULL;
@@ -336,6 +336,7 @@ static int kmt_create(task_t *task, const char *name,
 	pos[rec][9] = '\n';
 	strcpy(&pos[rec][10],"Name : ");
 	strcpy(&pos[rec][17],name);
+	Tlen[rec] = strlen(name) + 17;
 	CTD[rec] = 1;
 	}
 
