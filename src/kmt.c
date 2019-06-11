@@ -59,7 +59,7 @@ _Context *kmt_context_save(_Event ev, _Context *context) {
 	}
 	else{
 		current[_cpu()]->context = *context;
-		int tt = current[_cpu()]->tag;
+/*		int tt = current[_cpu()]->tag;
 		_io_read(_DEV_TIMER,_DEVREG_TIMER_UPTIME,&fclock,sizeof(fclock));
 		int ctm = fclock.lo - last_time;
 		last_time = fclock.lo;
@@ -79,7 +79,7 @@ _Context *kmt_context_save(_Event ev, _Context *context) {
 			T[tcnt-i-1] = temp[i];
 		}
 		strcpy(&pos[tt][len+8],T);
-
+*/
 	}
 //	        memcpy((void *)&(tasks[current[_cpu()] -> tag] -> context),(void *)context, sizeof(_Context));
 	return NULL;
