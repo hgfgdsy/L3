@@ -2,6 +2,9 @@
 #include <common.h>
 #include <devices.h>
 
+
+_DEV_TIMER_UPTIME_t fclock = {0};
+int last_time = 0;
 MYCPU mycpu[20];
 int CPUS;
 
@@ -54,8 +57,13 @@ _Context *kmt_context_save(_Event ev, _Context *context) {
 		init_tasks[_cpu()] = *context;
 //		memcpy((void *)&init_tasks[_cpu()],(void *)context, sizeof(_Context));
 	}
-	else
+	else{
 		current[_cpu()]->context = *context;
+		int tt = current[_cpu()]->tag;
+		io_read(_DEV_TIMER,_DEVREG_TIMER_UPTIME,&fclock,sizeof(fclock));
+		int ctm = fclock.lo - last_time;
+		last_time = fclock.lo;
+	}
 //	        memcpy((void *)&(tasks[current[_cpu()] -> tag] -> context),(void *)context, sizeof(_Context));
 	return NULL;
 }
