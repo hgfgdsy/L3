@@ -239,6 +239,7 @@ static int vfs_cat(const char *path, int sto){
 	mi->ops->read(mi,D+(now->self)*(1<<12),buf,now->size);
 	buf[now->size] = '\n';
 	vfs->write(sto,buf,now->size);
+	vfs->write(sto,"\n",1);
 	return 0;
 }
 
