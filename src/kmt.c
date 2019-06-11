@@ -60,7 +60,7 @@ _Context *kmt_context_save(_Event ev, _Context *context) {
 	else{
 		current[_cpu()]->context = *context;
 		int tt = current[_cpu()]->tag;
-		io_read(_DEV_TIMER,_DEVREG_TIMER_UPTIME,&fclock,sizeof(fclock));
+		_io_read(_DEV_TIMER,_DEVREG_TIMER_UPTIME,&fclock,sizeof(fclock));
 		int ctm = fclock.lo - last_time;
 		last_time = fclock.lo;
 		int len = strlen(pos[tt]);
