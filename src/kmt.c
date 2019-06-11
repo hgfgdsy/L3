@@ -63,6 +63,23 @@ _Context *kmt_context_save(_Event ev, _Context *context) {
 		io_read(_DEV_TIMER,_DEVREG_TIMER_UPTIME,&fclock,sizeof(fclock));
 		int ctm = fclock.lo - last_time;
 		last_time = fclock.lo;
+		int len = strlen(pos[tt]);
+		pos[tt][len] = '\n';
+		strcpy(&pos[tt][len+1],"Time : ");
+		char T[32];
+		memset(T,0,sizeof(T));
+		char temp[32];
+		int tcnt = 0;
+		while(ctm){
+			int x = ctm%10;
+			ctm/=10;
+			temp[tcnt++] = x+'0';
+		}
+		for(int i=tcnt-1;i>=0;i--){
+			T[tcnt-i-1] = temp[i];
+		}
+		strcpy(&pos[tt][len+8],T);
+
 	}
 //	        memcpy((void *)&(tasks[current[_cpu()] -> tag] -> context),(void *)context, sizeof(_Context));
 	return NULL;
